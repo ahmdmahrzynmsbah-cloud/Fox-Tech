@@ -1625,196 +1625,155 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                       </button>
                     </div>
 
-                    {/* Dedicated Print-only High-Definition Document Layout for ID Card */}
-                    <div className="hidden print:block printable-area w-full max-w-[210mm] mx-auto text-slate-900 bg-white" dir="rtl">
-                      <div className="flex flex-col items-center justify-between p-4 bg-white" style={{ minHeight: '270mm', maxHeight: '280mm', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                    {/* Dedicated Print-only layout showing ONLY the ID cards */}
+                    <div className="hidden print:flex printable-area w-full mx-auto" dir="rtl">
+                      <div className="flex flex-col sm:flex-row gap-6 items-center justify-center m-auto p-4">
                         
-                        {/* Print Header */}
-                        <div className="w-full border-b-2 border-slate-900 pb-3 flex items-center justify-between">
-                          <div className="text-right">
-                            <h2 className="text-xl font-black text-slate-900 tracking-tight">{settings?.platformName || 'أكاديمية Fox Tech'} للتقنية والبرمجيات</h2>
-                            <p className="text-xs font-bold text-slate-600 mt-0.5">بطاقة الهوية الرقمية المعتمدة • رخصة المتدرب والمدرب التقنية</p>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-left font-mono text-[10px] text-slate-600 border border-slate-300 rounded-lg px-2.5 py-1 bg-slate-50">
-                              <div>ID: FOX-{userData?.id?.slice(0, 8).toUpperCase() || 'NEW'}</div>
-                              <div>DATE: 2026-2027</div>
-                            </div>
-                            <FoxTechLogo 
-                              alt="Fox Tech" 
-                              className="h-9 w-auto" 
-                              variant="light" 
-                            />
-                          </div>
-                        </div>
-
-                        {/* Instructions note */}
-                        <div className="w-full text-center my-2 text-[10px] font-bold text-slate-500 bg-slate-100 py-1 px-4 rounded-md border border-slate-200">
-                          ✂️ يرجى قص البطاقة على طول الحدود المنقطة وتغليفها حرارياً (Lamination) لإبرازها في المقرات والمعامل
-                        </div>
-
-                        {/* ID Cards Section (Front & Back) with cutting outlines */}
-                        <div className="flex flex-col gap-6 items-center justify-center my-auto w-full">
-                          
-                          {/* FRONT CARD CONTAINER WITH CUT MARKS */}
-                          <div className="flex flex-col items-center">
-                            <div className="text-[10px] font-bold text-slate-500 mb-1 flex items-center gap-1">
-                              <span>الوجه الأمامي (Front Side)</span>
-                            </div>
-                            <div className="p-1 border-2 border-dashed border-slate-400 rounded-[20px] bg-slate-50">
-                              <div 
-                                style={{
-                                  width: '360px',
-                                  height: '220px',
-                                  backgroundColor: '#0A102E',
-                                  backgroundImage: getGradientCss(avatarBg),
-                                  color: '#ffffff',
-                                  WebkitPrintColorAdjust: 'exact',
-                                  printColorAdjust: 'exact'
-                                }}
-                                className="rounded-2xl p-5 text-white shadow-none flex flex-col justify-between overflow-hidden relative border border-white/20"
-                              >
-                                {/* Header */}
-                                <div className="flex justify-between items-center z-10 relative gap-2">
-                                  <div className="flex items-center gap-1.5">
-                                    <span 
-                                      style={{
-                                        backgroundColor: 'rgba(255,255,255,0.22)',
-                                        color: '#ffffff',
-                                        borderColor: 'rgba(255,255,255,0.35)',
-                                        WebkitPrintColorAdjust: 'exact',
-                                        printColorAdjust: 'exact'
-                                      }}
-                                      className="text-[11px] px-2.5 py-0.5 rounded-lg font-black border"
-                                    >
-                                      {userData?.role === 'teacher' ? 'بطاقة المدرب المعتمد' : userData?.role === 'parent' ? 'بطاقة المتابع المعتمدة' : userData?.role === 'admin' ? 'بطاقة إدارة المنصة' : 'بطاقة المتدرب المعتمدة'}
-                                    </span>
-                                    <span 
-                                      style={{
-                                        backgroundColor: 'rgba(16,185,129,0.25)',
-                                        color: '#10B981',
-                                        borderColor: 'rgba(16,185,129,0.4)',
-                                        WebkitPrintColorAdjust: 'exact',
-                                        printColorAdjust: 'exact'
-                                      }}
-                                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black border"
-                                    >
-                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
-                                      <span>{statusInfo.label}</span>
-                                    </span>
-                                  </div>
-                                  <div className="flex items-center">
-                                    <FoxTechLogo 
-                                      alt={settings?.platformName || 'Fox Tech'} 
-                                      className="h-7 w-auto max-w-[110px]" 
-                                      variant="dark" 
-                                    />
-                                  </div>
-                                </div>
-
-                                {/* Body */}
-                                <div className="flex items-center gap-3.5 my-auto z-10 relative">
-                                  <div 
+                        {/* FRONT CARD CONTAINER */}
+                        <div className="flex flex-col items-center">
+                          <div className="p-0.5 border border-dashed border-slate-300 rounded-[18px]">
+                            <div 
+                              style={{
+                                width: '340px',
+                                height: '210px',
+                                backgroundColor: '#0A102E',
+                                backgroundImage: getGradientCss(avatarBg),
+                                color: '#ffffff',
+                                WebkitPrintColorAdjust: 'exact',
+                                printColorAdjust: 'exact'
+                              }}
+                              className="rounded-2xl p-4 text-white shadow-none flex flex-col justify-between overflow-hidden relative border border-white/20"
+                            >
+                              {/* Header */}
+                              <div className="flex justify-between items-center z-10 relative gap-2">
+                                <div className="flex items-center gap-1.5">
+                                  <span 
                                     style={{
-                                      backgroundColor: 'rgba(255,255,255,0.18)',
-                                      borderColor: 'rgba(255,255,255,0.4)',
+                                      backgroundColor: 'rgba(255,255,255,0.22)',
                                       color: '#ffffff',
+                                      borderColor: 'rgba(255,255,255,0.35)',
                                       WebkitPrintColorAdjust: 'exact',
                                       printColorAdjust: 'exact'
                                     }}
-                                    className="w-12 h-12 rounded-full flex items-center justify-center font-black text-xl border shrink-0"
+                                    className="text-[10px] px-2.5 py-0.5 rounded-lg font-black border"
                                   >
-                                    {name.charAt(0) || 'U'}
-                                  </div>
-                                  <div className="space-y-0.5 text-right">
-                                    <h4 style={{ color: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="font-black text-base truncate max-w-[210px]">{name || 'عضو الأكاديمية'}</h4>
-                                    <p style={{ color: 'rgba(255,255,255,0.9)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[10px] font-bold tracking-wider">
-                                      {userData?.role === 'student' ? (grade || 'المسار البرمجي والتطوير') : userData?.role === 'teacher' ? (subject || 'التخصص التقني والتدريب') : 'متابع للمتدرب'}
-                                    </p>
-                                    <p style={{ color: '#D4F800', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[10px] font-mono font-bold tracking-wider">ID: FOX-{userData?.id?.slice(0, 8).toUpperCase() || 'NEW'}</p>
-                                  </div>
+                                    {userData?.role === 'teacher' ? 'بطاقة المدرب المعتمد' : userData?.role === 'parent' ? 'بطاقة المتابع المعتمدة' : userData?.role === 'admin' ? 'بطاقة إدارة المنصة' : 'بطاقة المتدرب المعتمدة'}
+                                  </span>
+                                  <span 
+                                    style={{
+                                      backgroundColor: 'rgba(16,185,129,0.25)',
+                                      color: '#10B981',
+                                      borderColor: 'rgba(16,185,129,0.4)',
+                                      WebkitPrintColorAdjust: 'exact',
+                                      printColorAdjust: 'exact'
+                                    }}
+                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black border"
+                                  >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                                    <span>{statusInfo.label}</span>
+                                  </span>
                                 </div>
+                                <div className="flex items-center">
+                                  <FoxTechLogo 
+                                    alt={settings?.platformName || 'Fox Tech'} 
+                                    className="h-6 w-auto max-w-[100px]" 
+                                    variant="dark" 
+                                  />
+                                </div>
+                              </div>
 
-                                {/* Footer */}
-                                <div style={{ borderColor: 'rgba(255,255,255,0.25)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="flex justify-between items-end z-10 relative border-t pt-1.5">
-                                  <div className="text-right">
-                                    <p style={{ color: 'rgba(255,255,255,0.7)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[8px]">المحافظة / المدينة</p>
-                                    <p style={{ color: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[10px] font-bold">{governorate || 'القاهرة'}</p>
-                                  </div>
-                                  <div style={{ color: '#D4F800', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-left font-mono text-[9px] tracking-wider font-bold">
-                                    ACADEMIC YEAR: 2026-2027
-                                  </div>
+                              {/* Body */}
+                              <div className="flex items-center gap-3 my-auto z-10 relative">
+                                <div 
+                                  style={{
+                                    backgroundColor: 'rgba(255,255,255,0.18)',
+                                    borderColor: 'rgba(255,255,255,0.4)',
+                                    color: '#ffffff',
+                                    WebkitPrintColorAdjust: 'exact',
+                                    printColorAdjust: 'exact'
+                                  }}
+                                  className="w-11 h-11 rounded-full flex items-center justify-center font-black text-lg border shrink-0"
+                                >
+                                  {name.charAt(0) || 'U'}
+                                </div>
+                                <div className="space-y-0.5 text-right">
+                                  <h4 style={{ color: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="font-black text-sm truncate max-w-[190px]">{name || 'عضو الأكاديمية'}</h4>
+                                  <p style={{ color: 'rgba(255,255,255,0.9)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[9.5px] font-bold tracking-wider">
+                                    {userData?.role === 'student' ? (grade || 'المسار البرمجي والتطوير') : userData?.role === 'teacher' ? (subject || 'التخصص التقني والتدريب') : 'متابع للمتدرب'}
+                                  </p>
+                                  <p style={{ color: '#D4F800', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[9.5px] font-mono font-bold tracking-wider">ID: FOX-{userData?.id?.slice(0, 8).toUpperCase() || 'NEW'}</p>
+                                </div>
+                              </div>
+
+                              {/* Footer */}
+                              <div style={{ borderColor: 'rgba(255,255,255,0.25)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="flex justify-between items-end z-10 relative border-t pt-1.5">
+                                <div className="text-right">
+                                  <p style={{ color: 'rgba(255,255,255,0.7)', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[7.5px]">المحافظة</p>
+                                  <p style={{ color: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[9.5px] font-bold">{governorate || 'القاهرة'}</p>
+                                </div>
+                                <div style={{ color: '#D4F800', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-left font-mono text-[8.5px] tracking-wider font-bold">
+                                  VALID: 2026-2027
                                 </div>
                               </div>
                             </div>
                           </div>
-
-                          {/* BACK CARD CONTAINER WITH CUT MARKS */}
-                          <div className="flex flex-col items-center">
-                            <div className="text-[10px] font-bold text-slate-500 mb-1 flex items-center gap-1">
-                              <span>الوجه الخلفي (Back Side)</span>
-                            </div>
-                            <div className="p-1 border-2 border-dashed border-slate-400 rounded-[20px] bg-slate-50">
-                              <div 
-                                style={{
-                                  width: '360px',
-                                  height: '220px',
-                                  backgroundColor: '#090D16',
-                                  backgroundImage: 'linear-gradient(135deg, #090D16 0%, #111827 50%, #090D16 100%)',
-                                  color: '#ffffff',
-                                  WebkitPrintColorAdjust: 'exact',
-                                  printColorAdjust: 'exact'
-                                }}
-                                className="rounded-2xl p-4 text-white shadow-none flex flex-col justify-between overflow-hidden relative border border-slate-800"
-                              >
-                                {/* Magnetic Strip */}
-                                <div style={{ backgroundColor: '#000000', borderColor: '#1E293B', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="absolute top-2 left-0 right-0 h-7 border-y"></div>
-
-                                {/* Barcode representation */}
-                                <div className="mt-6 relative z-10 flex flex-col items-center justify-center w-full">
-                                  <div style={{ backgroundColor: '#ffffff', color: '#000000', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="rounded-xl p-2.5 w-full max-w-[310px] flex flex-col items-center justify-center border border-slate-200">
-                                    <div className="w-full flex justify-center items-center overflow-hidden [&>svg]:w-full [&>svg]:max-w-full [&>svg]:h-auto">
-                                      <Barcode 
-                                        value={`FOX-${userData?.id?.slice(0, 8).toUpperCase() || 'NEW'}`} 
-                                        format="CODE128"
-                                        width={1.6}
-                                        height={42}
-                                        displayValue={true}
-                                        fontSize={11}
-                                        background="#ffffff"
-                                        lineColor="#000000"
-                                        margin={0}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* Terms & Conditions */}
-                                <div style={{ color: '#94A3B8', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[8px] text-center leading-tight font-medium z-10 relative px-2">
-                                  هذه البطاقة رقمية مشفرة وتعتبر وثيقة رسمية صادرة من {settings?.platformName || 'أكاديمية Fox Tech'}. يُحظر تداولها لغير صاحبها.
-                                </div>
-
-                                {/* Contact info */}
-                                <div dir="ltr" style={{ borderColor: 'rgba(255,255,255,0.15)', color: '#CBD5E1', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="flex justify-between items-center text-[8.5px] border-t pt-1.5 z-10 relative font-mono">
-                                  <div className="flex items-center gap-1">
-                                    <Mail className="w-2.5 h-2.5 text-cyan-400 shrink-0" />
-                                    <span className="truncate max-w-[170px]">{settings?.contactEmail || 'fox.tech7777@gmail.com'}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <Phone className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-                                    <span>{settings?.contactPhone || '01034859313'}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
                         </div>
 
-                        {/* Print Footer Accreditation */}
-                        <div className="w-full border-t border-slate-200 pt-2 flex items-center justify-between text-[9px] text-slate-500 font-bold">
-                          <div>منظومة Fox Tech للتعليم والتدريب التقني المعتمد • جميع الحقوق محفوظة © 2026</div>
-                          <div className="font-mono">VERIFIED & ACCREDITED • CODE: FOX-ID-SECURE</div>
+                        {/* BACK CARD CONTAINER */}
+                        <div className="flex flex-col items-center">
+                          <div className="p-0.5 border border-dashed border-slate-300 rounded-[18px]">
+                            <div 
+                              style={{
+                                width: '340px',
+                                height: '210px',
+                                backgroundColor: '#090D16',
+                                backgroundImage: 'linear-gradient(135deg, #090D16 0%, #111827 50%, #090D16 100%)',
+                                color: '#ffffff',
+                                WebkitPrintColorAdjust: 'exact',
+                                printColorAdjust: 'exact'
+                              }}
+                              className="rounded-2xl p-3.5 text-white shadow-none flex flex-col justify-between overflow-hidden relative border border-slate-800"
+                            >
+                              {/* Magnetic Strip */}
+                              <div style={{ backgroundColor: '#000000', borderColor: '#1E293B', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="absolute top-2 left-0 right-0 h-6 border-y"></div>
+
+                              {/* Barcode representation */}
+                              <div className="mt-5 relative z-10 flex flex-col items-center justify-center w-full">
+                                <div style={{ backgroundColor: '#ffffff', color: '#000000', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="rounded-xl p-2 w-full max-w-[290px] flex flex-col items-center justify-center border border-slate-200">
+                                  <div className="w-full flex justify-center items-center overflow-hidden [&>svg]:w-full [&>svg]:max-w-full [&>svg]:h-auto">
+                                    <Barcode 
+                                      value={`FOX-${userData?.id?.slice(0, 8).toUpperCase() || 'NEW'}`} 
+                                      format="CODE128"
+                                      width={1.5}
+                                      height={38}
+                                      displayValue={true}
+                                      fontSize={10}
+                                      background="#ffffff"
+                                      lineColor="#000000"
+                                      margin={0}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Terms */}
+                              <div style={{ color: '#94A3B8', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="text-[7.5px] text-center leading-tight font-medium z-10 relative px-1">
+                                هذه البطاقة رقمية مشفرة وتعتبر وثيقة رسمية صادرة من {settings?.platformName || 'أكاديمية Fox Tech'}.
+                              </div>
+
+                              {/* Contact info */}
+                              <div dir="ltr" style={{ borderColor: 'rgba(255,255,255,0.15)', color: '#CBD5E1', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }} className="flex justify-between items-center text-[8px] border-t pt-1 z-10 relative font-mono">
+                                <div className="flex items-center gap-1">
+                                  <Mail className="w-2.5 h-2.5 text-cyan-400 shrink-0" />
+                                  <span className="truncate max-w-[150px]">{settings?.contactEmail || 'fox.tech7777@gmail.com'}</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Phone className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                                  <span>{settings?.contactPhone || '01034859313'}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                       </div>
