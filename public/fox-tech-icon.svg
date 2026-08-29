@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none" class="w-full h-full">
+  <defs>
+    <linearGradient id="foxVoltGradIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2FA4D" />
+      <stop offset="50%" stop-color="#D4F800" />
+      <stop offset="100%" stop-color="#A8CE00" />
+    </linearGradient>
+    <linearGradient id="foxEarsVoltIcon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5FF80" />
+      <stop offset="100%" stop-color="#D4F800" />
+    </linearGradient>
+    <filter id="glowVoltIcon" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#D4F800" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <g transform="translate(5, 5)">
+    <g filter="url(#glowVoltIcon)">
+      <!-- Left Ear Outer -->
+      <polygon points="15,40 28,10 48,28" fill="url(#foxEarsVoltIcon)" />
+      <!-- Right Ear Outer -->
+      <polygon points="65,40 52,10 32,28" fill="url(#foxEarsVoltIcon)" />
+      <!-- Left Ear Inner -->
+      <polygon points="22,35 30,17 42,28" fill="#FFFFFF" opacity="0.95" />
+      <!-- Right Ear Inner -->
+      <polygon points="58,35 50,17 38,28" fill="#FFFFFF" opacity="0.95" />
+      
+      <!-- Main Face Shield -->
+      <polygon points="12,38 68,38 58,62 40,76 22,62" fill="url(#foxVoltGradIcon)" />
+      <!-- White Cheeks -->
+      <polygon points="12,38 40,58 22,62" fill="#FFFFFF" opacity="0.95" />
+      <polygon points="68,38 40,58 58,62" fill="#FFFFFF" opacity="0.95" />
+      <!-- Central Forehead Diamond -->
+      <polygon points="40,24 50,38 40,52 30,38" fill="url(#foxVoltGradIcon)" />
+      <!-- Modern Fox Eyes -->
+      <polygon points="26,45 35,47 29,49" fill="#0A102E" />
+      <polygon points="54,45 45,47 51,49" fill="#0A102E" />
+      <!-- Nose Tip -->
+      <polygon points="37,70 43,70 40,75" fill="#0A102E" />
+    </g>
+    
+    <!-- Code Bracket Tech Accents -->
+    <path d="M 6 30 L 1 42 L 6 54" stroke="#D4F800" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9" />
+    <path d="M 74 30 L 79 42 L 74 54" stroke="#D4F800" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9" />
+  </g>
+</svg>

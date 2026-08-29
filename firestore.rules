@@ -1,0 +1,173 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'a73905337@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'sub_admin' ||
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'developer'))
+      );
+    }
+
+    function isTeacher() {
+      return isSignedIn() && (
+        isAdmin() ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'teacher')
+      );
+    }
+
+    // Universal wildcard match to prevent any permission drops on subcollections or newly created collections
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // Explicit collections declarations
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    match /courses/{courseId} {
+      allow read, write: if true;
+    }
+
+    match /lessons/{lessonId} {
+      allow read, write: if true;
+    }
+
+    match /course_progress/{progressId} {
+      allow read, write: if true;
+    }
+
+    match /quizzes/{quizId} {
+      allow read, write: if true;
+    }
+
+    match /quiz_submissions/{submissionId} {
+      allow read, write: if true;
+    }
+
+    match /quick_notes/{noteId} {
+      allow read, write: if true;
+    }
+
+    match /notifications/{notificationId} {
+      allow read, write: if true;
+    }
+
+    match /transactions/{transactionId} {
+      allow read, write: if true;
+    }
+
+    match /wallet_transactions/{transactionId} {
+      allow read, write: if true;
+    }
+
+    match /reviews/{reviewId} {
+      allow read, write: if true;
+    }
+
+    match /schedule_events/{eventId} {
+      allow read, write: if true;
+    }
+
+    match /notes/{noteId} {
+      allow read, write: if true;
+    }
+
+    match /focus_sessions/{sessionId} {
+      allow read, write: if true;
+    }
+
+    match /live_streams/{streamId} {
+      allow read, write: if true;
+      match /{allSubcollections=**} {
+        allow read, write: if true;
+      }
+    }
+
+    match /platform_settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    match /course_payments/{paymentId} {
+      allow read, write: if true;
+    }
+
+    match /review_payments/{paymentId} {
+      allow read, write: if true;
+    }
+
+    match /recharge_codes/{codeId} {
+      allow read, write: if true;
+    }
+
+    match /course_likes/{likeId} {
+      allow read, write: if true;
+    }
+
+    match /tahsili_reviews/{reviewId} {
+      allow read, write: if true;
+    }
+
+    match /qudurat_reviews/{reviewId} {
+      allow read, write: if true;
+    }
+    
+    match /questionBanks/{bankId} {
+      allow read, write: if true;
+    }
+
+    match /adminInvitations/{invId} {
+      allow read, write: if true;
+    }
+
+    match /secret_links_log/{logId} {
+      allow read, write: if true;
+    }
+
+    match /expenses/{expenseId} {
+      allow read, write: if true;
+    }
+    
+    match /store_categories/{categoryId} {
+      allow read, write: if true;
+    }
+
+    match /store_items/{itemId} {
+      allow read, write: if true;
+    }
+
+    match /store_orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    match /wallet_charge_requests/{requestId} {
+      allow read, write: if true;
+    }
+
+    match /support_requests/{requestId} {
+      allow read, write: if true;
+    }
+
+    match /chat_messages/{messageId} {
+      allow read, write: if true;
+    }
+
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+  }
+}

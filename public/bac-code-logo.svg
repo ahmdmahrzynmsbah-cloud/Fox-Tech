@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" width="100%" height="100%" fill="none">
+  <!-- Graduate Figure Icon -->
+  <g class="logo-figure">
+    <!-- Mortarboard / Graduation Cap -->
+    <path d="M72 32 L112 47 L72 62 L32 47 Z" fill="currentColor"/>
+    <!-- Cap Under-band -->
+    <path d="M47 52.5 L47 62 C47 68, 97 68, 97 62 L97 52.5 C90 57, 54 57, 47 52.5 Z" fill="currentColor"/>
+    <!-- Tassel Button & String -->
+    <circle cx="72" cy="47" r="2.5" fill="currentColor"/>
+    <path d="M72 47 Q52 50 42 66" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M40 64 L38 74 L45 72 Z" fill="currentColor"/>
+
+    <!-- Head -->
+    <circle cx="72" cy="76" r="16" fill="currentColor"/>
+
+    <!-- Dynamic Graduate Gown / Arms -->
+    <path d="M72 100 C78 100 86 103 91 108 C108 126 126 132 148 116 C140 134 124 154 104 165 C88 173 80 160 76 142 L72 122 L68 142 C64 160 56 173 40 165 C20 154 4 134 -4 116 C18 132 36 126 53 108 C58 103 66 100 72 100 Z" fill="currentColor" transform="translate(18, -4)"/>
+    
+    <!-- Left Robe Wing Detail -->
+    <path d="M54 104 C46 114 41 128 40 148 C36 132 37 118 43 102 C47 94 51 90 54 86 C55 93 54 99 54 104 Z" fill="currentColor"/>
+    
+    <!-- Right Robe Wing Swoosh reaching up -->
+    <path d="M90 104 C100 95 112 85 128 78 C116 88 108 102 102 120 C99 113 95 108 90 104 Z" fill="currentColor"/>
+  </g>
+
+  <!-- Typography: Bac-Code (Script) -->
+  <g class="logo-text-script" transform="translate(150, 88)">
+    <text font-family="'Brush Script MT', 'Dancing Script', 'Alex Brush', 'Caveat', 'Great Vibes', 'Segoe Script', cursive" font-size="64" font-weight="bold" font-style="italic" fill="currentColor" letter-spacing="1">
+      Bac- Code
+    </text>
+  </g>
+
+  <!-- Typography: Academy (Bold Display Serif) -->
+  <g class="logo-text-serif" transform="translate(152, 148)">
+    <text font-family="'Playfair Display', 'Merriweather', 'Cinzel', 'Georgia', serif" font-size="56" font-weight="900" fill="currentColor" letter-spacing="1.5">
+      Academy
+    </text>
+  </g>
+</svg>

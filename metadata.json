@@ -1,0 +1,12 @@
+{
+  "name": "Fox Tech",
+  "description": "منصة Fox Tech للتدريب والتطوير التقني وتأهيل مهندسي البرمجيات في مسارات Frontend وBackend والأنظمة السحابية والذكاء الاصطناعي",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "display-capture"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

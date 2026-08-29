@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: var(--platform-font-family, "Alan Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif);
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --color-primary: #D4F800;
+  --color-primary-dark: #B8D900;
+  --color-primary-light: #E2FA4D;
+  --color-accent: #D4F800;
+  --color-accent-hover: #C2E400;
+  --color-royal: #182672;
+  --color-volt: #D4F800;
+}
+
+@layer base {
+  :root {
+    --platform-font-family: "Alan Sans", "IBM Plex Sans Arabic", "Tajawal", sans-serif;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
+    font-family: var(--platform-font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  #root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: var(--platform-font-family);
+  }
+  body {
+    @apply bg-[#F4F7FE] text-slate-900 selection:bg-[#D4F800] selection:text-[#0A102E];
+  }
+  .dark body {
+    @apply bg-[#0A102E] text-slate-100 selection:bg-[#D4F800] selection:text-[#0A102E];
+  }
+  
+  button, input, select, textarea, optgroup {
+    font-family: var(--platform-font-family);
+  }
+  
+  /* Hide scrollbar completely but allow scrolling */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+    background: transparent;
+  }
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .bg-volt {
+    background-color: #D4F800;
+  }
+  .text-volt {
+    color: #D4F800;
+  }
+  .border-volt {
+    border-color: #D4F800;
+  }
+  .bg-royal-deep {
+    background-color: #0A102E;
+  }
+  .bg-royal-card {
+    background-color: #101744;
+  }
+  .tech-glow-volt {
+    box-shadow: 0 0 25px -3px rgba(212, 248, 0, 0.45);
+  }
+  .tech-glow-royal {
+    box-shadow: 0 0 30px -5px rgba(24, 38, 114, 0.35);
+  }
+  .code-gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #D4F800 50%, #B8D900 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .royal-gradient-bg {
+    background: linear-gradient(135deg, #0A102E 0%, #182672 50%, #0D1540 100%);
+  }
+  .volt-btn {
+    background: linear-gradient(135deg, #D4F800 0%, #B8D900 100%);
+    color: #0A102E;
+    font-weight: 800;
+    box-shadow: 0 4px 14px 0 rgba(212, 248, 0, 0.35);
+  }
+  .volt-btn:hover {
+    background: linear-gradient(135deg, #E2FA4D 0%, #D4F800 100%);
+    box-shadow: 0 6px 20px rgba(212, 248, 0, 0.5);
+  }
+}
+
+
+@media (max-width: 768px) {
+  button, 
+  select, 
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"], 
+  input[type="number"], 
+  input[type="tel"], 
+  input[type="search"] {
+    min-height: 44px;
+  }
+  
+  /* Ensure padding and margins are reduced on small screens */
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide everything except the designated printable area */
+  body * {
+    visibility: hidden !important;
+  }
+
+  .printable-area,
+  .printable-area * {
+    visibility: visible !important;
+  }
+
+  /* Format and position the printable area perfectly on the printed page */
+  .printable-area {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    display: block !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Preserve colors and gradients for elements with background colors */
+  .printable-area,
+  .printable-area * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Correct text contrast for non-dark print text */
+  .printable-area span:not(.text-white),
+  .printable-area p:not(.text-white),
+  .printable-area div:not(.text-white):not(.bg-gradient-to-br):not(.bg-slate-900),
+  .printable-area h1,
+  .printable-area h2,
+  .printable-area h3,
+  .printable-area h4,
+  .printable-area td,
+  .printable-area th {
+    color: #0f172a !important;
+  }
+
+  /* Keep white text white for badge or card headers */
+  .printable-area .text-white,
+  .printable-area .text-white * {
+    color: #ffffff !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+}
+
+@media print {
+  /* Hide unnecessary UI elements */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the printable area */
+  .printable-area, .printable-area * {
+    visibility: visible;
+  }
+  
+  /* Reset positioning for print */
+  .printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    color: black !important;
+  }
+  
+  /* Ensure colors print correctly */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
