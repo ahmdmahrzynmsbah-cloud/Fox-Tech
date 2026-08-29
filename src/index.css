@@ -135,99 +135,54 @@
 
 /* Print Styles */
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
   html, body {
     background: #ffffff !important;
     color: #000000 !important;
     height: auto !important;
+    min-height: auto !important;
     overflow: visible !important;
-  }
-
-  /* Hide everything except the designated printable area */
-  body * {
-    visibility: hidden !important;
-  }
-
-  .printable-area,
-  .printable-area * {
-    visibility: visible !important;
-  }
-
-  /* Format and position the printable area perfectly on the printed page */
-  .printable-area {
-    visibility: visible !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    min-height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #ffffff !important;
-    color: #0f172a !important;
-    display: block !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /* Preserve colors and gradients for elements with background colors */
-  .printable-area,
-  .printable-area * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 
-  /* Correct text contrast for non-dark print text */
-  .printable-area span:not(.text-white),
-  .printable-area p:not(.text-white),
-  .printable-area div:not(.text-white):not(.bg-gradient-to-br):not(.bg-slate-900),
-  .printable-area h1,
-  .printable-area h2,
-  .printable-area h3,
-  .printable-area h4,
-  .printable-area td,
-  .printable-area th {
-    color: #0f172a !important;
+  /* Hide non-printable elements */
+  body > *:not(#root) {
+    display: none !important;
   }
 
-  /* Keep white text white for badge or card headers */
-  .printable-area .text-white,
-  .printable-area .text-white * {
-    color: #ffffff !important;
+  /* Hide anything marked print:hidden or outside printable container */
+  .print\:hidden {
+    display: none !important;
   }
 
-  @page {
-    size: A4;
-    margin: 15mm;
-  }
-}
-
-@media print {
-  /* Hide unnecessary UI elements */
-  body * {
-    visibility: hidden;
-  }
-  
-  /* Show only the printable area */
-  .printable-area, .printable-area * {
-    visibility: visible;
-  }
-  
-  /* Reset positioning for print */
-  .printable-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 20px;
+  /* Preserve colors and backgrounds everywhere in print */
+  *, *:before, *:after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
     box-shadow: none !important;
-    border: none !important;
-    background: white !important;
-    color: black !important;
+    text-shadow: none !important;
   }
-  
-  /* Ensure colors print correctly */
-  * {
+
+  .printable-area {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Ensure ID card elements retain exact dimensions and colors */
+  .id-card-print {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
