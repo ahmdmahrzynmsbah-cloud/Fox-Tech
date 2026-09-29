@@ -61,7 +61,7 @@ export default function WalletRechargeRequestForm({ userData, linkedStudent }: W
 
   const handleCopy = (text: string, title: string) => {
     navigator.clipboard.writeText(text);
-    toast.success(`تم نسخ ${title} بنجاح! 📋`);
+    toast.success(`تم نسخ ${title} بنجاح! `);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +116,7 @@ export default function WalletRechargeRequestForm({ userData, linkedStudent }: W
         reviewedBy: ''
       });
 
-      toast.success('تم إرسال طلب شحن المحفظة بنجاح! قيد المراجعة والتحقق بواسطة الإدارة. 🎉');
+      toast.success('تم إرسال طلب شحن المحفظة بنجاح! قيد المراجعة والتحقق بواسطة الإدارة. ');
       setAmount('');
       setImageFile(null);
       setImageBase64('');
@@ -354,19 +354,19 @@ export default function WalletRechargeRequestForm({ userData, linkedStudent }: W
                     {req.status === 'pending' && (
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                         <Clock className="w-3 h-3 animate-pulse" />
-                        قيد المراجعة ⏳
+                        قيد المراجعة 
                       </span>
                     )}
                     {req.status === 'approved' && (
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                         <CheckCircle className="w-3 h-3" />
-                        تم القبول وشحن الرصيد 🎉
+                        تم القبول وشحن الرصيد 
                       </span>
                     )}
                     {req.status === 'rejected' && (
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
                         <XCircle className="w-3 h-3" />
-                        مرفوض ❌
+                        مرفوض 
                       </span>
                     )}
                   </div>

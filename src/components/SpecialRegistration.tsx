@@ -92,7 +92,7 @@ export default function SpecialRegistration() {
         localStorage.setItem('cached_current_user', JSON.stringify(newUserDoc));
       } catch {}
 
-      toast.success(`تم إنشاء حسابك كطالب ${typeName} بنجاح! يمكنك الآن بدء التعلم والاشتراك في الدورات مباشرة 🎉`);
+      toast.success(`تم إنشاء حسابك كطالب ${typeName} بنجاح! يمكنك الآن بدء التعلم والاشتراك في الدورات مباشرة `);
       navigate('/dashboard');
     } catch (error: any) {
       console.error('Registration error:', error);
@@ -137,7 +137,7 @@ export default function SpecialRegistration() {
               <Sparkles className={`w-3.5 h-3.5 ${typeColor}`} />
               مرحلة تسجيل الطلاب (طلب انضمام للمسارات الخاصة)
             </div>
-            <h1 className="text-xl font-black text-gray-900 dark:text-white mb-2">طلب انضمام جديد 🚀</h1>
+            <h1 className="text-xl font-black text-gray-900 dark:text-white mb-2">طلب انضمام جديد </h1>
             <p className="text-xs text-gray-500 dark:text-gray-400 font-bold leading-relaxed max-w-[280px] mx-auto">
               سجل اسمك ورقم هاتفك فقط وسيقوم مدير المنصة بمراجعة حسابك وتفعيله في أسرع وقت!
             </p>
@@ -240,7 +240,7 @@ export default function SpecialRegistration() {
 
             <div className="bg-sky-500/5 dark:bg-cyan-400/5 rounded-2xl p-4 border border-sky-500/10 dark:border-cyan-400/10 text-[10px] leading-relaxed text-gray-600 dark:text-gray-300 font-bold space-y-1">
               <p className="flex items-center gap-1 font-black text-sky-600 dark:text-cyan-400">
-                💡 ملحوظة هامة لسهولة الدخول:
+                 ملحوظة هامة لسهولة الدخول:
               </p>
               <p>
                 عند تسجيل الدخول لاحقاً، يمكنك إدخال <b>رقم هاتفك</b> في خانة (البريد الإلكتروني أو رقم الهاتف) و<b>كلمة المرور</b> التي اخترتها بالأعلى للدخول مباشرة إلى حسابك بعد موافقة الإدارة.

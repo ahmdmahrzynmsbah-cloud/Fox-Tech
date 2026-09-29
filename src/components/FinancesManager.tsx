@@ -227,7 +227,7 @@ export default function FinancesManager({ userData }: FinancesManagerProps) {
         try {
           const docRef = doc(db, 'expenses', id);
           await deleteDoc(docRef);
-          toast.success('تم حذف المصروف بنجاح ✅');
+          toast.success('تم حذف المصروف بنجاح ');
           setConfirmModal(prev => ({ ...prev, isOpen: false }));
         } catch (err) {
           console.error("Error deleting expense:", err);
@@ -432,7 +432,7 @@ export default function FinancesManager({ userData }: FinancesManagerProps) {
                   {adminNetProfit.toLocaleString('ar-EG')} <span className="text-xs font-black">ج.م</span>
                 </h3>
                 <span className={`text-[10px] mt-1 flex items-center gap-1 font-bold ${adminNetProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                  {adminNetProfit >= 0 ? 'أرباح تشغيلية إيجابية 📈' : 'عجز مالي مؤقت 📉'}
+                  {adminNetProfit >= 0 ? 'أرباح تشغيلية إيجابية ' : 'عجز مالي مؤقت '}
                 </span>
               </div>
             </div>

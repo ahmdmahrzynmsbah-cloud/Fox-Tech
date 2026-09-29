@@ -203,7 +203,7 @@ export default function ExamPage() {
 
   const handleStart = () => {
     setExamStarted(true);
-    toast.success("بدأ الامتحان الآن! بالتوفيق والنجاح 👍");
+    toast.success("بدأ الامتحان الآن! بالتوفيق والنجاح ");
   };
 
   const handleSelectOption = (questionId: string, optionIdx: number) => {
@@ -264,7 +264,7 @@ export default function ExamPage() {
       if (cheatedViolation) {
         toast.error("تم إنهاء الاختبار وتسليمه بتقرير مخالفة غش بسبب مغادرة الصفحة!");
       } else {
-        toast.success("تم تسليم الامتحان وحفظ نتيجتك بنجاح! 🎉");
+        toast.success("تم تسليم الامتحان وحفظ نتيجتك بنجاح! ");
       }
     } catch (err) {
       console.error("Error submitting exam:", err);
@@ -303,6 +303,29 @@ export default function ExamPage() {
       </div>
     );
   }
+
+  const renderQuestionText = (text: string) => {
+    if (text.includes(': ') && (text.includes('print') || text.includes('(') || text.includes('=') || text.includes('range'))) {
+      const idx = text.indexOf(': ');
+      const titlePart = text.substring(0, idx);
+      const codePart = text.substring(idx + 2);
+      return (
+        <div className="space-y-3 text-right">
+          <p className="text-sm font-semibold text-gray-900 dark:text-white leading-relaxed">
+            {titlePart}:
+          </p>
+          <div className="p-3.5 bg-slate-900 dark:bg-[#090D16] text-cyan-300 dark:text-cyan-400 font-mono text-xs rounded-xl border border-slate-800 text-left dir-ltr shadow-inner overflow-x-auto">
+            <code>{codePart}</code>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <p className="text-sm font-semibold text-gray-900 dark:text-white leading-relaxed">
+        {text}
+      </p>
+    );
+  };
 
   const questionsList: Question[] = exam.questions || [];
   const activeQuestion = questionsList[currentIdx];
@@ -365,7 +388,7 @@ export default function ExamPage() {
                       ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
                       : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"
                   }`}>
-                    {submissionResult.passed ? "تم اجتياز الامتحان بنجاح 🎉" : "لم تجتز الامتحان هذه المرة ⚠️"}
+                    {submissionResult.passed ? "تم اجتياز الامتحان بنجاح " : "لم تجتز الامتحان هذه المرة ️"}
                   </span>
                   <h3 className="text-2xl font-black text-gray-900 dark:text-white mt-2">
                     نتيجة اختبارك: {submissionResult.score}%
@@ -407,7 +430,7 @@ export default function ExamPage() {
                           ? "تم إنهاء الاختبار وإغلاقه تلقائياً بسبب مغادرتك لصفحة الامتحان أكثر من العدد المسموح به (3 مخالفات خروج)."
                           : (submissionResult.infractionsCount || 0) > 0
                             ? `تم رصد عدد ${submissionResult.infractionsCount} محاولات خروج من الصفحة أو تغيير التبويب أثناء حل الاختبار.`
-                            : "عمل ممتاز! لم يتم تسجيل أي محاولات خروج من صفحة الاختبار. مصداقية أدائك كاملة 100% 👍"}
+                            : "عمل ممتاز! لم يتم تسجيل أي محاولات خروج من صفحة الاختبار. مصداقية أدائك كاملة 100% "}
                       </p>
                     </div>
                   </div>
@@ -484,7 +507,7 @@ export default function ExamPage() {
                         {/* Explanation */}
                         {q.explanation && (
                           <div className="mt-4 p-3 bg-gray-100/50 dark:bg-[#1A1A2A] rounded-xl border border-gray-200/50 dark:border-gray-800/40 text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
-                            <span className="font-black text-gray-700 dark:text-white block mb-1">💡 تفسير وشرح الإجابة:</span>
+                            <span className="font-black text-gray-700 dark:text-white block mb-1"> تفسير وشرح الإجابة:</span>
                             {q.explanation}
                           </div>
                         )}
@@ -505,13 +528,13 @@ export default function ExamPage() {
                   }}
                   className="px-8 py-3.5 bg-emerald-500 hover:bg-emerald-650 text-white font-black rounded-2xl text-xs shadow-md transition-all hover:scale-[1.02] cursor-pointer"
                 >
-                  إعادة محاولة حل الاختبار 🔁
+                  إعادة محاولة حل الاختبار 
                 </button>
                 <button
                   onClick={() => navigate("/dashboard")}
                   className="px-8 py-3.5 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white font-black rounded-2xl text-xs shadow-md transition-all hover:scale-[1.02] cursor-pointer"
                 >
-                  العودة للوحة قيادة الطالب 🏠
+                  العودة للوحة قيادة الطالب 
                 </button>
               </div>
             </motion.div>
@@ -527,7 +550,7 @@ export default function ExamPage() {
               <div className="border-b border-gray-100 dark:border-[#1E1E2F] pb-4 flex items-center justify-between">
                 <div>
                   <span className="inline-block px-3 py-1 text-[10px] font-black bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 rounded-full">
-                    🏆 اختبار تفاعلي متاح الآن
+                     اختبار تفاعلي متاح الآن
                   </span>
                   <h2 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white mt-2">{exam.title}</h2>
                 </div>
@@ -555,7 +578,7 @@ export default function ExamPage() {
 
                 <div className="bg-[#00B4D8]/5 border-r-4 border-sky-500 p-5 rounded-2xl space-y-3">
                   <p className="text-xs font-black text-sky-700 flex items-center gap-1.5">
-                    ⚠️ تعليمات وملاحظات هامة جداً قبل البدء بالحل:
+                    ️ تعليمات وملاحظات هامة جداً قبل البدء بالحل:
                   </p>
                   <ul className="text-[11px] text-gray-600 dark:text-gray-300 space-y-2 pl-4 list-disc font-medium">
                     <li>بمجرد النقر فوق زر البدء أدناه، سيبدأ المؤقت بالتنازل على الفور، ولا يمكن إيقافه مؤقتاً نهائياً.</li>
@@ -566,7 +589,7 @@ export default function ExamPage() {
 
                 {exam.description && (
                   <div className="bg-gray-50 dark:bg-[#1D1D28] p-5 rounded-2xl text-xs text-gray-500 leading-relaxed font-bold border border-gray-100 dark:border-[#1E1E2F]">
-                    <span className="block text-gray-700 dark:text-white mb-1.5">📝 وصف وتوجيهات المعلم:</span>
+                    <span className="block text-gray-700 dark:text-white mb-1.5"> وصف وتوجيهات المعلم:</span>
                     {exam.description}
                   </div>
                 )}
@@ -586,7 +609,7 @@ export default function ExamPage() {
                   className="w-full sm:w-2/3 py-4 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white hover:opacity-95 rounded-2xl text-xs font-black shadow-xl transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] animate-pulse"
                 >
                   <Play className="w-5 h-5 fill-current" />
-                  بدء وحل الامتحان الآن 🚀
+                  بدء وحل الامتحان الآن 
                 </button>
               </div>
             </motion.div>
@@ -684,7 +707,7 @@ export default function ExamPage() {
                   <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/35">
                     <Shield className="w-4 h-4 text-indigo-500 shrink-0 animate-pulse" />
                     <div className="text-right">
-                      <p className="text-[9px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط 🔒</p>
+                      <p className="text-[9px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط </p>
                       <p className="text-[10px] text-gray-500 dark:text-gray-300 font-bold mt-1">
                         الخروج من الصفحة: <span className={infractions > 0 ? "text-red-500 font-black text-xs" : "text-emerald-500 font-black"}>{infractions} / 3</span>
                       </p>
@@ -711,10 +734,10 @@ export default function ExamPage() {
                 <div className="bg-white dark:bg-[#0D121F] rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 dark:border-[#1E1E2F] flex flex-col justify-between min-h-[350px]">
                   <div className="space-y-6">
                     <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-base font-black text-gray-900 dark:text-white leading-relaxed">
-                        {activeQuestion.text}
-                      </h3>
-                      <span className="text-[9px] font-black bg-gray-100 dark:bg-[#1A1A26] text-gray-500 dark:text-gray-300 px-2.5 py-1 rounded-md shrink-0">
+                      <div className="flex-1">
+                        {renderQuestionText(activeQuestion.text)}
+                      </div>
+                      <span className="text-[10px] font-semibold bg-gray-100 dark:bg-[#1A1A26] text-gray-500 dark:text-gray-300 px-2.5 py-1 rounded-md shrink-0">
                         {activeQuestion.points || 1} درجات
                       </span>
                     </div>
@@ -775,7 +798,7 @@ export default function ExamPage() {
                         disabled={submitting}
                         className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-black text-xs transition-colors shadow-lg shadow-green-500/10 flex items-center gap-1.5"
                       >
-                        {submitting ? "جاري تسليم الامتحان..." : "تسليم وإرسال الامتحان 🏁"}
+                        {submitting ? "جاري تسليم الامتحان..." : "تسليم وإرسال الامتحان "}
                       </button>
                     )}
                   </div>
@@ -822,7 +845,7 @@ export default function ExamPage() {
                 </p>
                 <div className="p-3.5 bg-red-50/50 dark:bg-red-950/10 border-r-4 border-red-500 rounded-xl">
                   <p className="text-[11px] text-red-600 dark:text-red-400 leading-relaxed font-black">
-                    ⚠️ تحذير: سيتم إلغاء محاولتك الحالية فوراً وفقدان جميع الإجابات التي قمت بتحديدها. لن يتم حفظ أي درجات!
+                    ️ تحذير: سيتم إلغاء محاولتك الحالية فوراً وفقدان جميع الإجابات التي قمت بتحديدها. لن يتم حفظ أي درجات!
                   </p>
                 </div>
               </div>
@@ -924,7 +947,7 @@ export default function ExamPage() {
                   }}
                   className="flex-1 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl text-xs font-black transition-all shadow-md shadow-green-500/10 flex items-center justify-center gap-1.5"
                 >
-                  نعم، سلم الإجابات الآن 🏁
+                  نعم، سلم الإجابات الآن 
                 </button>
               </div>
             </motion.div>
@@ -956,7 +979,7 @@ export default function ExamPage() {
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">⚠️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -979,7 +1002,7 @@ export default function ExamPage() {
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20"
               >
-                أفهم ذلك، العودة لحل الاختبار ✍️
+                أفهم ذلك، العودة لحل الاختبار ️
               </button>
             </motion.div>
           </div>

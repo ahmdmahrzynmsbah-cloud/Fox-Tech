@@ -150,7 +150,7 @@ export default function AdminCoursesPanel() {
       await deleteDoc(doc(db, 'courses', courseToDelete.id));
       
       setCourses(prev => prev.filter(c => c.id !== courseToDelete.id));
-      toast.success('تم حذف الكورس نهائياً بنجاح 🗑️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ️');
       setCourseToDelete(null);
     } catch (err) {
       console.error('Error deleting course:', err);
@@ -215,7 +215,7 @@ export default function AdminCoursesPanel() {
               <ChevronLeft className="w-4 h-4 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
               <span>العودة لقائمة الكورسات</span>
             </button>
-            <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">الطلاب المشتركين في الكورس 👥</h2>
+            <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">الطلاب المشتركين في الكورس </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 font-bold leading-relaxed">
               الكورس: <span className="text-sky-600 dark:text-cyan-400">{viewingStudents.title}</span> • الأستاذ: {viewingStudents.teacherName} • المادة: {viewingStudents.subject}
             </p>
@@ -246,7 +246,7 @@ export default function AdminCoursesPanel() {
             <BookOpen className="w-5 h-5" />
             <span className="text-xs font-black tracking-widest uppercase">إدارة المحتوى والتدريس</span>
           </div>
-          <h2 className="text-xl font-black text-gray-900 dark:text-white">التحكم بكورسات المعلمين 🎓</h2>
+          <h2 className="text-xl font-black text-gray-900 dark:text-white">التحكم بكورسات المعلمين </h2>
           <p className="text-xs text-gray-500 dark:text-gray-400 font-bold">يمكنك تفعيل وإيقاف الكورسات، تعديل الأسعار، ومتابعة الطلاب المشتركين لكل كورس على المنصة.</p>
         </div>
         <div className="bg-sky-500/5 dark:bg-cyan-400/5 px-4 py-2 rounded-2xl border border-sky-500/10 dark:border-cyan-400/10 font-bold text-xs text-sky-600 dark:text-cyan-400">
@@ -307,7 +307,7 @@ export default function AdminCoursesPanel() {
       ) : filteredCourses.length === 0 ? (
         <div className="text-center py-20 bg-white dark:bg-[#111827] rounded-3xl border border-gray-150 dark:border-slate-800 shadow-sm">
           <ShieldAlert className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="font-black text-sm text-gray-700 dark:text-gray-300">لا توجد كورسات تطابق خيارات البحث الحالية 🔍</p>
+          <p className="font-black text-sm text-gray-700 dark:text-gray-300">لا توجد كورسات تطابق خيارات البحث الحالية </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -336,12 +336,12 @@ export default function AdminCoursesPanel() {
                       ? 'bg-green-500 text-white' 
                       : 'bg-red-500 text-white'
                   }`}>
-                    {isActive ? 'نشط ومفعل 🟢' : 'ملغي / موقف 🔴'}
+                    {isActive ? 'نشط ومفعل ' : 'ملغي / موقف '}
                   </span>
                   
                   {/* Price Tag */}
                   <span className="absolute bottom-3 right-3 bg-gray-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-lg text-[11px] font-black">
-                    {course.price === 0 ? 'مجااااني 🎁' : `${course.price} ج.م`}
+                    {course.price === 0 ? 'مجااااني ' : `${course.price} ج.م`}
                   </span>
                 </div>
 
@@ -357,11 +357,11 @@ export default function AdminCoursesPanel() {
 
                   <div className="grid grid-cols-2 gap-2 bg-gray-50 dark:bg-[#090D16] p-2.5 rounded-xl border border-gray-100 dark:border-slate-800/40 text-center font-bold text-[10px]">
                     <div>
-                      <span className="block text-gray-400 mb-0.5">المعلم 🧑‍🏫</span>
+                      <span className="block text-gray-400 mb-0.5">المعلم ‍</span>
                       <span className="text-gray-800 dark:text-gray-200 block truncate">{course.teacherName}</span>
                     </div>
                     <div>
-                      <span className="block text-gray-400 mb-0.5">المشتركون 👥</span>
+                      <span className="block text-gray-400 mb-0.5">المشتركون </span>
                       <span className="text-gray-800 dark:text-gray-200">{course.enrolledStudents || 0} طالب</span>
                     </div>
                   </div>
@@ -438,7 +438,7 @@ export default function AdminCoursesPanel() {
               className="bg-white dark:bg-[#111827] border border-gray-150 dark:border-slate-800 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl p-6 relative text-right"
               dir="rtl"
             >
-              <h3 className="text-base font-black text-gray-900 dark:text-white mb-2">تحديث سعر الكورس 🏷️</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white mb-2">تحديث سعر الكورس ️</h3>
               <p className="text-xs text-gray-500 font-bold mb-4">{editingPriceCourse.title}</p>
 
               <form onSubmit={handleSavePrice} className="space-y-4">
@@ -504,7 +504,7 @@ export default function AdminCoursesPanel() {
                 </p>
                 <div className="bg-red-50 dark:bg-red-950/20 p-3 rounded-2xl border border-red-100 dark:border-red-900/30">
                   <p className="text-[11px] text-red-600 dark:text-red-400 font-bold leading-relaxed">
-                    ⚠️ تنبيه: هذا الإجراء سيقوم بمسح كافة بيانات الكورس من قاعدة البيانات. الطلاب المشتركين لن يتمكنوا من الوصول إليه مرة أخرى!
+                    ️ تنبيه: هذا الإجراء سيقوم بمسح كافة بيانات الكورس من قاعدة البيانات. الطلاب المشتركين لن يتمكنوا من الوصول إليه مرة أخرى!
                   </p>
                 </div>
               </div>

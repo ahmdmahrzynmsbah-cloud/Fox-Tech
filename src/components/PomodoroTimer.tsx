@@ -192,9 +192,9 @@ export default function PomodoroTimer({
 
     if (isWorkMode) {
       const focusMins = parseFloat((secondsFocused / 60).toFixed(1)) || workDuration;
-      toast.success(`أحسنت صنعاً! لقد أكملت جلسة تركيز مدتها ${focusMins} دقيقة 🌟`, {
+      toast.success(`أحسنت صنعاً! لقد أكملت جلسة تركيز مدتها ${focusMins} دقيقة `, {
         duration: 5000,
-        icon: '🔥'
+        icon: ''
       });
       
       // Save stats
@@ -205,9 +205,9 @@ export default function PomodoroTimer({
       setTimeLeft(breakDuration * 60);
       setSecondsFocused(0);
     } else {
-      toast.success('انتهى وقت الراحة، هل أنت مستعد للتركيز مجدداً؟ 💪', {
+      toast.success('انتهى وقت الراحة، هل أنت مستعد للتركيز مجدداً؟ ', {
         duration: 5000,
-        icon: '⚡'
+        icon: ''
       });
       setIsWorkMode(true);
       setTimeLeft(workDuration * 60);
@@ -251,7 +251,7 @@ export default function PomodoroTimer({
       saveFocusSession(focusMins),
       {
         loading: 'جاري حفظ وقت التركيز...',
-        success: `تم حفظ ${focusMins} دقيقة من التركيز بنجاح! 🏆`,
+        success: `تم حفظ ${focusMins} دقيقة من التركيز بنجاح! `,
         error: 'حدث خطأ أثناء حفظ الجلسة'
       }
     );
@@ -601,7 +601,7 @@ export default function PomodoroTimer({
               </div>
               <p className="text-[10px] text-gray-400 dark:text-gray-500 font-bold">
                 {dailyProgressPercent >= 100 
-                  ? 'تهانينا! لقد حققت هدفك اليومي بالكامل اليوم 🎉' 
+                  ? 'تهانينا! لقد حققت هدفك اليومي بالكامل اليوم ' 
                   : `متبقي ${Math.max(0, dailyTarget - todayFocusMinutes).toFixed(1)} دقيقة لتحقيق هدف اليوم.`
                 }
               </p>

@@ -151,7 +151,7 @@ export default function PremiumFeaturesSection() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4F800]/15 dark:bg-[#D4F800]/15 border border-[#D4F800]/30 mb-6">
               <Sparkles className="w-4 h-4 text-[#D4F800]" />
-              <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-[#D4F800]">{settings.featuresBadge || 'المنصة الأولى لطلاب البكالوريا 🎓'}</span>
+              <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-[#D4F800]">{settings.featuresBadge || 'المنصة الأولى لطلاب البكالوريا '}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight text-slate-900 dark:text-white">
               {settings.featuresTitle || 'بيئة تعليمية متكاملة لضمان تفوقك في البكالوريا'}

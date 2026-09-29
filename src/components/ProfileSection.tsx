@@ -349,7 +349,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
 
       await updateDoc(userDocRef, updatedFields);
       onUpdateUserData({ ...userData, ...updatedFields });
-      toast.success('تم تحديث ملفك الشخصي بنجاح! ✨');
+      toast.success('تم تحديث ملفك الشخصي بنجاح! ');
     } catch (error: any) {
       console.error('Error updating profile:', error);
       toast.error('فشل تحديث البيانات: ' + (error.message || 'يرجى المحاولة مجدداً'));
@@ -387,7 +387,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
       
       // Update Password
       await updatePassword(user, newPassword);
-      toast.success('تمت إعادة تعيين كلمة المرور بنجاح! 🔐');
+      toast.success('تمت إعادة تعيين كلمة المرور بنجاح! ');
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -429,7 +429,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
       await updateDoc(doc(db, 'users', userData.id), { email: newEmail });
       
       onUpdateUserData({ ...userData, email: newEmail });
-      toast.success('تم تحديث البريد الإلكتروني بنجاح! 📧');
+      toast.success('تم تحديث البريد الإلكتروني بنجاح! ');
       setNewEmail('');
       setCurrentPassword('');
     } catch (error: any) {
@@ -465,7 +465,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
           <div className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-start">
             <h2 className="text-2xl font-black text-gray-900 dark:text-white">{name || 'مستخدم جديد'}</h2>
             <span className="bg-[#D4F800]/15 dark:bg-[#D4F800]/20 text-[#658C00] dark:text-[#D4F800] px-3 py-1 rounded-full text-xs font-black">
-              {userData?.role === 'teacher' ? '👨‍🏫 مدرب معتمد' : userData?.role === 'parent' ? '👨‍👩‍👦 متابع' : userData?.role === 'admin' ? '🛡️ مدير النظام' : '💻 متدرب'}
+              {userData?.role === 'teacher' ? '‍ مدرب معتمد' : userData?.role === 'parent' ? '‍‍ متابع' : userData?.role === 'admin' ? '️ مدير النظام' : ' متدرب'}
             </span>
           </div>
           <p className="text-gray-500 dark:text-gray-400 text-sm font-bold flex items-center justify-center md:justify-start gap-1">
@@ -618,21 +618,21 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                       {userData?.role === 'student' ? (
                         <>
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-[#00B4D8]/10 text-sky-600 flex items-center justify-center text-lg font-bold">💰</div>
+                            <div className="w-10 h-10 rounded-xl bg-[#00B4D8]/10 text-sky-600 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">رصيد المحفظة</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">{userData?.balance || 0} <span className="text-xs">ج.م</span></h3>
                             <p className="text-[9px] text-gray-400 font-bold">يمكنك الشحن لاحقاً</p>
                           </div>
 
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-lg font-bold">📚</div>
+                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">الدورات المسجلة</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">{myCourses.length}</h3>
                             <p className="text-[9px] text-gray-400 font-bold">مجموع كورساتك الحالية</p>
                           </div>
 
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center text-lg font-bold">✅</div>
+                            <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">الدروس المكتملة</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">
                               {Object.values(courseProgressMap).reduce((acc, curr) => acc + (curr.completedLessons?.length || 0), 0)}
@@ -641,7 +641,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                           </div>
 
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-lg font-bold">🎯</div>
+                            <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">معدل درجاتك</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">
                               {quizSubmissions.length > 0
@@ -655,21 +655,21 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                       ) : (
                         <>
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-cyan-400 flex items-center justify-center text-lg font-bold">👥</div>
+                            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-cyan-400 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">الطلاب المشتركين</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">{teacherStats.totalStudents}</h3>
                             <p className="text-[9px] text-gray-400 font-bold">تأثيرك التعليمي يتوسع</p>
                           </div>
 
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-lg font-bold">📚</div>
+                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">الكورسات المنشورة</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">{teacherStats.coursesCount}</h3>
                             <p className="text-[9px] text-gray-400 font-bold">إجمالي دوراتك التعليمية</p>
                           </div>
 
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1 relative overflow-hidden group hover:scale-[1.02] transition-all">
-                            <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center text-lg font-bold">🎥</div>
+                            <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center text-lg font-bold"></div>
                             <span className="text-[10px] text-gray-400 font-bold block pt-1">الدروس والحصص</span>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white font-sans">{teacherStats.totalLessons}</h3>
                             <p className="text-[9px] text-gray-400 font-bold">مجموع الفيديوهات والملفات</p>
@@ -678,7 +678,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                           <div className="bg-white dark:bg-[#111827] rounded-2xl p-5 border border-gray-200 dark:border-slate-800 shadow-sm text-right space-y-1.5 relative overflow-hidden group hover:scale-[1.02] transition-all flex flex-col justify-between">
                             <div>
                               <div className="flex justify-between items-center">
-                                <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-lg font-bold">⭐</div>
+                                <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-lg font-bold"></div>
                                 {teacherStats.ratingCount > 0 && (
                                   <span className="text-[10px] bg-amber-500/10 text-amber-500 dark:text-amber-400 px-2 py-0.5 rounded-full font-bold">
                                     {teacherStats.ratingCount} تقييم
@@ -694,13 +694,13 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                               <div className="pt-2 border-t border-gray-100 dark:border-slate-800 space-y-1 text-[9px] text-gray-500 dark:text-gray-400 font-bold">
                                 {teacherStats.avgTeacherRating !== undefined && (
                                   <div className="flex justify-between">
-                                    <span>👨‍🏫 شرح الأستاذ:</span>
+                                    <span>‍ شرح الأستاذ:</span>
                                     <span className="text-amber-500">{teacherStats.avgTeacherRating} / 5</span>
                                   </div>
                                 )}
                                 {teacherStats.avgContentRating !== undefined && (
                                   <div className="flex justify-between">
-                                    <span>📖 المادة العلمية:</span>
+                                    <span> المادة العلمية:</span>
                                     <span className="text-amber-500">{teacherStats.avgContentRating} / 5</span>
                                   </div>
                                 )}
@@ -767,7 +767,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         ) : (
                           <div className="py-12 px-6 flex flex-col items-center justify-center text-center rounded-2xl bg-gray-50/50 dark:bg-[#0D121F]/50 border border-dashed border-gray-200 dark:border-slate-800 space-y-3">
                             <div className="w-14 h-14 rounded-2xl bg-sky-500/10 dark:bg-cyan-400/10 text-sky-600 dark:text-cyan-400 flex items-center justify-center text-2xl">
-                              📊
+                              
                             </div>
                             <h4 className="text-base font-black text-gray-900 dark:text-white">لا توجد نتائج اختبارات مسجلة بعد</h4>
                             <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md font-medium leading-relaxed">
@@ -806,7 +806,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         ) : (
                           <div className="py-12 px-6 flex flex-col items-center justify-center text-center rounded-2xl bg-gray-50/50 dark:bg-[#0D121F]/50 border border-dashed border-gray-200 dark:border-slate-800 space-y-3">
                             <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl">
-                              📚
+                              
                             </div>
                             <h4 className="text-base font-black text-gray-900 dark:text-white">لا توجد كورسات منشورة بعد</h4>
                             <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md font-medium leading-relaxed">
@@ -847,7 +847,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                     </div>
                   ) : myCourses.length === 0 ? (
                     <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-slate-800 rounded-2xl space-y-4">
-                      <div className="w-16 h-16 bg-gray-50 dark:bg-[#090D16] rounded-full flex items-center justify-center mx-auto text-3xl">📚</div>
+                      <div className="w-16 h-16 bg-gray-50 dark:bg-[#090D16] rounded-full flex items-center justify-center mx-auto text-3xl"></div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-sm text-gray-900 dark:text-white">لا توجد كورسات مسجلة بعد</h4>
                         <p className="text-gray-500 dark:text-gray-400 text-xs">
@@ -859,7 +859,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                           onClick={() => navigate('/dashboard')}
                           className="bg-sky-600 dark:bg-cyan-500 text-white px-6 py-2.5 rounded-xl font-bold text-xs hover:opacity-90 transition-all cursor-pointer"
                         >
-                          استكشاف الكورسات المتاحة 🔍
+                          استكشاف الكورسات المتاحة 
                         </button>
                       )}
                     </div>
@@ -945,7 +945,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                                 onClick={() => navigate(`/course/${course.id}`)}
                                 className="bg-sky-500/10 dark:bg-cyan-400/10 text-sky-600 dark:text-cyan-400 hover:bg-[#00B4D8]/20 dark:hover:bg-[#D4AF37]/20 px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1"
                               >
-                                {userData?.role === 'teacher' ? 'إدارة الكورس ⚙️' : 'استكمال التعلم 📖'}
+                                {userData?.role === 'teacher' ? 'إدارة الكورس ️' : 'استكمال التعلم '}
                                 <ChevronLeft className="w-3.5 h-3.5" />
                               </button>
                             </div>
@@ -991,7 +991,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                   {userData?.role === 'student' ? (
                     realBadges.length === 0 ? (
                       <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-slate-800 rounded-2xl space-y-4">
-                        <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto text-3xl">🏅</div>
+                        <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto text-3xl"></div>
                         <div className="space-y-1 max-w-md mx-auto">
                           <h4 className="font-bold text-sm text-gray-900 dark:text-white">لا توجد أوسمة محققة بعد</h4>
                           <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed">
@@ -1002,7 +1002,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                           onClick={() => setActiveSubTab('courses')}
                           className="bg-sky-600 dark:bg-cyan-500 text-white px-6 py-2.5 rounded-xl font-bold text-xs hover:opacity-90 transition-all cursor-pointer"
                         >
-                          استكمال دروسك الآن 📖
+                          استكمال دروسك الآن 
                         </button>
                       </div>
                     ) : (
@@ -1027,7 +1027,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                             className="p-4 rounded-2xl border bg-gradient-to-r from-yellow-500/10 to-amber-500/10 text-amber-600 dark:text-amber-400 border-yellow-500/20 flex items-center gap-4 cursor-pointer relative group"
                           >
                             <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#111827] shadow-sm flex items-center justify-center font-black text-xl shrink-0 border-2 border-yellow-400">
-                              🏅
+                              
                             </div>
                             <div className="text-right space-y-0.5 flex-1">
                               <div className="flex items-center gap-1.5 flex-wrap">
@@ -1055,7 +1055,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                       {[
                         {
                           id: 'teacher-certified',
-                          title: 'مدرب معتمد بالمنصة 🎓',
+                          title: 'مدرب معتمد بالمنصة ',
                           description: 'نشر مسار أو كورس تدريبي واحد على الأقل على المنصة للمتدربين.',
                           unlocked: myCourses.length > 0,
                           colorBg: 'bg-green-500/10 text-green-600 border-green-500/20',
@@ -1063,7 +1063,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         },
                         {
                           id: 'teacher-reach',
-                          title: 'الانتشار الأكاديمي 👥',
+                          title: 'الانتشار الأكاديمي ',
                           description: 'الوصول لعدد من الطلاب المشتركين والمتابعين لكورساتك بنجاح.',
                           unlocked: teacherStats.totalStudents > 0,
                           colorBg: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
@@ -1071,7 +1071,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         },
                         {
                           id: 'teacher-lessons',
-                          title: 'المنارة التعليمية 🎥',
+                          title: 'المنارة التعليمية ',
                           description: 'إضافة ونشر ٣ دروس تعليمية أو حصص على الأقل لإثراء المحتوى.',
                           unlocked: teacherStats.totalLessons >= 3,
                           colorBg: 'bg-purple-500/10 text-purple-600 border-purple-500/20',
@@ -1079,7 +1079,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         },
                         {
                           id: 'teacher-rating',
-                          title: 'التقييم الذهبي ⭐',
+                          title: 'التقييم الذهبي ',
                           description: 'الحصول على متوسط تقييم ممتاز (٤.٥ أو أكثر) من آراء وتقييمات الطلاب.',
                           unlocked: teacherStats.avgRating >= 4.5 && teacherStats.ratingCount > 0,
                           colorBg: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
@@ -1105,7 +1105,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                             </h4>
                             <p className="text-[10px] text-gray-500 dark:text-gray-400 font-bold leading-relaxed">{badge.description}</p>
                             <span className={`text-[9px] font-black block pt-0.5 ${badge.unlocked ? 'text-emerald-500' : 'text-gray-400'}`}>
-                              {badge.unlocked ? `✓ مـحـقـق (${badge.status})` : `🔒 غـيـر مـنـجـز بـعـد (${badge.status})`}
+                              {badge.unlocked ? ` مـحـقـق (${badge.status})` : ` غـيـر مـنـجـز بـعـد (${badge.status})`}
                             </span>
                           </div>
                         </div>
@@ -1429,7 +1429,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         />
                       </div>
                       <div className="p-4 bg-gray-50 dark:bg-[#222230]/50 rounded-2xl border border-gray-100 dark:border-slate-800 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-                        📌 <b>ملاحظة:</b> رقم الهاتف هذا هو المفتاح لربط نتائج وتقارير ودرجات الطالب بلوحة تحكم ولي الأمر مباشرة. يرجى التأكد من تطابقه التام مع الرقم الذي يسجل به ابنك في حسابه الشخصي.
+                         <b>ملاحظة:</b> رقم الهاتف هذا هو المفتاح لربط نتائج وتقارير ودرجات الطالب بلوحة تحكم ولي الأمر مباشرة. يرجى التأكد من تطابقه التام مع الرقم الذي يسجل به ابنك في حسابه الشخصي.
                       </div>
                     </>
                   )}
@@ -1612,7 +1612,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                     </div>
 
                     <p className="text-gray-400 dark:text-gray-500 text-xs font-bold mt-4 animate-pulse">
-                      💡 اضغط على البطاقة لقلبها واستعراض الرمز التعريفي
+                       اضغط على البطاقة لقلبها واستعراض الرمز التعريفي
                     </p>
 
                     {/* Action buttons */}
@@ -1796,7 +1796,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="p-4 bg-gray-50 dark:bg-[#090D16] rounded-2xl border border-gray-100 dark:border-slate-800 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-black text-lg">🎖️</div>
+                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-black text-lg">️</div>
                       <div className="text-right">
                         <h4 className="font-bold text-sm text-gray-900 dark:text-white">عضو مؤسس</h4>
                         <p className="text-[10px] text-gray-500">تم الانضمام لدفعة ٢٠٢٦ بنجاح</p>
@@ -1808,7 +1808,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         ? 'bg-green-500/10 border-green-200 dark:border-green-900/30 text-green-500' 
                         : 'bg-gray-50 dark:bg-[#090D16] border-gray-100 dark:border-slate-800 opacity-60'
                     }`}>
-                      <div className="w-12 h-12 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center font-black text-lg">📝</div>
+                      <div className="w-12 h-12 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center font-black text-lg"></div>
                       <div className="text-right">
                         <h4 className="font-bold text-sm text-gray-950 dark:text-white">ملف مكتمل</h4>
                         <p className="text-[10px] text-gray-500">تم تعبئة جميع بيانات الملف بنجاح</p>
@@ -1816,7 +1816,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                     </div>
 
                     <div className="p-4 bg-gray-50 dark:bg-[#090D16] rounded-2xl border border-gray-100 dark:border-slate-800 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-black text-lg">💡</div>
+                      <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-black text-lg"></div>
                       <div className="text-right">
                         <h4 className="font-bold text-sm text-gray-900 dark:text-white">صانع الملاحظات</h4>
                         <p className="text-[10px] text-gray-500">قمت بتسجيل ملاحظات دراسية ذكية</p>
@@ -1824,7 +1824,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                     </div>
 
                     <div className="p-4 bg-gray-50 dark:bg-[#090D16] rounded-2xl border border-gray-100 dark:border-slate-800 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-black text-lg">⭐</div>
+                      <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-black text-lg"></div>
                       <div className="text-right">
                         <h4 className="font-bold text-sm text-gray-900 dark:text-white">المتعلم الدؤوب</h4>
                         <p className="text-[10px] text-gray-500">نشاط تعليمي منتظم داخل الحصص</p>

@@ -182,7 +182,7 @@ export default function StudentBadges({ userData, isStandalone = false }: Studen
               <span>لوحة الشرف والإنجازات</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black">
-              الأوسمة والإنجازات 🏆
+              الأوسمة والإنجازات 
             </h1>
             <p className="text-gray-300 text-xs sm:text-sm font-bold max-w-xl leading-relaxed">
               احتفل بتقدمك واجمع الأوسمة التقديرية مع كل درس وكورس واختبار تنجزه في رحلتك التعليمية!
@@ -331,7 +331,7 @@ export default function StudentBadges({ userData, isStandalone = false }: Studen
                       </h4>
                       {isUnlocked && (
                         <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 shrink-0">
-                          مكتسب ✓
+                          مكتسب 
                         </span>
                       )}
                     </div>

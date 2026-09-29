@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Plus, Trash2, Save, Clock, BookOpen, AlertCircle, Sparkles } from "lucide-react";
+import { X, Plus, Trash2, Save, Clock, BookOpen, AlertCircle, Sparkles, Award } from "lucide-react";
 import { doc, setDoc, getDocs, collection, query, where, updateDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 
@@ -43,6 +43,7 @@ export default function ComprehensiveExamBuilder({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [timeLimit, setTimeLimit] = useState(30);
+  const [maxAttempts, setMaxAttempts] = useState(1);
   const [courseId, setCourseId] = useState("");
   const [isLeagueExam, setIsLeagueExam] = useState(false);
   const [scheduledTime, setScheduledTime] = useState("");
@@ -69,6 +70,7 @@ export default function ComprehensiveExamBuilder({
       setTitle(existingExamData.title || "");
       setDescription(existingExamData.description || "");
       setTimeLimit(existingExamData.timeLimit || 30);
+      setMaxAttempts(existingExamData.maxAttempts || 1);
       setCourseId(existingExamData.courseId === "all" ? "" : existingExamData.courseId || "");
       setIsLeagueExam(existingExamData.isLeagueExam || false);
       setScheduledTime(existingExamData.scheduledTime || "");
@@ -81,6 +83,7 @@ export default function ComprehensiveExamBuilder({
       setTitle("");
       setDescription("");
       setTimeLimit(30);
+      setMaxAttempts(1);
       setCourseId("");
       setIsLeagueExam(false);
       setScheduledTime("");
@@ -174,7 +177,7 @@ export default function ComprehensiveExamBuilder({
     });
     
     setShowBankModal(false);
-    toast.success(`تم استيراد ${selected.length} سؤال بنجاح 🎉`);
+    toast.success(`تم استيراد ${selected.length} سؤال بنجاح `);
   };
 
   const handleAddQuestion = (type: QuestionType = 'multiple_choice') => {
@@ -234,7 +237,7 @@ export default function ComprehensiveExamBuilder({
     }
 
     if (isLeagueExam && !scheduledTime) {
-      toast.error("يرجى تحديد موعد وتاريخ بدء اختبار الدوري الأسبوعي ⏰");
+      toast.error("يرجى تحديد موعد وتاريخ بدء اختبار الدوري الأسبوعي ");
       return;
     }
 
@@ -278,6 +281,7 @@ export default function ComprehensiveExamBuilder({
         title: title.trim(),
         description: description.trim(),
         timeLimit: Number(timeLimit) || 0,
+        maxAttempts: Number(maxAttempts) || 1,
         courseId: courseId || "all",
         questions: questions,
         isComprehensive: true,
@@ -290,7 +294,7 @@ export default function ComprehensiveExamBuilder({
 
       await setDoc(doc(db, "quizzes", examId), examData);
       onSaveSuccess(examData);
-      toast.success(editingExamId ? "تم تعديل الامتحان بنجاح! ✏️" : "تم تفعيل الامتحان الشامل بنجاح! 🎉");
+      toast.success(editingExamId ? "تم تعديل الامتحان بنجاح! ️" : "تم تفعيل الامتحان الشامل بنجاح! ");
       onClose();
     } catch (err) {
       console.error("Error saving comprehensive exam:", err);
@@ -354,9 +358,9 @@ export default function ComprehensiveExamBuilder({
                   onChange={(e) => setCourseId(e.target.value)}
                   className="w-full p-3 bg-gray-50 dark:bg-[#222230] border border-gray-200 dark:border-slate-800 rounded-xl text-xs font-bold text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:focus:border-cyan-500"
                 >
-                  <option value="">امتحان عام (متاح لجميع طلاب المنصة) 🌍</option>
-                  <option value="qudurat">امتحان مخصص - قدرات 🧠</option>
-                  <option value="tahsili">امتحان مخصص - تحصيلي 📚</option>
+                  <option value="">امتحان عام (متاح لجميع طلاب المنصة) </option>
+                  <option value="qudurat">امتحان مخصص - قدرات </option>
+                  <option value="tahsili">امتحان مخصص - تحصيلي </option>
                   {coursesList.map((course) => (
                     <option key={course.id} value={course.id}>
                       {course.title}
@@ -390,6 +394,20 @@ export default function ComprehensiveExamBuilder({
                 />
               </div>
 
+              <div className="space-y-1">
+                <label className="text-xs font-black text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                  <Award className="w-3.5 h-3.5 text-gray-400" />
+                  عدد المحاولات المسموح بها * (مثال: 1 لمرة واحدة فقط)
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  value={maxAttempts}
+                  onChange={(e) => setMaxAttempts(Number(e.target.value))}
+                  className="w-full p-3 bg-gray-50 dark:bg-[#222230] border border-gray-200 dark:border-slate-800 rounded-xl text-xs font-bold text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:focus:border-cyan-500"
+                />
+              </div>
+
               {/* isHidden Draft Toggle option */}
               <div className="md:col-span-2 p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl flex flex-col gap-3 mt-2 select-none">
                 <div className="flex items-start gap-3">
@@ -402,7 +420,7 @@ export default function ComprehensiveExamBuilder({
                   />
                   <div className="text-right flex-1">
                     <label htmlFor="isHidden" className="text-xs font-black text-gray-800 dark:text-white cursor-pointer">
-                      إخفاء هذا الامتحان مؤقتاً وحفظه كمسودة 🙈
+                      إخفاء هذا الامتحان مؤقتاً وحفظه كمسودة 
                     </label>
                     <p className="text-[10px] text-gray-500 dark:text-gray-400 font-bold mt-1 leading-relaxed">
                       عند تفعيل هذا الخيار، لن يظهر هذا الامتحان للطلاب حتى تقوم بنشره وتوجيهه إليهم لاحقاً من لوحة التحكم التفاعلية للاختبارات.
@@ -464,7 +482,7 @@ export default function ComprehensiveExamBuilder({
                         <div className="flex-1 border-t-2 border-dashed border-gray-200 dark:border-gray-800" />
                         <div className="mx-4 px-4 py-1.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-150 dark:border-indigo-900/40 rounded-full text-[10px] font-black tracking-wider flex items-center gap-1.5 shadow-sm">
                           <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
-                          <span>فاصل بين السؤال {qIdx} والسؤال {qIdx + 1} 🔍</span>
+                          <span>فاصل بين السؤال {qIdx} والسؤال {qIdx + 1} </span>
                         </div>
                         <div className="flex-1 border-t-2 border-dashed border-gray-200 dark:border-gray-800" />
                       </div>
@@ -502,7 +520,7 @@ export default function ComprehensiveExamBuilder({
                         {q.options.map((opt, oIdx) => (
                           <div key={oIdx} className="space-y-1">
                             <label className={`text-[10px] font-bold ${q.correctOptionIndex === oIdx ? "text-green-500" : "text-gray-400"}`}>
-                              الخيار رقم {oIdx + 1} {q.correctOptionIndex === oIdx ? "(الإجابة الصحيحة ✅)" : ""}
+                              الخيار رقم {oIdx + 1} {q.correctOptionIndex === oIdx ? "(الإجابة الصحيحة )" : ""}
                             </label>
                             <div className="flex gap-2">
                               <input
@@ -627,7 +645,7 @@ export default function ComprehensiveExamBuilder({
                 className="px-6 py-3 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white rounded-2xl text-xs font-black shadow-lg transition-all flex items-center gap-1.5 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
-                {saving ? "جاري الحفظ..." : "حفظ ونشر الامتحان 🚀"}
+                {saving ? "جاري الحفظ..." : "حفظ ونشر الامتحان "}
               </button>
             </div>
           </div>

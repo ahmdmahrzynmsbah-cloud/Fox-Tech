@@ -193,7 +193,7 @@ export default function TeacherAnalytics({ teacherId }: { teacherId: string }) {
                       </div>
                       {review.isPrivate && (
                         <span className="text-[10px] font-bold text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded-lg flex items-center gap-1">
-                          🔒 تعليق خاص بالمعلم
+                           تعليق خاص بالمعلم
                         </span>
                       )}
                     </div>

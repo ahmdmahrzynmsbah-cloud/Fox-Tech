@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Play, Clock, BookOpen, ChevronRight, ChevronLeft, Award, CheckCircle, AlertTriangle, Shield } from "lucide-react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 
 export type QuestionType = 'multiple_choice' | 'true_false' | 'essay';
@@ -51,19 +51,33 @@ export default function StudentExamTaking({
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Initialize time left when exam changes or is opened
+  // Initialize time left and check prior submission / maxAttempts when exam changes or is opened
   useEffect(() => {
-    if (isOpen && exam) {
-      setExamStarted(false);
-      setCurrentIdx(0);
-      setSelectedAnswers({});
-      setTimeLeft((exam.timeLimit || 30) * 60);
-      setShowResults(false);
-      setSubmissionResult(null);
-      setInfractions(0);
-      setShowInfractionWarning(false);
-    }
-  }, [isOpen, exam]);
+    const checkPriorSubmission = async () => {
+      if (isOpen && exam && userData?.id) {
+        try {
+          const subDocRef = doc(db, "quiz_submissions", `${userData.id}_${exam.id}`);
+          const subSnap = await getDoc(subDocRef);
+          if (subSnap.exists()) {
+            setSubmissionResult(subSnap.data());
+            setShowResults(true);
+          } else {
+            setShowResults(false);
+            setSubmissionResult(null);
+          }
+        } catch (err) {
+          console.error("Error checking prior submission:", err);
+        }
+        setExamStarted(false);
+        setCurrentIdx(0);
+        setSelectedAnswers({});
+        setTimeLeft((exam.timeLimit || 30) * 60);
+        setInfractions(0);
+        setShowInfractionWarning(false);
+      }
+    };
+    checkPriorSubmission();
+  }, [isOpen, exam, userData, db]);
 
   // Timer effect
   useEffect(() => {
@@ -121,7 +135,7 @@ export default function StudentExamTaking({
 
   const handleStart = () => {
     setExamStarted(true);
-    toast.success("بدأ الامتحان! بالتوفيق والنجاح 👍");
+    toast.success("بدأ الامتحان! بالتوفيق والنجاح ");
   };
 
   const handleSelectOption = (questionId: string, optionIdx: number) => {
@@ -183,7 +197,7 @@ export default function StudentExamTaking({
       if (cheatedViolation) {
         toast.error("تم إنهاء الاختبار وتسليمه بتقرير مخالفة غش بسبب مغادرة الصفحة!");
       } else {
-        toast.success("تم تسليم الامتحان الشامل وحفظ نتيجتك بنجاح! 🎉");
+        toast.success("تم تسليم الامتحان الشامل وحفظ نتيجتك بنجاح! ");
       }
     } catch (err) {
       console.error("Error submitting comprehensive exam:", err);
@@ -196,6 +210,29 @@ export default function StudentExamTaking({
   const handleAutoSubmit = () => {
     toast.error("انتهى الوقت المحدد للامتحان الشامل! يتم الآن تسليم إجاباتك تلقائياً...");
     handleSubmit();
+  };
+
+  const renderQuestionText = (text: string) => {
+    if (text.includes(': ') && (text.includes('print') || text.includes('(') || text.includes('=') || text.includes('range'))) {
+      const idx = text.indexOf(': ');
+      const titlePart = text.substring(0, idx);
+      const codePart = text.substring(idx + 2);
+      return (
+        <div className="space-y-3 text-right">
+          <p className="text-sm font-semibold text-gray-900 dark:text-white leading-relaxed">
+            {titlePart}:
+          </p>
+          <div className="p-3.5 bg-slate-900 dark:bg-[#090D16] text-cyan-300 dark:text-cyan-400 font-mono text-xs rounded-xl border border-slate-800 text-left dir-ltr shadow-inner overflow-x-auto">
+            <code>{codePart}</code>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <p className="text-sm font-semibold text-gray-900 dark:text-white leading-relaxed">
+        {text}
+      </p>
+    );
   };
 
   if (!isOpen || !exam) return null;
@@ -232,7 +269,7 @@ export default function StudentExamTaking({
 
               <div className="space-y-2">
                 <h3 className="text-2xl font-black text-gray-900 dark:text-white">
-                  {submissionResult.passed ? "تهانينا! لقد اجتزت الامتحان الشامل 🎉" : "حظاً موفقاً المرة القادمة! لم تجتز الامتحان ⚠️"}
+                  {submissionResult.passed ? "تهانينا! لقد اجتزت الامتحان الشامل " : "حظاً موفقاً المرة القادمة! لم تجتز الامتحان ️"}
                 </h3>
                 <p className="text-sm text-gray-400 font-bold">{exam.title}</p>
               </div>
@@ -270,7 +307,7 @@ export default function StudentExamTaking({
                         ? "تم إنهاء الاختبار وإغلاقه تلقائياً بسبب مغادرتك لصفحة الامتحان أكثر من العدد المسموح به (3 مخالفات خروج)."
                         : (submissionResult.infractionsCount || 0) > 0
                           ? `تم رصد عدد ${submissionResult.infractionsCount} محاولات خروج من الصفحة أو تغيير التبويب أثناء حل الاختبار.`
-                          : "عمل ممتاز! لم يتم تسجيل أي محاولات خروج من صفحة الاختبار. مصداقية أدائك كاملة 100% 👍"}
+                          : "عمل ممتاز! لم يتم تسجيل أي محاولات خروج من صفحة الاختبار. مصداقية أدائك كاملة 100% "}
                     </p>
                   </div>
                 </div>
@@ -296,7 +333,7 @@ export default function StudentExamTaking({
                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4">
                   <div>
                     <span className="text-[10px] font-black bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 px-3 py-1 rounded-full">
-                      امتحان شامل نشط 🏆
+                      امتحان شامل نشط 
                     </span>
                     <h3 className="text-xl font-black text-gray-900 dark:text-white mt-2">{exam.title}</h3>
                   </div>
@@ -329,7 +366,7 @@ export default function StudentExamTaking({
 
                   <div className="bg-[#00B4D8]/5 border-r-4 border-sky-500 p-4 rounded-xl space-y-2">
                     <p className="text-xs font-black text-sky-700 flex items-center gap-1">
-                      ⚠️ ملاحظات هامة قبل بدء الحل:
+                      ️ ملاحظات هامة قبل بدء الحل:
                     </p>
                     <ul className="text-[11px] text-gray-600 dark:text-gray-300 space-y-1 pl-4 list-disc font-medium">
                       <li>بمجرد الضغط على زر "بدء الامتحان"، سيبدأ المؤقت التنازلي فوراً ولا يمكن إيقافه مؤقتاً.</li>
@@ -359,7 +396,7 @@ export default function StudentExamTaking({
                   className="w-full py-3.5 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white hover:opacity-95 rounded-2xl text-xs font-black shadow-lg transition-all flex items-center justify-center gap-1.5"
                 >
                   <Play className="w-4 h-4" />
-                  بدء وحل الامتحان الآن 🚀
+                  بدء وحل الامتحان الآن 
                 </button>
               </div>
             </div>
@@ -379,7 +416,7 @@ export default function StudentExamTaking({
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100/60 dark:border-indigo-900/35">
                   <Shield className="w-4 h-4 text-indigo-500 shrink-0 animate-pulse" />
                   <div className="text-right">
-                    <p className="text-[9px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط 🔒</p>
+                    <p className="text-[9px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط </p>
                     <p className="text-[10px] text-gray-500 dark:text-gray-300 font-bold mt-1">
                       الخروج من الصفحة: <span className={infractions > 0 ? "text-red-500 font-black text-xs" : "text-emerald-500 font-black"}>{infractions} / 3</span>
                     </p>
@@ -430,13 +467,13 @@ export default function StudentExamTaking({
 
                 {activeQuestion && (
                   <div className="space-y-6">
-                    <div className="space-y-2">
-                      <span className="text-[10px] bg-gray-100 dark:bg-[#222230] text-gray-500 px-2.5 py-0.5 rounded-full font-bold">
+                    <div className="space-y-3">
+                      <span className="text-[10px] bg-gray-100 dark:bg-[#222230] text-gray-500 px-2.5 py-0.5 rounded-full font-medium">
                         درجة السؤال: {activeQuestion.points || 1} درجات
                       </span>
-                      <h3 className="text-base font-black text-gray-900 dark:text-white leading-relaxed">
-                        {activeQuestion.text}
-                      </h3>
+                      <div>
+                        {renderQuestionText(activeQuestion.text)}
+                      </div>
                     </div>
 
                     {/* Options targets */}
@@ -466,7 +503,7 @@ export default function StudentExamTaking({
                               </span>
                             </span>
                             {isSelected && (
-                              <span className="text-xs text-sky-600 dark:text-cyan-400">محدد ✅</span>
+                              <span className="text-xs text-sky-600 dark:text-cyan-400">محدد </span>
                             )}
                           </button>
                         );
@@ -502,7 +539,7 @@ export default function StudentExamTaking({
                     className="px-6 py-2.5 bg-green-500 text-white hover:bg-green-600 rounded-xl text-xs font-black transition-all shadow-md shadow-green-500/10 flex items-center gap-1"
                   >
                     <Award className="w-4 h-4" />
-                    {submitting ? "جاري التسليم..." : "إنهاء وتسليم الإجابات 🏁"}
+                    {submitting ? "جاري التسليم..." : "إنهاء وتسليم الإجابات "}
                   </button>
                 )}
               </div>
@@ -535,7 +572,7 @@ export default function StudentExamTaking({
               </div>
 
               <div className="space-y-2 text-center">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">⚠️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -558,7 +595,7 @@ export default function StudentExamTaking({
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20"
               >
-                أفهم ذلك، العودة لحل الاختبار ✍️
+                أفهم ذلك، العودة لحل الاختبار ️
               </button>
             </motion.div>
           </div>

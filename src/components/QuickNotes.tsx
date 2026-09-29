@@ -128,7 +128,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
           courseTitle: courseTitle,
           updatedAt: new Date().toISOString()
         });
-        toast.success('تم تحديث الملاحظة بنجاح ✏️');
+        toast.success('تم تحديث الملاحظة بنجاح ️');
         setEditingNoteId(null);
       } else {
         // Create new note
@@ -141,7 +141,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         });
-        toast.success('تم حفظ الملاحظة السريعة بنجاح! 🌟');
+        toast.success('تم حفظ الملاحظة السريعة بنجاح! ');
       }
 
       setNoteContent('');
@@ -172,7 +172,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
     if (!window.confirm('هل أنت متأكد من رغبتك في حذف هذه الملاحظة؟')) return;
     try {
       await deleteDoc(doc(db, 'quick_notes', noteId));
-      toast.success('تم حذف الملاحظة بنجاح🗑️');
+      toast.success('تم حذف الملاحظة بنجاح️');
       if (editingNoteId === noteId) {
         handleCancelEdit();
       }
@@ -204,7 +204,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
         <div>
           <h2 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
             <Edit3 className="w-6 h-6 text-sky-600 dark:text-cyan-400" />
-            دفتر الملاحظات السريعة 📝
+            دفتر الملاحظات السريعة 
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 font-bold mt-1.5 leading-relaxed">
             اكتب وحشّد أفكارك، ملخصاتك، أو واجباتك المرتبطة بكل درس وكورس لتسهيل مراجعتها لاحقاً.
@@ -212,7 +212,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
         </div>
         <div className="flex items-center gap-2 bg-white dark:bg-[#1C1C28] px-4 py-2 rounded-2xl border border-gray-200/50 dark:border-slate-800 text-xs font-black shadow-sm text-gray-500 dark:text-gray-400">
           <Sparkles className="w-4 h-4 text-sky-600 dark:text-cyan-400" />
-          <span>مزامنة سحابية فائقة الأمان والحفظ ☁️</span>
+          <span>مزامنة سحابية فائقة الأمان والحفظ ️</span>
         </div>
       </div>
 
@@ -242,10 +242,10 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
                 onChange={(e) => setSelectedCourseId(e.target.value)}
                 className="w-full bg-gray-50 dark:bg-[#15151F] border border-gray-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-cyan-400 transition-all cursor-pointer"
               >
-                <option value="general">📁 ملاحظات عامة وتنبيهات ذاتية</option>
+                <option value="general"> ملاحظات عامة وتنبيهات ذاتية</option>
                 {courses.map(course => (
                   <option key={course.id} value={course.id}>
-                    📚 {course.title}
+                     {course.title}
                   </option>
                 ))}
               </select>
@@ -299,7 +299,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
 
           {/* Quick Guidance Box */}
           <div className="p-4 bg-gray-50/50 dark:bg-[#14141F]/40 rounded-2xl border border-gray-100 dark:border-slate-800/40 space-y-2">
-            <span className="text-[10px] font-black text-sky-600 dark:text-cyan-400 block">🎯 نصيحة ذكية للمذاكرة:</span>
+            <span className="text-[10px] font-black text-sky-600 dark:text-cyan-400 block"> نصيحة ذكية للمذاكرة:</span>
             <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed font-bold">
               قم بربط كل ملاحظة بالكورس الخاص بها لمراجعتها بضغطة زر واحدة أثناء مشاهدة حصص المادة أو قبل الاختبارات مباشرة.
             </p>
@@ -330,11 +330,11 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
                   onChange={(e) => setFilterCourseId(e.target.value)}
                   className="w-full bg-gray-50 dark:bg-[#15151F] border border-gray-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-xs font-bold text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-cyan-400 transition-all cursor-pointer"
                 >
-                  <option value="all">🔍 جميع الملاحظات ({notes.length})</option>
-                  <option value="general">📁 ملاحظات عامة</option>
+                  <option value="all"> جميع الملاحظات ({notes.length})</option>
+                  <option value="general"> ملاحظات عامة</option>
                   {courses.map(course => (
                     <option key={course.id} value={course.id}>
-                      📚 {course.title}
+                       {course.title}
                     </option>
                   ))}
                 </select>
@@ -354,7 +354,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
                   onClick={() => setSortBy(sortBy === 'newest' ? 'oldest' : 'newest')}
                   className="text-sky-600 dark:text-cyan-400 hover:underline cursor-pointer"
                 >
-                  {sortBy === 'newest' ? 'الأحدث أولاً ⬇️' : 'الأقدم أولاً ⬆️'}
+                  {sortBy === 'newest' ? 'الأحدث أولاً ️' : 'الأقدم أولاً ️'}
                 </button>
               </div>
             </div>
@@ -369,7 +369,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
               </div>
             ) : filteredNotes.length === 0 ? (
               <div className="p-16 text-center bg-white dark:bg-[#111827] rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm text-gray-400 font-bold text-xs space-y-3 flex flex-col items-center justify-center">
-                <span className="text-4xl">🗒️</span>
+                <span className="text-4xl">️</span>
                 <p className="leading-relaxed">لا توجد ملاحظات سريعة مسجلة ومطابقة حالياً.</p>
                 <p className="text-[10px] text-gray-400 dark:text-gray-500 max-w-sm">
                   ابدأ الآن بكتابة وحفظ أول ملاحظة دراسية سريعة لك باستخدام المحرر الذكي على اليمين وسيتم حفظها بشكل دائم.
@@ -403,7 +403,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
                                 ? 'bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-900/30'
                                 : 'bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/30'
                             }`}>
-                              {isGeneral ? '📁 عامة' : `📚 ${note.courseTitle}`}
+                              {isGeneral ? ' عامة' : ` ${note.courseTitle}`}
                             </span>
                             <span className="text-[10px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1">
                               <Calendar className="w-3 h-3" />

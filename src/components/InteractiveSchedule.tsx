@@ -141,10 +141,10 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
   const handleToggleReminder = (eventId: string) => {
     if (reminders.includes(eventId)) {
       setReminders(prev => prev.filter(id => id !== eventId));
-      toast.success("تم إلغاء تنبيه الحصة 🔕");
+      toast.success("تم إلغاء تنبيه الحصة ");
     } else {
       setReminders(prev => [...prev, eventId]);
-      toast.success("رائع! سنقوم بتنبيهك قبل بدء الحصة بـ 15 دقيقة ⏰🔔");
+      toast.success("رائع! سنقوم بتنبيهك قبل بدء الحصة بـ 15 دقيقة ");
     }
   };
 
@@ -181,7 +181,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
       };
 
       await addDoc(collection(db, "schedule_events"), newEvent);
-      toast.success("تمت إضافة الحصة وتنظيم الموعد في جدول الطلاب بنجاح! 📅✨");
+      toast.success("تمت إضافة الحصة وتنظيم الموعد في جدول الطلاب بنجاح! ");
       
       handleCancel();
     } catch (err) {
@@ -202,7 +202,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
     if (!eventToDelete) return;
     try {
       await deleteDoc(doc(db, "schedule_events", eventToDelete));
-      toast.success("تم حذف الموعد بنجاح 🗑️");
+      toast.success("تم حذف الموعد بنجاح ️");
     } catch (err) {
       console.error("Error deleting schedule event:", err);
       toast.error("فشل حذف الموعد");
@@ -219,7 +219,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
       const snapshot = await getDocs(q);
       const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
       await Promise.all(deletePromises);
-      toast.success("تم حذف جميع المواعيد بنجاح 🗑️✨");
+      toast.success("تم حذف جميع المواعيد بنجاح ️");
     } catch (err) {
       console.error("Error deleting all events:", err);
       toast.error("فشل في حذف جميع المواعيد");
@@ -287,7 +287,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
               </div>
               <div>
                 <span className="bg-[#D4F800] text-[#0A102E] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
-                  تبدأ الآن أو قريباً جداً ⏰⚡
+                  تبدأ الآن أو قريباً جداً 
                 </span>
                 <h4 className="text-base font-black mt-1 text-white">{activeAlert.title}</h4>
                 <p className="text-xs text-gray-300 font-medium mt-0.5">
@@ -305,7 +305,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                   className="w-full md:w-auto bg-[#D4F800] hover:bg-[#c2e400] text-[#0A102E] font-black text-xs px-6 py-3 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   <Video className="w-4 h-4" />
-                  انضم للاجتماع الآن 🚀
+                  انضم للاجتماع الآن 
                 </a>
               ) : (
                 <span className="text-xs font-bold bg-white/10 px-4 py-2 rounded-xl border border-white/10">
@@ -322,7 +322,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
         <div className="flex-1">
           <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">
             <CalendarIcon className="w-6 h-6 text-[#658C00] dark:text-[#D4F800]" />
-            الجدول الدراسي التفاعلي 📅
+            الجدول الدراسي التفاعلي 
           </h2>
           <p className="text-xs text-gray-500 dark:text-gray-300 mt-1.5 font-bold leading-relaxed max-w-2xl">
             نسق حصصك المباشرة، مواعيد امتحاناتك الشهرية الشاملة والمراجعات التفاعلية في مكان واحد مع تنبيهات تلقائية.
@@ -361,7 +361,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
-              التقويم التفاعلي 📅
+              التقويم التفاعلي 
             </button>
             <button
               onClick={() => setActiveView("list")}
@@ -524,7 +524,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                   className="px-6 py-2.5 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white text-xs font-black rounded-xl transition-colors shadow-sm flex items-center gap-1.5"
                 >
                   {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                  جدولة ونشر الموعد 🏁
+                  جدولة ونشر الموعد 
                 </button>
               </div>
             </form>
@@ -677,15 +677,15 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                 <div className="mt-6 pt-4 border-t border-gray-50 dark:border-slate-800/50 flex flex-wrap gap-4 text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 justify-center">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-red-500" />
-                    <span>اختبارات شاملة 📝</span>
+                    <span>اختبارات شاملة </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-amber-500" />
-                    <span>حصص مراجعة 📚</span>
+                    <span>حصص مراجعة </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-blue-500" />
-                    <span>حصص أسبوعية 📖</span>
+                    <span>حصص أسبوعية </span>
                   </div>
                 </div>
               </div>
@@ -705,7 +705,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                 <div className="flex-1 overflow-y-auto space-y-3 max-h-[500px] pr-1 scrollbar-thin">
                   {selectedDateEvents.length === 0 ? (
                     <div className="p-8 text-center bg-white dark:bg-[#111827] rounded-2xl border border-gray-100 dark:border-slate-800 text-gray-400 font-bold text-xs space-y-3 h-full flex flex-col items-center justify-center min-h-[300px]">
-                      <span className="text-4xl">☕</span>
+                      <span className="text-4xl"></span>
                       <p className="leading-relaxed">لا توجد أي حصص، واجبات، أو امتحانات مجدولة في هذا اليوم.</p>
                       <p className="text-[10px] text-gray-400 dark:text-gray-500">اختر يوماً آخر من التقويم التفاعلي لمتابعة مواعيدك الدراسية القادمة بدقة.</p>
                     </div>
@@ -794,7 +794,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
         <div className="space-y-4">
           {getUpcomingEvents().length === 0 ? (
             <div className="p-12 text-center bg-white dark:bg-[#111827] rounded-3xl border border-gray-100 dark:border-slate-800 text-gray-500 font-bold text-xs space-y-2">
-              <p>📭 لا توجد حصص أو اختبارات قادمة مجدولة في الفترة الحالية.</p>
+              <p> لا توجد حصص أو اختبارات قادمة مجدولة في الفترة الحالية.</p>
               {userData?.role === "teacher" && <p className="text-[10px] text-gray-400">انقر على زر "تنظيم موعد جديد" لتعديل الجدول.</p>}
             </div>
           ) : (
@@ -826,7 +826,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                           {badge.label}
                         </span>
                         <span className="text-[11px] bg-gray-100 dark:bg-[#20202D] text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full font-bold">
-                          ⏱️ المدة: {ev.duration} دقيقة
+                          ️ المدة: {ev.duration} دقيقة
                         </span>
                       </div>
 
@@ -942,7 +942,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
 
             {getWeeklyFilteredEvents().length === 0 ? (
               <div className="p-12 text-center bg-white dark:bg-[#111827] rounded-3xl border border-gray-100 dark:border-slate-800 text-gray-400 font-bold text-xs">
-                ☕ لا توجد أي حصص أو واجبات أو اختبارات مجدولة ليوم {arabDays[selectedDayIdx]}. يوم هادئ ومناسب للاستذكار الفردي!
+                 لا توجد أي حصص أو واجبات أو اختبارات مجدولة ليوم {arabDays[selectedDayIdx]}. يوم هادئ ومناسب للاستذكار الفردي!
               </div>
             ) : (
               getWeeklyFilteredEvents().map((ev) => {
@@ -960,7 +960,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                           {badge.label}
                         </span>
                         <span className="text-[11px] bg-gray-100 dark:bg-[#1F1F2C] text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full font-bold">
-                          ⏱️ المدة: {ev.duration} دقيقة
+                          ️ المدة: {ev.duration} دقيقة
                         </span>
                       </div>
 

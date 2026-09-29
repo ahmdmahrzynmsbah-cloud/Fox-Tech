@@ -159,7 +159,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
       setUsers(prev => prev.map(u => u.id === selectedStudent.id ? { ...u, balance: newBalance } : u));
       setSelectedStudent(prev => prev ? { ...prev, balance: newBalance } : null);
       
-      toast.success(`تم شحن رصيد بقيمة ${chargeAmt} ج.م للطالب ${selectedStudent.name} بنجاح! 🎉`);
+      toast.success(`تم شحن رصيد بقيمة ${chargeAmt} ج.م للطالب ${selectedStudent.name} بنجاح! `);
       setAmount('');
     } catch (e) {
       console.error(e);
@@ -198,7 +198,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
       });
 
       setGeneratedCode(code);
-      toast.success('تم توليد كود الشحن بنجاح! 🎫');
+      toast.success('تم توليد كود الشحن بنجاح! ');
       setAmount('');
       fetchRechargeCodes();
     } catch (e) {
@@ -212,7 +212,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
   const executeDeleteCode = async (codeId: string) => {
     try {
       await deleteDoc(doc(db, 'recharge_codes', codeId));
-      toast.success('تم حذف كارت الشحن بنجاح 🎉');
+      toast.success('تم حذف كارت الشحن بنجاح ');
       setCodeToDelete(null);
       fetchRechargeCodes();
     } catch (e) {
@@ -257,7 +257,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
         setSelectedStudent(prev => prev ? { ...prev, balance: newBalance } : null);
       }
 
-      toast.success(`تم اعتماد العملية وشحن رصيد ${req.amount} ج.م للطالب ${req.studentName} بنجاح! 🎉`);
+      toast.success(`تم اعتماد العملية وشحن رصيد ${req.amount} ج.م للطالب ${req.studentName} بنجاح! `);
     } catch (err) {
       console.error("Error approving transfer recharge request:", err);
       toast.error("فشل في اعتماد عملية الشحن");
@@ -279,7 +279,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
         reviewedBy: auth.currentUser?.email || 'admin'
       });
 
-      toast.success(`تم رفض طلب شحن الطالب ${rejectingRequest.studentName} بنجاح ❌`);
+      toast.success(`تم رفض طلب شحن الطالب ${rejectingRequest.studentName} بنجاح `);
       setRejectingRequest(null);
       setRejectionReason('');
     } catch (err) {
@@ -411,7 +411,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                       <p className="text-xs font-bold text-gray-400 mt-1">{selectedStudent.email || 'لا يوجد بريد إلكتروني مسجل'}</p>
                     </div>
                     <span className="bg-[#00B4D8]/10 text-sky-600 dark:bg-[#D4AF37]/10 dark:text-cyan-400 text-xs font-black px-3 py-1.5 rounded-full">
-                      طالب نشط بالمنصة 🎓
+                      طالب نشط بالمنصة 
                     </span>
                   </div>
 
@@ -513,7 +513,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                         className="p-6 bg-amber-50 dark:bg-amber-950/20 border-2 border-dashed border-amber-300 dark:border-amber-800/50 rounded-3xl text-center space-y-4"
                       >
                         <div>
-                          <span className="text-xs font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest block mb-1">كارت شحن {settings?.platformName || 'Fox Tech'} جاهز للاستخدام! 🎫</span>
+                          <span className="text-xs font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest block mb-1">كارت شحن {settings?.platformName || 'Fox Tech'} جاهز للاستخدام! </span>
                           <h5 className="text-sm font-bold text-gray-500 dark:text-gray-400">أرسل هذا الكود للطالب ليقوم بتفعيله وشحن محفظته تلقائياً:</h5>
                         </div>
 
@@ -525,7 +525,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                             type="button"
                             onClick={() => {
                               navigator.clipboard.writeText(generatedCode);
-                              toast.success('تم نسخ كود الشحن بنجاح! 📋');
+                              toast.success('تم نسخ كود الشحن بنجاح! ');
                             }}
                             className="flex items-center gap-1.5 px-4 py-3 bg-sky-600 dark:bg-cyan-500 hover:opacity-90 text-white rounded-2xl text-xs font-black transition-all shadow-sm active:scale-95 border-0 cursor-pointer"
                           >
@@ -542,7 +542,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                   <div className="w-16 h-16 bg-sky-500/10 dark:bg-cyan-400/10 text-sky-600 dark:text-cyan-400 rounded-full flex items-center justify-center mx-auto">
                     <UserIcon className="w-8 h-8" />
                   </div>
-                  <h4 className="text-lg font-black text-gray-900 dark:text-white">يرجى تحديد طالب من قائمة البحث أولاً 👆</h4>
+                  <h4 className="text-lg font-black text-gray-900 dark:text-white">يرجى تحديد طالب من قائمة البحث أولاً </h4>
                   <p className="text-xs text-gray-400 dark:text-gray-500 font-bold max-w-sm mx-auto">
                     ابحث عن اسم الطالب المطلوب، ثم حدده لعرض تفاصيله المالية، كشف مدفوعاته، وإتمام عمليات شحن الرصيد له.
                   </p>
@@ -597,11 +597,11 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                         <td className="py-4">
                           {codeDoc.used ? (
                             <span className="bg-red-50 text-red-600 dark:bg-red-950/20 dark:text-red-400 text-[10px] px-2.5 py-1 rounded-full font-black">
-                              مستخدمة ❌
+                              مستخدمة 
                             </span>
                           ) : (
                             <span className="bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 text-[10px] px-2.5 py-1 rounded-full font-black">
-                              جاهزة للاستخدام ✨
+                              جاهزة للاستخدام 
                             </span>
                           )}
                         </td>
@@ -614,7 +614,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                               type="button"
                               onClick={() => {
                                 navigator.clipboard.writeText(codeDoc.code);
-                                toast.success('تم نسخ كود الشحن بنجاح! 📋');
+                                toast.success('تم نسخ كود الشحن بنجاح! ');
                               }}
                               className="p-1.5 bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 rounded-lg border-0 cursor-pointer"
                               title="نسخ الكود"
@@ -659,9 +659,9 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                   }`}
                 >
                   {status === 'all' && 'الكل'}
-                  {status === 'pending' && 'قيد الانتظار ⏳'}
-                  {status === 'approved' && 'مقبولة 🎉'}
-                  {status === 'rejected' && 'مرفوضة ❌'}
+                  {status === 'pending' && 'قيد الانتظار '}
+                  {status === 'approved' && 'مقبولة '}
+                  {status === 'rejected' && 'مرفوضة '}
                 </button>
               ))}
             </div>
@@ -770,12 +770,12 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                   {/* Badges for status */}
                   {req.status === 'approved' && (
                     <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                      تم القبول وشحن الرصيد 🎉
+                      تم القبول وشحن الرصيد 
                     </div>
                   )}
                   {req.status === 'rejected' && (
                     <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
-                      طلب مرفوض ❌
+                      طلب مرفوض 
                     </div>
                   )}
                 </div>
@@ -810,7 +810,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                   هل أنت متأكد من رغبتك في حذف كود الشحن <span className="font-mono text-sky-600 dark:text-cyan-400 font-black">{codeToDelete}</span> نهائياً؟
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 p-2.5 rounded-xl font-bold leading-relaxed">
-                  ⚠️ تنبيه: هذا الإجراء نهائي ولا يمكن التراجع عنه! لن يتمكن الطالب من استخدام هذا الكارت لشحن رصيده بعد حذفه.
+                  ️ تنبيه: هذا الإجراء نهائي ولا يمكن التراجع عنه! لن يتمكن الطالب من استخدام هذا الكارت لشحن رصيده بعد حذفه.
                 </p>
               </div>
 
@@ -1449,11 +1449,11 @@ export default function AdminPanel({ initialTab, userData }: { initialTab?: 'stu
           subs.forEach((sub: any, idx: number) => {
             const score = sub.score || 0;
             let statusStr = 'مقبول';
-            if (score >= 90) statusStr = 'ممتاز ⭐️';
-            else if (score >= 80) statusStr = 'جيد جداً 👍';
+            if (score >= 90) statusStr = 'ممتاز ️';
+            else if (score >= 80) statusStr = 'جيد جداً ';
             else if (score >= 65) statusStr = 'جيد';
             else if (score >= 50) statusStr = 'مقبول';
-            else statusStr = 'يحتاج لمتابعة ⚠️';
+            else statusStr = 'يحتاج لمتابعة ️';
 
             records.push({
               id: sub.id || `sub-${idx}`,
@@ -1736,13 +1736,13 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
         tahsiliVideoUrl: (formData.get('tahsiliVideoUrl') as string) || '',
         quduratVideoProvider: (formData.get('quduratVideoProvider') as 'bunny' | 'tiktok' | 'youtube' | 'direct') || 'youtube',
         tahsiliVideoProvider: (formData.get('tahsiliVideoProvider') as 'bunny' | 'tiktok' | 'youtube' | 'direct') || 'youtube',
-        quduratVideoTitle: (formData.get('quduratVideoTitle') as string) || 'الفيديو التعريفي لمسار القدرات 🎯',
-        tahsiliVideoTitle: (formData.get('tahsiliVideoTitle') as string) || 'الفيديو التعريفي لمسار التحصيلي 🚀',
+        quduratVideoTitle: (formData.get('quduratVideoTitle') as string) || 'الفيديو التعريفي لمسار القدرات ',
+        tahsiliVideoTitle: (formData.get('tahsiliVideoTitle') as string) || 'الفيديو التعريفي لمسار التحصيلي ',
         quduratVideoPoster: quduratVideoPoster || '',
         tahsiliVideoPoster: tahsiliVideoPoster || '',
         heroVideoUrl: (formData.get('heroVideoUrl') as string) || '',
         heroVideoProvider: (formData.get('heroVideoProvider') as 'bunny' | 'tiktok' | 'youtube' | 'direct') || 'youtube',
-        heroVideoTitle: (formData.get('heroVideoTitle') as string) || 'الفيديو التعريفي لمنصة Fox Tech 🚀',
+        heroVideoTitle: (formData.get('heroVideoTitle') as string) || 'الفيديو التعريفي لمنصة Fox Tech ',
         heroVideoPoster: heroVideoPoster || '',
         privacyPolicyText: (formData.get('privacyPolicyText') as string) || platformSettings.privacyPolicyText || '',
         termsConditionsText: (formData.get('termsConditionsText') as string) || platformSettings.termsConditionsText || '',
@@ -1761,7 +1761,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       setQuduratVideoPosterFile(null);
       setTahsiliVideoPosterFile(null);
       setHeroVideoPosterFile(null);
-      toast.success("تم حفظ إعدادات المنصة وتحديثها بنجاح! ✨");
+      toast.success("تم حفظ إعدادات المنصة وتحديثها بنجاح! ");
     } catch (err) {
       console.error("Error saving settings:", err);
       toast.error("فشل في حفظ إعدادات المنصة");
@@ -1778,7 +1778,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       });
       // Update local state
       setUsers(prev => prev.map(u => u.id === user.id ? { ...u, status: 'approved', isApproved: true } : u));
-      toast.success(`تم قبول طلب تسجيل ${user.name} بنجاح ✅`);
+      toast.success(`تم قبول طلب تسجيل ${user.name} بنجاح `);
     } catch (error) {
       console.error("Error approving special registration:", error);
       toast.error('فشل قبول الطلب');
@@ -1794,7 +1794,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       });
       // Update local state
       setUsers(prev => prev.map(u => u.id === user.id ? { ...u, status: 'rejected', isApproved: false } : u));
-      toast.error(`تم رفض طلب تسجيل ${user.name} ❌`);
+      toast.error(`تم رفض طلب تسجيل ${user.name} `);
     } catch (error) {
       console.error("Error rejecting special registration:", error);
       toast.error('فشل رفض الطلب');
@@ -1810,7 +1810,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       setUsers(prev => prev.map(u => u.id === userId ? { ...u, isApproved: true } : u));
       
       const roleName = role === 'teacher' ? 'المعلم' : role === 'parent' ? 'ولي الأمر' : 'الطالب';
-      toast.success(`تم قبول وتفعيل حساب ${roleName} ${name} بنجاح! 🎉`);
+      toast.success(`تم قبول وتفعيل حساب ${roleName} ${name} بنجاح! `);
     } catch (err) {
       console.error("Error approving user:", err);
       toast.error("حدث خطأ أثناء تفعيل الحساب");
@@ -1888,14 +1888,14 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       // 4. Send a notification to the student
       await addDoc(collection(db, 'notifications'), {
         userId: payment.userId,
-        title: "تم تفعيل اشتراكك بنجاح! 🎉",
+        title: "تم تفعيل اشتراكك بنجاح! ",
         message: `تمت الموافقة على اشتراكك في كورس "${payment.courseTitle}" وتفعيله. يمكنك الآن البدء في مشاهدة الدروس.`,
         read: false,
         createdAt: new Date().toISOString(),
         type: "enrollment"
       });
 
-      toast.success(`تم قبول طلب الطالب ${payment.senderName} وتفعيل الكورس بنجاح! ✨`);
+      toast.success(`تم قبول طلب الطالب ${payment.senderName} وتفعيل الكورس بنجاح! `);
     } catch (error) {
       console.error("Error approving payment:", error);
       toast.error("حدث خطأ أثناء قبول الطلب. الرجاء المحاولة مجدداً.");
@@ -1927,14 +1927,14 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       // 3. Send a notification to the student
       await addDoc(collection(db, 'notifications'), {
         userId: payment.userId,
-        title: "تم تفعيل مراجعتك بنجاح! 🎉",
+        title: "تم تفعيل مراجعتك بنجاح! ",
         message: `تمت الموافقة على اشتراكك في مراجعة "${payment.reviewTitle}" وتفعيلها. يمكنك الآن البدء في المذاكرة.`,
         read: false,
         createdAt: new Date().toISOString(),
         type: "enrollment"
       });
 
-      toast.success(`تم قبول طلب الطالب ${payment.senderName} وتفعيل المراجعة بنجاح! ✨`);
+      toast.success(`تم قبول طلب الطالب ${payment.senderName} وتفعيل المراجعة بنجاح! `);
     } catch (error) {
       console.error("Error approving review payment:", error);
       toast.error("حدث خطأ أثناء قبول الطلب. الرجاء المحاولة مجدداً.");
@@ -1972,7 +1972,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       // 2. Send a notification to the student
       await addDoc(collection(db, 'notifications'), {
         userId: selectedPayment.userId,
-        title: isReview ? "تم رفض طلب اشتراكك في المراجعة ❌" : "تم رفض طلب اشتراكك ❌",
+        title: isReview ? "تم رفض طلب اشتراكك في المراجعة " : "تم رفض طلب اشتراكك ",
         message: `تم رفض طلب اشتراكك في ${isReview ? 'مراجعة' : 'كورس'} "${title}". السبب: ${rejectionReason.trim()}`,
         read: false,
         createdAt: new Date().toISOString(),
@@ -2073,7 +2073,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       await updateDoc(doc(db, 'courses', courseId), {
         isActive: !currentStatus
       });
-      toast.success(currentStatus ? 'تم إلغاء تفعيل الكورس بنجاح' : 'تم تفعيل الكورس بنجاح 🎉');
+      toast.success(currentStatus ? 'تم إلغاء تفعيل الكورس بنجاح' : 'تم تفعيل الكورس بنجاح ');
     } catch (e) {
       console.error(e);
       toast.error('حدث خطأ أثناء تعديل حالة الكورس');
@@ -2096,7 +2096,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
         subject,
         price: Number(price)
       });
-      toast.success('تم تحديث بيانات الكورس بنجاح ✨');
+      toast.success('تم تحديث بيانات الكورس بنجاح ');
       setSelectedCourseForEdit(null);
     } catch (err) {
       console.error(err);
@@ -2110,7 +2110,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
   const executeDeleteCourse = async (courseId: string) => {
     try {
       await deleteDoc(doc(db, 'courses', courseId));
-      toast.success('تم حذف الكورس نهائياً بنجاح 🗑️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ️');
       setCourseToDelete(null);
     } catch (err) {
       console.error(err);
@@ -2140,7 +2140,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       // Send a notification to the student
       await addDoc(collection(db, 'notifications'), {
         userId: studentId,
-        title: "تم إلغاء تفعيل اشتراك الكورس ⚠️",
+        title: "تم إلغاء تفعيل اشتراك الكورس ️",
         message: `تم إلغاء تفعيل اشتراكك في كورس "${course.title}" بواسطة الإدارة.`,
         read: false,
         createdAt: new Date().toISOString(),
@@ -2604,10 +2604,10 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   className="w-full bg-white dark:bg-[#0D121F] border border-gray-200 dark:border-slate-800 rounded-xl pr-10 pl-4 py-2.5 text-sm font-bold text-gray-700 dark:text-gray-300 outline-none focus:border-sky-500 dark:focus:border-cyan-500 transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">كل المسارات</option>
-                  <option value="qudurat">مسار القدرات 🎯</option>
-                  <option value="tahsili">مسار التحصيلي 🚀</option>
-                  <option value="both">المسارين معاً 💫</option>
-                  <option value="regular">المسار العام 🏫</option>
+                  <option value="qudurat">مسار القدرات </option>
+                  <option value="tahsili">مسار التحصيلي </option>
+                  <option value="both">المسارين معاً </option>
+                  <option value="regular">المسار العام </option>
                 </select>
               </div>
             ) : (
@@ -2821,14 +2821,14 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2.5 flex-wrap">
                           <h4 className="text-base font-black text-gray-900 dark:text-white">
-                            التحكم الرئيسي الشامل في مسار القدرات والتحصيلي 🎯
+                            التحكم الرئيسي الشامل في مسار القدرات والتحصيلي 
                           </h4>
                           <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full border ${
                             platformSettings.enableQuduratTahsili !== false
                               ? 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
                               : 'bg-rose-50 dark:bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-500/30'
                           }`}>
-                            {platformSettings.enableQuduratTahsili !== false ? 'مفعل وشغال للجميع 🟢' : 'معطل ومخفي بالكامل 🔒'}
+                            {platformSettings.enableQuduratTahsili !== false ? 'مفعل وشغال للجميع ' : 'معطل ومخفي بالكامل '}
                           </span>
                         </div>
                         <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium leading-relaxed max-w-3xl">
@@ -2856,7 +2856,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                               showQuduratSection: newVal,
                               showTahsiliSection: newVal
                             });
-                            toast.success(newVal ? 'تم تفعيل مسار القدرات والتحصيلي لجميع الطلاب فوراً! 🚀' : 'تم تعطيل وإخفاء مسار القدرات والتحصيلي عن الجميع فوراً! 🔒');
+                            toast.success(newVal ? 'تم تفعيل مسار القدرات والتحصيلي لجميع الطلاب فوراً! ' : 'تم تعطيل وإخفاء مسار القدرات والتحصيلي عن الجميع فوراً! ');
                           } catch (e) {
                             toast.error('حدث خطأ أثناء المزامنة اللحظية');
                           }
@@ -2912,7 +2912,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              قسم مراجعات القدرات 🎯
+                              قسم مراجعات القدرات 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Qudurat Section</span>
                           </div>
@@ -2940,7 +2940,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                                   ...platformSettings,
                                   showQuduratSection: newVal
                                 });
-                                toast.success(newVal ? 'تم تفعيل قسم القدرات 🎯' : 'تم إخفاء قسم القدرات 🔒');
+                                toast.success(newVal ? 'تم تفعيل قسم القدرات ' : 'تم إخفاء قسم القدرات ');
                               } catch (e) {
                                 toast.error('حدث خطأ');
                               }
@@ -2989,7 +2989,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              قسم مراجعات التحصيلي 🚀
+                              قسم مراجعات التحصيلي 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Tahsili Section</span>
                           </div>
@@ -3017,7 +3017,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                                   ...platformSettings,
                                   showTahsiliSection: newVal
                                 });
-                                toast.success(newVal ? 'تم تفعيل قسم التحصيلي 🚀' : 'تم إخفاء قسم التحصيلي 🔒');
+                                toast.success(newVal ? 'تم تفعيل قسم التحصيلي ' : 'تم إخفاء قسم التحصيلي ');
                               } catch (e) {
                                 toast.error('حدث خطأ');
                               }
@@ -3066,7 +3066,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              الصفوف والمراحل الدراسية 🎓
+                              الصفوف والمراحل الدراسية 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Grades & Stages</span>
                           </div>
@@ -3142,7 +3142,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              المواد والكورسات الدراسية 📚
+                              المواد والكورسات الدراسية 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Subjects Grid</span>
                           </div>
@@ -3218,7 +3218,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              مميزات المنصة والرحلة 🚀
+                              مميزات المنصة والرحلة 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Features & Journey</span>
                           </div>
@@ -3294,7 +3294,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                           </div>
                           <div>
                             <h5 className="text-sm font-black text-gray-900 dark:text-white">
-                              الأسئلة الشائعة (FAQ) ❓
+                              الأسئلة الشائعة (FAQ) 
                             </h5>
                             <span className="text-[11px] text-gray-400 font-medium">Frequently Asked Questions</span>
                           </div>
@@ -3373,7 +3373,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   <div className="p-4 bg-white dark:bg-[#0D121F] rounded-xl border border-gray-100 dark:border-[#222230] space-y-4 shadow-sm">
                     <h4 className="text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 border-b border-gray-100 dark:border-[#222230] pb-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      الفيديو التعريفي لمسار القدرات 🎯
+                      الفيديو التعريفي لمسار القدرات 
                     </h4>
                     <div className="space-y-3">
                       <div>
@@ -3381,7 +3381,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                         <input
                           type="text"
                           name="quduratVideoTitle"
-                          defaultValue={platformSettings.quduratVideoTitle || 'الفيديو التعريفي لمسار القدرات 🎯'}
+                          defaultValue={platformSettings.quduratVideoTitle || 'الفيديو التعريفي لمسار القدرات '}
                           className="w-full bg-gray-50 dark:bg-[#090D16]/40 border border-gray-200 dark:border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-emerald-500 dark:text-white font-bold text-xs"
                           placeholder="مثال: فجر طاقتك الكامنة واضمن الـ +95٪ مع شرحنا التفاعلي!"
                         />
@@ -3456,7 +3456,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   <div className="p-4 bg-white dark:bg-[#0D121F] rounded-xl border border-gray-100 dark:border-[#222230] space-y-4 shadow-sm">
                     <h4 className="text-xs sm:text-sm font-black text-purple-600 dark:text-purple-400 flex items-center gap-1.5 border-b border-gray-100 dark:border-[#222230] pb-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-                      الفيديو التعريفي لمسار التحصيلي 🚀
+                      الفيديو التعريفي لمسار التحصيلي 
                     </h4>
                     <div className="space-y-3">
                       <div>
@@ -3464,7 +3464,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                         <input
                           type="text"
                           name="tahsiliVideoTitle"
-                          defaultValue={platformSettings.tahsiliVideoTitle || 'الفيديو التعريفي لمسار التحصيلي 🚀'}
+                          defaultValue={platformSettings.tahsiliVideoTitle || 'الفيديو التعريفي لمسار التحصيلي '}
                           className="w-full bg-gray-50 dark:bg-[#090D16]/40 border border-gray-200 dark:border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-purple-500 dark:text-white font-bold text-xs"
                           placeholder="مثال: دليلك الشامل لتقفيل درجات التحصيلي في أقصر وقت وبأقل مجهود!"
                         />
@@ -3568,14 +3568,14 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   <div className="p-4 bg-white dark:bg-[#0D121F] rounded-xl border border-gray-200 dark:border-slate-800 space-y-3 mt-4">
                     <h4 className="text-xs sm:text-sm font-black text-sky-600 dark:text-cyan-400 flex items-center gap-1.5 border-b border-gray-100 dark:border-[#222230] pb-2">
                       <Film className="w-4 h-4 text-sky-600 dark:text-cyan-400" />
-                      الفيديو التعريفي للمنصة (الظاهر في الهيرو الرئيسي) 🎬
+                      الفيديو التعريفي للمنصة (الظاهر في الهيرو الرئيسي) 
                     </h4>
                     <div>
                       <label className="text-xs font-bold text-gray-500 block mb-1">عنوان الفيديو التعريفي</label>
                       <input
                         type="text"
                         name="heroVideoTitle"
-                        defaultValue={platformSettings.heroVideoTitle || 'الفيديو التعريفي لمنصة Fox Tech 🚀'}
+                        defaultValue={platformSettings.heroVideoTitle || 'الفيديو التعريفي لمنصة Fox Tech '}
                         className="w-full bg-gray-50 dark:bg-[#090D16]/40 border border-gray-200 dark:border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-sky-500 dark:text-white font-bold text-xs"
                         placeholder="مثال: جولة داخل المنصة والتعرف على المزايا الكبيرة"
                       />
@@ -3647,13 +3647,13 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                     </div>
                   </div>
 
-                  {/* Hero Curriculum & Topics Card (المحتوى ⚡) */}
+                  {/* Hero Curriculum & Topics Card (المحتوى ) */}
                   <div className="p-5 bg-white dark:bg-[#0D121F] rounded-2xl border border-gray-200 dark:border-slate-800 space-y-5 mt-5 shadow-xs">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 dark:border-white/10 pb-3">
                       <div>
                         <h4 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-amber-500" />
-                          تخصيص بطاقة المحتوى والمنهج الدراسي (المحتوى ⚡)
+                          تخصيص بطاقة المحتوى والمنهج الدراسي (المحتوى )
                         </h4>
                         <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
                           إمكانية تعديل، إضافة، حذف وإعادة ترتيب عناصر كارت المحتوى ومواعيد الإنطلاق بالصفحة الرئيسية
@@ -3799,7 +3799,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-black text-blue-700 dark:text-blue-300">
-                            إضافة موضوع / عنصر جديد للمحتوى ⚡
+                            إضافة موضوع / عنصر جديد للمحتوى 
                           </span>
                           <button
                             type="button"
@@ -3899,7 +3899,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                                 <>
                                   <div className="flex items-center gap-2.5 min-w-0">
                                     <div className="w-6 h-6 rounded-full bg-[#D4F800] text-[#0A102E] flex items-center justify-center text-[11px] font-black shrink-0">
-                                      ✓
+                                      
                                     </div>
                                     <span className="text-xs sm:text-sm font-bold text-gray-800 dark:text-gray-100 truncate">
                                       {item}
@@ -4603,7 +4603,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                     <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-base">💳</span>
+                          <span className="text-base"></span>
                           <h5 className="text-sm font-bold text-gray-900 dark:text-white">طرق دفع إضافية مخصصة</h5>
                         </div>
                         <button
@@ -4771,7 +4771,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                     <div className="bg-rose-50/30 dark:bg-rose-950/10 border border-rose-100 dark:border-rose-900/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-base">💰</span>
+                          <span className="text-base"></span>
                           <h5 className="text-sm font-bold text-gray-900 dark:text-white">فودافون كاش</h5>
                         </div>
                         <label className="flex items-center cursor-pointer relative">
@@ -4803,7 +4803,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                     <div className="bg-purple-50/30 dark:bg-purple-950/10 border border-purple-100 dark:border-purple-900/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-base">⚡</span>
+                          <span className="text-base"></span>
                           <h5 className="text-sm font-bold text-gray-900 dark:text-white">إنستاباي (Instapay)</h5>
                         </div>
                         <label className="flex items-center cursor-pointer relative">
@@ -4835,7 +4835,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                     <div className="bg-blue-50/30 dark:bg-blue-950/10 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-base">🏦</span>
+                          <span className="text-base"></span>
                           <h5 className="text-sm font-bold text-gray-900 dark:text-white">تحويل بنكي</h5>
                         </div>
                         <label className="flex items-center cursor-pointer relative">
@@ -5140,9 +5140,9 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                         }`}
                       >
                         {type === 'all' && 'الكل'}
-                        {type === 'qudurat' && 'القدرات 🎯'}
-                        {type === 'tahsili' && 'التحصيلي 🚀'}
-                        {type === 'both' && 'المسارين معاً 💫'}
+                        {type === 'qudurat' && 'القدرات '}
+                        {type === 'tahsili' && 'التحصيلي '}
+                        {type === 'both' && 'المسارين معاً '}
                       </button>
                     ))}
                   </div>
@@ -5372,7 +5372,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                                         {paymentSubTab === 'courses' ? payment.courseTitle : payment.reviewTitle}
                                       </span>
                                       <span className="text-[10px] font-bold text-gray-400 mt-1 whitespace-nowrap">
-                                        {paymentSubTab === 'courses' ? 'كورس تفاعلي' : (payment.reviewType === 'tahsili' ? 'مراجعة تحصيلي 🎯' : 'مراجعة قدرات 🚀')}
+                                        {paymentSubTab === 'courses' ? 'كورس تفاعلي' : (payment.reviewType === 'tahsili' ? 'مراجعة تحصيلي ' : 'مراجعة قدرات ')}
                                       </span>
                                     </div>
                                   </td>
@@ -6864,7 +6864,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                 <div className="flex justify-between border-b border-slate-200 pb-1.5">
                   <span className="text-slate-500">حالة الحساب والنشاط:</span>
                   <span className="text-emerald-700 font-extrabold flex items-center gap-1">
-                    ✓ حساب نشط ومفعل بالكامل
+                     حساب نشط ومفعل بالكامل
                   </span>
                 </div>
               </div>
@@ -7235,7 +7235,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   هل أنت متأكد من رغبتك في حذف الكورس <span className="text-sky-600 dark:text-cyan-400 font-black">"{courseToDelete.title}"</span> للأبد؟
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 p-3 rounded-xl font-bold leading-relaxed mt-3">
-                  ⚠️ تنبيه: هذا الإجراء سيمسح الكورس ومقاطع الفيديو وكل تفاصيله من السيرفر. لن يتمكن أي طالب من مشاهدته بعد الآن حتى وإن كان قد اشترك فيه مسبقاً!
+                  ️ تنبيه: هذا الإجراء سيمسح الكورس ومقاطع الفيديو وكل تفاصيله من السيرفر. لن يتمكن أي طالب من مشاهدته بعد الآن حتى وإن كان قد اشترك فيه مسبقاً!
                 </p>
               </div>
               <div className="flex gap-3">

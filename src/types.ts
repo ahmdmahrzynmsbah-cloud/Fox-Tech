@@ -254,6 +254,7 @@ export interface Quiz {
   createdBy: string;
   createdAt: string;
   isHidden?: boolean;
+  maxAttempts?: number;
 }
 
 export interface QuizSubmission {

@@ -40,11 +40,11 @@ const getStudentReportRecords = (
   submissions.forEach((sub, idx) => {
     const score = sub.score || 0;
     let statusStr = 'مقبول';
-    if (score >= 90) statusStr = 'ممتاز ⭐️';
-    else if (score >= 80) statusStr = 'جيد جداً 👍';
+    if (score >= 90) statusStr = 'ممتاز ️';
+    else if (score >= 80) statusStr = 'جيد جداً ';
     else if (score >= 65) statusStr = 'جيد';
     else if (score >= 50) statusStr = 'مقبول';
-    else statusStr = 'يحتاج لمتابعة ⚠️';
+    else statusStr = 'يحتاج لمتابعة ️';
 
     records.push({
       id: sub.id || `sub-${idx}`,
@@ -1304,7 +1304,7 @@ export default function ComprehensiveAnalytics({ userData, linkedStudent }: Comp
                         </div>
                         <div className="flex justify-between">
                           <span>رصيد نقاط التميز الحالية (النجوم):</span>
-                          <span className="text-amber-500 font-mono">{displayUser?.points || 0} ⭐️</span>
+                          <span className="text-amber-500 font-mono">{displayUser?.points || 0} ️</span>
                         </div>
                       </div>
                     </div>
@@ -1322,9 +1322,9 @@ export default function ComprehensiveAnalytics({ userData, linkedStudent }: Comp
                         <div className="flex justify-between">
                           <span>المستوى العام للتفوق الدراسي:</span>
                           <span className="text-slate-900">
-                            {studentStats.averageQuizScore >= 90 ? 'ممتاز جداً 🏆' : 
-                             studentStats.averageQuizScore >= 80 ? 'جيد جداً مرتفع ⭐️' : 
-                             studentStats.averageQuizScore >= 65 ? 'جيد ومجتهد 👍' : 
+                            {studentStats.averageQuizScore >= 90 ? 'ممتاز جداً ' : 
+                             studentStats.averageQuizScore >= 80 ? 'جيد جداً مرتفع ️' : 
+                             studentStats.averageQuizScore >= 65 ? 'جيد ومجتهد ' : 
                              studentStats.averageQuizScore >= 50 ? 'مقبول وننصح بالاستمرار' : 'يحتاج لمتابعة مستمرة'}
                           </span>
                         </div>

@@ -94,7 +94,7 @@ export default function SubscriptionRequests({ adminUserData }: SubscriptionRequ
         status: 'approved',
         isApproved: true
       });
-      toast.success(`تم قبول وتفعيل طلب الطالب ${user.name} بنجاح! 🎉`);
+      toast.success(`تم قبول وتفعيل طلب الطالب ${user.name} بنجاح! `);
     } catch (error) {
       console.error("Error approving request:", error);
       toast.error('فشل في قبول الطلب، يرجى المحاولة لاحقاً.');
@@ -112,7 +112,7 @@ export default function SubscriptionRequests({ adminUserData }: SubscriptionRequ
         status: 'rejected',
         isApproved: false
       });
-      toast.error(`تم رفض طلب الطالب ${user.name} ❌`);
+      toast.error(`تم رفض طلب الطالب ${user.name} `);
     } catch (error) {
       console.error("Error rejecting request:", error);
       toast.error('فشل في رفض الطلب، يرجى المحاولة لاحقاً.');

@@ -92,7 +92,7 @@ export default function TikTokPlayer({ videoUrl }: { videoUrl: string }) {
               className="inline-flex items-center gap-2 bg-[#fe2c55] hover:bg-[#e11d48] text-white font-black text-xs md:text-sm px-6 py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
             >
               <TikTokIcon />
-              <span>اضغط هنا لمشاهدة الفيديو مباشرة 🔗</span>
+              <span>اضغط هنا لمشاهدة الفيديو مباشرة </span>
             </a>
           </div>
         ) : (

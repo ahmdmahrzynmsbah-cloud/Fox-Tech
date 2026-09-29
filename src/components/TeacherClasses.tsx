@@ -132,7 +132,7 @@ export default function TeacherClasses({ userData }: TeacherClassesProps) {
         ));
 
         resetForm();
-        toast.success('تم تحديث الكورس بنجاح! ✨');
+        toast.success('تم تحديث الكورس بنجاح! ');
       } else {
         // Create Mode
         const newCourseData = {
@@ -165,7 +165,7 @@ export default function TeacherClasses({ userData }: TeacherClassesProps) {
           const notificationPromises = studentsSnap.docs.map(studentDoc => {
             return addDoc(collection(db, 'notifications'), {
               userId: studentDoc.id,
-              title: 'كورس جديد متاح لصفك الدراسي! 📚',
+              title: 'كورس جديد متاح لصفك الدراسي! ',
               message: `قام الأستاذ ${userData.name} بنشر كورس جديد بعنوان "${title}" في مادة ${userData.subject || 'مادته الدراسية'}.`,
               type: 'new_course_alert',
               read: false,

@@ -429,7 +429,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ userData, linkedStudent }) => 
 
       await addDoc(collection(db, 'chat_messages'), newMsg);
 
-      toast.success('تم إرسال الرسالة بنجاح 🚀');
+      toast.success('تم إرسال الرسالة بنجاح ');
       setIsComposeOpen(false);
       setMsgTitle('');
       setMsgContent('');

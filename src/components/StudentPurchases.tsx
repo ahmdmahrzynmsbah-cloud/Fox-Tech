@@ -121,7 +121,7 @@ export default function StudentPurchases({ userData }: { userData: any }) {
                 <div class="info-value">${date}</div>
                 <div class="info-label" style="margin-top: 12px;">حالة الطلب</div>
                 <div class="info-value" style="color: #10b981; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
-                  مكتمل <span style="font-size: 16px;">✓</span>
+                  مكتمل <span style="font-size: 16px;"></span>
                 </div>
               </div>
             </div>

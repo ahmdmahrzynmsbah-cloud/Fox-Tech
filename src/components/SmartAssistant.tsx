@@ -19,7 +19,7 @@ export default function SmartAssistant({ userData }: SmartAssistantProps) {
     {
       id: '1',
       role: 'assistant',
-      content: `أهلاً بك ${userData?.name?.split(' ')[0] || 'يا صديقي'}! 👋\nأنا المساعد الذكي الخاص بك. يمكنني مساعدتك في شرح الدروس، حل المسائل المعقدة، أو تلخيص أي موضوع.\nكيف يمكنني مساعدتك اليوم؟`,
+      content: `أهلاً بك ${userData?.name?.split(' ')[0] || 'يا صديقي'}! \nأنا المساعد الذكي الخاص بك. يمكنني مساعدتك في شرح الدروس، حل المسائل المعقدة، أو تلخيص أي موضوع.\nكيف يمكنني مساعدتك اليوم؟`,
       timestamp: new Date()
     }
   ]);

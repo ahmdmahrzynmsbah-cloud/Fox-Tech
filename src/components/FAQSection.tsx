@@ -80,7 +80,7 @@ export default function FAQSection() {
           rel="noopener noreferrer" 
           className="inline-flex items-center gap-2 bg-[#D4F800] hover:bg-[#c2e400] text-[#0A102E] px-8 py-3 rounded-xl font-black transition-all shadow-md cursor-pointer"
         >
-          تواصل مع الدعم الفني ⚡
+          تواصل مع الدعم الفني 
         </a>
       </div>
     </div>

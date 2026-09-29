@@ -136,14 +136,14 @@ export default function ComprehensiveBankBuilder({
 
       if (editingBankId) {
         await setDoc(doc(db, "questionBanks", editingBankId), bankData, { merge: true });
-        toast.success("تم تحديث بنك الأسئلة بنجاح 🎉");
+        toast.success("تم تحديث بنك الأسئلة بنجاح ");
         onSaveSuccess({ id: editingBankId, ...bankData });
       } else {
         const docRef = await addDoc(collection(db, "questionBanks"), {
           ...bankData,
           createdAt: serverTimestamp()
         });
-        toast.success("تم إنشاء بنك الأسئلة بنجاح 🎉");
+        toast.success("تم إنشاء بنك الأسئلة بنجاح ");
         onSaveSuccess({ id: docRef.id, ...bankData, createdAt: new Date() });
       }
       
@@ -366,7 +366,7 @@ export default function ComprehensiveBankBuilder({
                 className="px-6 py-3 bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] text-white rounded-2xl text-xs font-black shadow-lg transition-all flex items-center gap-1.5 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
-                {saving ? "جاري الحفظ..." : "حفظ بنك الأسئلة 🚀"}
+                {saving ? "جاري الحفظ..." : "حفظ بنك الأسئلة "}
               </button>
             </div>
           </div>

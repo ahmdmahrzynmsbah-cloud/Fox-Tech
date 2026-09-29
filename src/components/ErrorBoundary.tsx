@@ -52,7 +52,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
               onClick={() => window.location.reload()}
               className="w-full py-3 px-4 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-all shadow-lg"
             >
-              إعادة تحميل الصفحة 🔄
+              إعادة تحميل الصفحة 
             </button>
           </div>
         </div>

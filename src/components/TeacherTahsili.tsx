@@ -69,7 +69,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
       const base64 = await compressImageToBase64(file, 800, 600);
       setThumbnailProgress(100);
       setThumbnail(base64);
-      toast.success('تم رفع وحفظ صورة الغلاف بنجاح! 📸');
+      toast.success('تم رفع وحفظ صورة الغلاف بنجاح! ');
     } catch (err: any) {
       console.error('Thumbnail upload failed:', err);
       toast.error('فشل معالجة صورة الغلاف: ' + (err.message || ''));
@@ -87,7 +87,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
       const base64 = await compressImageToBase64(file, 800, 600);
       setPromoImageProgress(100);
       setPromoImage(base64);
-      toast.success('تم رفع وحفظ الصورة الترويجية بنجاح! 📸');
+      toast.success('تم رفع وحفظ الصورة الترويجية بنجاح! ');
     } catch (err: any) {
       console.error('Promo image upload failed:', err);
       toast.error('فشل معالجة الصورة الترويجية: ' + (err.message || ''));
@@ -110,7 +110,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
         setVideoUrl(result);
         setBunnyVideoId('');
       }
-      toast.success('تم رفع ملف الفيديو بنجاح! 🎥');
+      toast.success('تم رفع ملف الفيديو بنجاح! ');
     } catch (err: any) {
       console.error('Video upload failed:', err);
       toast.error('فشل رفع الفيديو: ' + (err.message || ''));
@@ -129,7 +129,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
       });
       setPdfProgress(100);
       setPdfUrl(url);
-      toast.success('تم رفع ملف المذكرة الـ PDF بنجاح! 📄');
+      toast.success('تم رفع ملف المذكرة الـ PDF بنجاح! ');
     } catch (err: any) {
       console.error('PDF upload failed:', err);
       toast.error('فشل رفع ملف الـ PDF: ' + (err.message || ''));
@@ -328,7 +328,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
           });
         }
 
-        toast.success('تم تحديث مراجعة التحصيلي بنجاح ✨');
+        toast.success('تم تحديث مراجعة التحصيلي بنجاح ');
       } else {
         const completePayload = {
           ...payload,
@@ -349,7 +349,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
           });
         }
 
-        toast.success('تمت إضافة مراجعة تحصيلي جديدة بنجاح 🎉');
+        toast.success('تمت إضافة مراجعة تحصيلي جديدة بنجاح ');
       }
       setShowModal(false);
     } catch (err) {
@@ -369,7 +369,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
   const confirmDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'tahsili_reviews', id));
-      toast.success('تم حذف المراجعة بنجاح ✨');
+      toast.success('تم حذف المراجعة بنجاح ');
     } catch (err) {
       console.error('Error deleting Tahsili review:', err);
       toast.error('فشل في حذف المراجعة');
@@ -386,7 +386,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
         status: nextStatus,
         updatedAt: new Date().toISOString()
       });
-      toast.success(nextStatus === 'published' ? 'تم النشر بنجاح 🟢' : 'تم الإخفاء بنجاح 🔴');
+      toast.success(nextStatus === 'published' ? 'تم النشر بنجاح ' : 'تم الإخفاء بنجاح ');
     } catch (err) {
       console.error('Error toggling status:', err);
       toast.error('فشل تعديل حالة النشر');
@@ -414,7 +414,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
               <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
               <span>المنتج الممتاز المخصص: مراجعات التحصيلي</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black">إدارة قسم مراجعات التحصيلي 🎓</h1>
+            <h1 className="text-2xl sm:text-3xl font-black">إدارة قسم مراجعات التحصيلي </h1>
             <p className="text-white/80 font-bold text-xs sm:text-sm max-w-xl leading-relaxed">
               قم بإنشاء وتعديل مراجعات التحصيلي المدفوعة للطلاب. المراجعات تظهر للطلاب كمنتج متميز منفصل لمساعدتهم على اجتياز اختبار التحصيلي بتفوق.
             </p>
@@ -830,7 +830,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                         ) : thumbnail ? (
                           <div className="space-y-2">
                             <img src={thumbnail} alt="Preview" className="h-16 w-24 object-cover rounded-lg border border-gray-200 dark:border-slate-800 mx-auto" />
-                            <p className="text-[10px] text-emerald-500 font-bold">تم تعيين الغلاف بنجاح ✓</p>
+                            <p className="text-[10px] text-emerald-500 font-bold">تم تعيين الغلاف بنجاح </p>
                           </div>
                         ) : (
                           <>
@@ -876,7 +876,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                         ) : promoImage ? (
                           <div className="space-y-2">
                             <img src={promoImage} alt="Preview" className="h-16 w-24 object-cover rounded-lg border border-gray-200 dark:border-slate-800 mx-auto" />
-                            <p className="text-[10px] text-emerald-500 font-bold">تم تعيين الصورة بنجاح ✓</p>
+                            <p className="text-[10px] text-emerald-500 font-bold">تم تعيين الصورة بنجاح </p>
                           </div>
                         ) : (
                           <>
@@ -927,7 +927,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                             <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
                               <CheckCircle2 className="w-6 h-6" />
                             </div>
-                            <p className="text-xs font-black text-emerald-500">تم رفع الفيديو وحفظه بنجاح! ✓</p>
+                            <p className="text-xs font-black text-emerald-500">تم رفع الفيديو وحفظه بنجاح! </p>
                             <p className="text-[10px] text-gray-400 font-mono">معرّف الفيديو: {bunnyVideoId}</p>
                           </div>
                         ) : videoUrl ? (
@@ -935,7 +935,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                             <div className="w-12 h-12 bg-blue-50 dark:bg-blue-950/20 text-blue-500 rounded-full flex items-center justify-center mx-auto">
                               <Video className="w-6 h-6" />
                             </div>
-                            <p className="text-xs font-black text-blue-500">تم تعيين رابط الفيديو بنجاح ✓</p>
+                            <p className="text-xs font-black text-blue-500">تم تعيين رابط الفيديو بنجاح </p>
                             <p className="text-[10px] text-gray-400 font-mono line-clamp-1 max-w-sm mx-auto">{videoUrl}</p>
                           </div>
                         ) : (
@@ -1030,7 +1030,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                               <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
                                 <CheckCircle2 className="w-5 h-5" />
                               </div>
-                              <p className="text-xs font-black text-emerald-500">تم رفع الملف بنجاح ✓</p>
+                              <p className="text-xs font-black text-emerald-500">تم رفع الملف بنجاح </p>
                               <p className="text-[10px] text-gray-400 dark:text-gray-500 font-mono line-clamp-1 max-w-[200px] mx-auto text-center" style={{ direction: 'ltr' }}>
                                 {pdfUrl.substring(pdfUrl.lastIndexOf('/') + 1) || 'pdf_document.pdf'}
                               </p>
@@ -1137,9 +1137,9 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                       onChange={(e) => setStatus(e.target.value as any)}
                       className="w-full px-4 py-3 bg-gray-50 dark:bg-[#090D16] border border-gray-200 dark:border-slate-800 rounded-2xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
                     >
-                      <option value="published">منشور للطلاب 🟢</option>
-                      <option value="draft">مسودة (حفظ مؤقت) 🟡</option>
-                      <option value="hidden">مخفي بالكامل للطلاب 🔴</option>
+                      <option value="published">منشور للطلاب </option>
+                      <option value="draft">مسودة (حفظ مؤقت) </option>
+                      <option value="hidden">مخفي بالكامل للطلاب </option>
                     </select>
                   </div>
 
@@ -1153,7 +1153,7 @@ export default function TeacherTahsili({ userData }: TeacherTahsiliProps) {
                       className="w-5 h-5 accent-purple-600 rounded cursor-pointer"
                     />
                     <label htmlFor="isFeatured" className="text-xs font-black text-gray-700 dark:text-gray-300 cursor-pointer select-none">
-                      تثبيت كمراجعة مميزة في الواجهة الرئيسية ⭐
+                      تثبيت كمراجعة مميزة في الواجهة الرئيسية 
                     </label>
                   </div>
                 </div>

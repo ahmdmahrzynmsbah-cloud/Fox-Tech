@@ -202,7 +202,7 @@ export default function TeachersSearchList({ userData }: TeachersSearchListProps
                   <Compass className="w-3.5 h-3.5 animate-spin" />
                   <span>كل المعلمين في منصة واحدة</span>
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-black">ابحث عن معلمك واستعد للتفوق 🚀</h1>
+                <h1 className="text-2xl sm:text-3xl font-black">ابحث عن معلمك واستعد للتفوق </h1>
                 <p className="text-white/80 font-medium text-sm sm:text-base max-w-2xl leading-relaxed">
                   تصفح قائمة نخبة معلمي المملكة المسجلين بالمنصة، يمكنك فلترتهم بحسب تخصص المادة للوصول السريع إلى الكورسات المتميزة والاشتراك الفوري.
                 </p>

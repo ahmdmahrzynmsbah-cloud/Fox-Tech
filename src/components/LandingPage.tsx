@@ -486,7 +486,7 @@ export default function LandingPage() {
                   {heroContentList.map((topic, idx) => (
                     <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-bold text-slate-800 dark:text-gray-100 bg-slate-50 hover:bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 transition-colors p-2.5 rounded-xl border border-slate-200/70 dark:border-white/5">
                       <div className="w-5 h-5 rounded-full bg-[#D4F800] text-[#0A102E] flex items-center justify-center text-xs font-black shrink-0 mt-0.5 shadow-sm shadow-[#D4F800]/20">
-                        ✓
+                        
                       </div>
                       <span className="leading-snug">{topic}</span>
                     </div>
@@ -1176,7 +1176,7 @@ export default function LandingPage() {
                   onClick={() => setActiveModal(null)}
                   className="w-8 h-8 rounded-full bg-slate-100 dark:bg-[#182672] hover:bg-red-500 dark:hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center text-slate-500 dark:text-slate-400 cursor-pointer"
                 >
-                  ✕
+                  
                 </button>
               </div>
 

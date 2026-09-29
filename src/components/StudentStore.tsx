@@ -123,7 +123,7 @@ export default function StudentStore({ userData, setUserData }: { userData: any,
           adminDocs.forEach(async (adminDoc) => {
             await addDoc(collection(db, 'notifications'), {
               userId: adminDoc.id,
-              title: newStock === 0 ? "نفاد كمية صنف بالمخزن 🚨" : "تنبيه: انخفاض مخزون صنف ⚠️",
+              title: newStock === 0 ? "نفاد كمية صنف بالمخزن " : "تنبيه: انخفاض مخزون صنف ️",
               message: newStock === 0 
                 ? `نفذت كمية الصنف "${item.title}" من المتجر بالكامل.` 
                 : `الصنف "${item.title}" انخفض مخزونه إلى ${newStock} نسخة فقط. يرجى مراجعة المتجر.`,

@@ -500,7 +500,7 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
                                 </div>
                                 <div className="text-[9px] text-gray-400 dark:text-gray-500 mt-1 font-bold flex justify-between items-center">
                                   <span>تم إنجاز {completedCount} من {course.lessonsCount || 0} دروس</span>
-                                  <span>{percent === 100 ? "مكتمل 🌟" : "قيد الدراسة 📚"}</span>
+                                  <span>{percent === 100 ? "مكتمل " : "قيد الدراسة "}</span>
                                 </div>
                               </div>
                             )}
@@ -698,7 +698,7 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
                               </div>
                               <div className="text-[9px] text-gray-400 dark:text-gray-500 mt-1 font-bold flex justify-between items-center">
                                 <span>تم إنجاز {completedCount} من {course.lessonsCount || 0} دروس</span>
-                                <span>{percent === 100 ? "مكتمل 🌟" : "قيد الدراسة 📚"}</span>
+                                <span>{percent === 100 ? "مكتمل " : "قيد الدراسة "}</span>
                               </div>
                             </div>
                           )}

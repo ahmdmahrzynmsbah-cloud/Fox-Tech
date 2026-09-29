@@ -41,6 +41,7 @@ import TeacherQuestionBank from './TeacherQuestionBank';
 import WalletRechargeRequestForm from './WalletRechargeRequestForm';
 import ChatBox from './ChatBox';
 import TechnicalTracksExplorer from './TechnicalTracksExplorer';
+import { PYTHON_FUNDAMENTALS_FRONTEND_EXAM } from '../constants/pythonExamData';
 
 const tabVariants: Variants = {
   initial: { opacity: 0, y: 14, filter: 'blur(3px)' },
@@ -113,6 +114,18 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, []);
 
+  // Seed Python Fundamentals exam into Firestore on mount
+  useEffect(() => {
+    const seedPythonExam = async () => {
+      try {
+        await setDoc(doc(db, "quizzes", PYTHON_FUNDAMENTALS_FRONTEND_EXAM.id), PYTHON_FUNDAMENTALS_FRONTEND_EXAM, { merge: true });
+      } catch (err) {
+        console.error("Error seeding python exam:", err);
+      }
+    };
+    seedPythonExam();
+  }, []);
+
   const getMobileNavItems = () => {
     if (userData?.role === 'admin') {
       return [
@@ -133,7 +146,7 @@ export default function Dashboard() {
         { id: 'home', label: 'الرئيسية', icon: Target },
         { id: 'chatbox', label: 'شات بوكس (الرسائل)', icon: MessageSquare },
         { id: 'classes', label: 'فصولي وإدارة الطلاب', icon: Users },
-        { id: 'quizzes', label: 'إدارة الاختبارات والواجبات', icon: Award },
+        { id: 'quizzes', label: 'إدارة الاختبارات', icon: Award },
         { id: 'question_bank', label: 'بنك الأسئلة', icon: BookOpen },
       ];
       if (isTahsiliEnabled) {
@@ -196,13 +209,13 @@ export default function Dashboard() {
         { id: 'home', label: 'الرئيسية', icon: Target },
         { id: 'chatbox', label: 'شات بوكس', icon: MessageSquare },
         { id: 'subjects', label: 'كورساتي', icon: BookOpen },
-        { id: 'teachers_list', label: 'المعلمون', icon: Users },
+        { id: 'teachers_list', label: 'المدربون', icon: Users },
         { id: 'student_store', label: 'المتجر', icon: ShoppingBag },
         { id: 'purchases', label: 'مشترياتي', icon: FileText },
       ];
       const studentNav: any[] = [
         ...base,
-        { id: 'quizzes', label: 'الاختبارات والواجبات', icon: Award },
+        { id: 'quizzes', label: 'الاختبارات', icon: Award },
       ];
       if (isTahsiliEnabled) {
         studentNav.push({ id: 'tahsili', label: 'التحصيلي', icon: Film });
@@ -307,7 +320,7 @@ export default function Dashboard() {
         { id: 'home', label: 'الرئيسية', icon: Target },
         { id: 'chatbox', label: 'شات بوكس', icon: MessageSquare },
         { id: 'subjects', label: 'موادي', icon: BookOpen },
-        { id: 'teachers_list', label: 'المعلمون', icon: Users },
+        { id: 'teachers_list', label: 'المدربون', icon: Users },
         { id: 'student_store', label: 'المتجر', icon: ShoppingBag },
         { id: 'purchases', label: 'مشترياتي', icon: FileText },
       ];
@@ -367,7 +380,7 @@ export default function Dashboard() {
       // 1. Special Registration Status Transitions
       if (userData.isSpecialRegistration) {
         if (prevStatusRef.current === 'pending' && userData.status === 'approved') {
-          toast.success('تهانينا يا بطل! 🎉 تم قبول طلب تسجيلك في المنصة بنجاح. يمكنك الآن البدء والدراسة في دوراتك المخصصة!', {
+          toast.success('تهانينا يا بطل!  تم قبول طلب تسجيلك في المنصة بنجاح. يمكنك الآن البدء والدراسة في دوراتك المخصصة!', {
             duration: 3000,
             position: 'top-center',
             style: {
@@ -400,7 +413,7 @@ export default function Dashboard() {
 
       // 2. Account general approval Transitions
       if (prevApprovedRef.current === false && userData.isApproved === true) {
-        toast.success(`أهلاً بك! 🎉 تم تفعيل حسابك كـ ${userData.role === 'teacher' ? 'معلم' : userData.role === 'parent' ? 'ولي أمر' : 'طالب'} بنجاح في المنصة.`, {
+        toast.success(`أهلاً بك!  تم تفعيل حسابك كـ ${userData.role === 'teacher' ? 'معلم' : userData.role === 'parent' ? 'ولي أمر' : 'طالب'} بنجاح في المنصة.`, {
           duration: 3000,
           position: 'top-center',
           style: {
@@ -590,7 +603,7 @@ export default function Dashboard() {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       });
-      toast.success('تم حفظ الملاحظة السريعة وتزامنها سحابياً! ✨');
+      toast.success('تم حفظ الملاحظة السريعة وتزامنها سحابياً! ');
       setMiniNoteContent('');
       setMiniNoteCourseId('general');
     } catch (err) {
@@ -695,7 +708,7 @@ export default function Dashboard() {
         setTeacherSelectedQuiz(prev => ({ ...prev, ...updateData }));
       }
 
-      toast.success("تم توجيه ونشر الاختبار بنجاح! 🚀");
+      toast.success("تم توجيه ونشر الاختبار بنجاح! ");
       setDirectingQuiz(null);
     } catch (err) {
       console.error("Error directing quiz:", err);
@@ -789,7 +802,7 @@ export default function Dashboard() {
       setShowExamResultModal(true);
       setExamStarted(false);
       setActiveTakingExam(null);
-      toast.success('تم تسليم الامتحان بنجاح! 🎉');
+      toast.success('تم تسليم الامتحان بنجاح! ');
     } catch (err) {
       console.error("Error submitting exam:", err);
       toast.error("فشل تسليم الامتحان، الرجاء المحاولة مرة أخرى.");
@@ -877,7 +890,7 @@ export default function Dashboard() {
         return [examData, ...filtered];
       });
       
-      toast.success(editingExamId ? 'تم تعديل الامتحان الشامل بنجاح! ✏️' : 'تم إنشاء وتفعيل الامتحان الشامل بنجاح! 🎉');
+      toast.success(editingExamId ? 'تم تعديل الامتحان الشامل بنجاح! ️' : 'تم إنشاء وتفعيل الامتحان الشامل بنجاح! ');
       setIsCreatingExam(false);
       setEditingExamId(null);
       // Reset fields
@@ -1105,7 +1118,7 @@ export default function Dashboard() {
                 percent = prog.percent || 0;
                 const secondsLeft = (prog.duration || 0) - (prog.currentTime || 0);
                 if (percent >= 98) {
-                  timeRemainingText = "تم إكمال الدرس بنجاح 🌟";
+                  timeRemainingText = "تم إكمال الدرس بنجاح ";
                 } else if (secondsLeft <= 60) {
                   timeRemainingText = "متبقي أقل من دقيقة واحدة";
                 } else {
@@ -1637,7 +1650,7 @@ export default function Dashboard() {
 
       setActivationStatus('success');
       setCode('');
-      toast.success(`تم شحن رصيد بقيمة ${amount} ج.م بنجاح! 🎉`);
+      toast.success(`تم شحن رصيد بقيمة ${amount} ج.م بنجاح! `);
 
       // Refresh transactions list
       fetchTransactions();
@@ -1704,7 +1717,7 @@ export default function Dashboard() {
       setPayoutAmount('');
       setPayoutDetails('');
       setShowPayoutForm(false);
-      toast.success('تم تقديم طلب سحب الأرباح بنجاح! جاري معالجة المعاملة 💸');
+      toast.success('تم تقديم طلب سحب الأرباح بنجاح! جاري معالجة المعاملة ');
 
       // Refresh transactions
       fetchTransactions();
@@ -1741,7 +1754,7 @@ export default function Dashboard() {
             const data = change.doc.data();
             if (data.type === "enrollment") {
                toast.success(`${data.title}\n${data.message}`, {
-                 icon: '🎉',
+                 icon: '',
                  style: {
                    borderRadius: '10px',
                    background: '#1A1A24',
@@ -1750,7 +1763,7 @@ export default function Dashboard() {
                });
             } else if (data.type === "league_exam_alert") {
                toast.error(`${data.title}\n${data.message}`, {
-                 icon: '⏰',
+                 icon: '',
                  duration: 3000,
                  style: {
                    borderRadius: '16px',
@@ -1761,7 +1774,7 @@ export default function Dashboard() {
                });
             } else if (data.type === "new_teacher_alert") {
                toast.success(`${data.title}\n${data.message}`, {
-                 icon: '👨‍🏫',
+                 icon: '‍',
                  duration: 3000,
                  style: {
                    borderRadius: '16px',
@@ -1772,7 +1785,7 @@ export default function Dashboard() {
                });
             } else if (data.type === "new_course_alert") {
                toast.success(`${data.title}\n${data.message}`, {
-                 icon: '📚',
+                 icon: '',
                  duration: 3000,
                  style: {
                    borderRadius: '16px',
@@ -1925,14 +1938,14 @@ export default function Dashboard() {
             <div className="p-3.5 border-b border-gray-150 dark:border-white/10 bg-slate-50/80 dark:bg-[#0E1644] shrink-0 space-y-3">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-10 h-10 rounded-2xl bg-[#D4F800] text-[#0A102E] flex items-center justify-center font-black text-sm shrink-0 shadow-xs">
+                  <div className="w-10 h-10 rounded-2xl bg-[#D4F800] text-[#0A102E] flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
                     {userData?.name ? userData.name.charAt(0) : <UserIcon className="w-5 h-5" />}
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-black text-gray-900 dark:text-white truncate">
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white truncate">
                       {userData?.name || 'مستخدم المنصة'}
                     </h4>
-                    <span className="text-[11px] font-bold text-gray-500 dark:text-slate-400 block truncate">
+                    <span className="text-[11px] font-medium text-gray-500 dark:text-slate-400 block truncate">
                       {userData?.role === 'student' ? `متدرب • ${userData?.grade || 'المسار التدريبي'}` : userData?.role === 'teacher' ? `مدرب • ${userData?.subject || 'هندسة البرمجيات'}` : userData?.role === 'parent' ? 'متابع' : 'إدارة Fox Tech'}
                     </span>
                   </div>
@@ -1957,13 +1970,13 @@ export default function Dashboard() {
                       <Wallet className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-black text-gray-400 dark:text-slate-400 block">رصيد المحفظة</span>
-                      <span className="text-xs font-black text-[#658C00] dark:text-[#D4F800]">
+                      <span className="text-[10px] font-semibold text-gray-400 dark:text-slate-400 block">رصيد المحفظة</span>
+                      <span className="text-xs font-bold text-[#658C00] dark:text-[#D4F800]">
                         {userData?.balance ?? 0} ج.م
                       </span>
                     </div>
                   </div>
-                  <span className="text-[11px] font-black text-[#0A102E] bg-[#D4F800] px-2.5 py-1 rounded-xl shadow-xs">
+                  <span className="text-[11px] font-bold text-[#0A102E] bg-[#D4F800] px-2.5 py-1 rounded-xl shadow-xs">
                     شحن +
                   </span>
                 </div>
@@ -1976,7 +1989,7 @@ export default function Dashboard() {
                     setActiveTab('chatbox');
                     setIsMobileDrawerOpen(false);
                   }}
-                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-black transition-all ${
+                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition-all ${
                     activeTab === 'chatbox'
                       ? 'bg-[#D4F800] text-[#0A102E] border-transparent shadow-xs'
                       : 'bg-white dark:bg-[#10194E] border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50'
@@ -1991,7 +2004,7 @@ export default function Dashboard() {
                     setActiveTab('notifications');
                     setIsMobileDrawerOpen(false);
                   }}
-                  className="p-2.5 rounded-xl border bg-white dark:bg-[#10194E] border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-xs font-black transition-all relative"
+                  className="p-2.5 rounded-xl border bg-white dark:bg-[#10194E] border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-xs font-bold transition-all relative"
                 >
                   <Bell className="w-4 h-4 shrink-0 text-[#D4F800]" />
                   <span>الإشعارات</span>
@@ -2011,9 +2024,9 @@ export default function Dashboard() {
                      setActiveTab(item.id);
                      setIsMobileDrawerOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl font-bold text-sm transition-all ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl font-semibold text-sm transition-all ${
                     activeTab === item.id 
-                      ? 'bg-[#D4F800] text-[#0A102E] shadow-md font-black' 
+                      ? 'bg-[#D4F800] text-[#0A102E] shadow-md font-bold' 
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
@@ -2059,7 +2072,7 @@ export default function Dashboard() {
                 sidebarCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3 gap-3'
               } ${
                 activeTab === item.id 
-                  ? 'bg-[#D4F800] text-[#0A102E] font-black shadow-md' 
+                  ? 'bg-[#D4F800] text-[#0A102E] font-bold shadow-md' 
                   : 'text-gray-500 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
@@ -2462,7 +2475,7 @@ export default function Dashboard() {
                         ))}
                         {notifications.filter(n => n.type === 'enrollment').length === 0 && (
                           <div className="text-center py-8 text-gray-500 dark:text-gray-400 font-medium">
-                            لا توجد نشاطات أو اشتراكات جديدة حالياً 👍
+                            لا توجد نشاطات أو اشتراكات جديدة حالياً 
                           </div>
                         )}
                       </div>
@@ -2497,7 +2510,7 @@ export default function Dashboard() {
                         {/* Special welcome for Tahsili/Qudurat */}
                         <section className="bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-8 text-white relative overflow-hidden shadow-xl shadow-sky-500/10 dark:shadow-cyan-500/10 w-full">
                            <div className="relative z-10">
-                              <h1 className="text-2xl sm:text-3xl font-black mb-2">أهلاً بك يا بطل! 🚀</h1>
+                              <h1 className="text-2xl sm:text-3xl font-black mb-2">أهلاً بك يا بطل! </h1>
                               <p className="text-white/90 font-bold max-w-xl text-sm sm:text-base leading-relaxed">
                                 نرحب بك في برنامج {
                                   userData.registrationType === 'qudurat' 
@@ -2618,7 +2631,7 @@ export default function Dashboard() {
                               <h3 className="text-lg sm:text-xl font-black text-gray-900 dark:text-white">آخر المحاضرات التي شاهدتها</h3>
                            </div>
                            <div className="text-center py-8 sm:py-10 text-gray-500 dark:text-gray-400 font-bold text-sm">
-                              لا توجد مشاهدات سابقة بعد. ابدأ رحلتك الآن! 🎥
+                              لا توجد مشاهدات سابقة بعد. ابدأ رحلتك الآن! 
                            </div>
                         </section>
                       </div>
@@ -2679,7 +2692,7 @@ export default function Dashboard() {
                            <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/30 text-sky-600 dark:text-cyan-400 rounded-full flex items-center justify-center mx-auto">
                              <BookOpen className="w-8 h-8" />
                            </div>
-                           <h3 className="text-lg font-black text-gray-900 dark:text-white">جاهز لبدء رحلتك التعليمية؟ 🚀</h3>
+                           <h3 className="text-lg font-black text-gray-900 dark:text-white">جاهز لبدء رحلتك التعليمية؟ </h3>
                            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                              اختر أحد الكورسات المتاحة في الأسفل وابدأ في مشاهدة أول درس لبناء مستقبلك اليوم!
                            </p>
@@ -2755,7 +2768,7 @@ export default function Dashboard() {
                         <div className="flex items-center justify-between">
                           <h2 className="text-xl font-black flex items-center gap-2 text-gray-900 dark:text-white">
                             <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" /> 
-                            <span>🎓 المراجعات والتحصيلي الممتاز</span>
+                            <span> المراجعات والتحصيلي الممتاز</span>
                           </h2>
                           <button
                             onClick={() => {
@@ -2887,7 +2900,7 @@ export default function Dashboard() {
                     )}
 
                     {/* Technical Training Tracks Architecture */}
-                    <TechnicalTracksExplorer />
+                    <TechnicalTracksExplorer userData={userData} />
 
                     {/* My Subjects */}
                     <section>
@@ -2898,7 +2911,7 @@ export default function Dashboard() {
                     <section className="bg-white dark:bg-[#111827] rounded-3xl p-6 border border-gray-200 dark:border-slate-800 shadow-sm space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <h2 className="text-lg font-black flex items-center gap-2 text-gray-900 dark:text-white">
-                          <Edit2 className="w-5 h-5 text-sky-600 dark:text-cyan-400" /> تدوين ملاحظة دراسية سريعة 📝
+                          <Edit2 className="w-5 h-5 text-sky-600 dark:text-cyan-400" /> تدوين ملاحظة دراسية سريعة 
                         </h2>
                         <button 
                           onClick={() => setActiveTab('notes')}
@@ -2911,7 +2924,7 @@ export default function Dashboard() {
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                         <div className="md:col-span-2 space-y-2">
                           <textarea
-                            placeholder="اكتب ملاحظاتك البرمجية، مهامك، أو أفكار تود تذكرها لاحقاً... وسيتم مزامنتها فوراً بالسحابة ⚡"
+                            placeholder="اكتب ملاحظاتك البرمجية، مهامك، أو أفكار تود تذكرها لاحقاً... وسيتم مزامنتها فوراً بالسحابة "
                             rows={3}
                             value={miniNoteContent}
                             onChange={(e) => setMiniNoteContent(e.target.value.slice(0, 1000))}
@@ -2928,10 +2941,10 @@ export default function Dashboard() {
                               onChange={(e) => setMiniNoteCourseId(e.target.value)}
                               className="w-full bg-gray-50 dark:bg-[#15151F] border border-gray-200 dark:border-slate-800 rounded-2xl px-3 py-2.5 text-xs font-bold text-gray-800 dark:text-gray-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-cyan-400"
                             >
-                              <option value="general">📁 ملاحظات عامة وتنبيهات</option>
+                              <option value="general"> ملاحظات عامة وتنبيهات</option>
                               {coursesList.filter(c => c.enrolledStudentIds?.includes(userData?.id)).map(course => (
                                 <option key={course.id} value={course.id}>
-                                  📚 {course.title}
+                                   {course.title}
                                 </option>
                               ))}
                             </select>
@@ -3372,7 +3385,7 @@ export default function Dashboard() {
                         {/* Compact Header Summary Card */}
                         <div className="bg-white dark:bg-[#111827] rounded-2xl p-4 border border-gray-150 dark:border-slate-800/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                           <div className="space-y-1">
-                            <h3 className="text-sm font-black text-gray-800 dark:text-white">ملخص أدائك وتقييمك 📊</h3>
+                            <h3 className="text-sm font-black text-gray-800 dark:text-white">ملخص أدائك وتقييمك </h3>
                             <p className="text-[11px] text-gray-500 dark:text-gray-400 font-bold">تابع إحصائياتك للاختبارات التفاعلية والامتحانات الشاملة الموجهة لك.</p>
                           </div>
                           <div className="flex gap-4 self-stretch sm:self-auto justify-between sm:justify-start">
@@ -3475,17 +3488,17 @@ export default function Dashboard() {
                                       <div className="flex flex-wrap items-center gap-2">
                                         <h3 className="text-sm font-black text-gray-900 dark:text-white">{quiz.title}</h3>
                                         {quiz.isComprehensive && (
-                                          <span className="text-[9px] font-black bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-md">امتحان شامل 🏆</span>
+                                          <span className="text-[9px] font-black bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-md">امتحان شامل </span>
                                         )}
                                       </div>
                                       <p className="text-[11px] text-gray-500 dark:text-gray-400 font-bold flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                                        <span>⏱️ {quiz.timeLimit} دقيقة</span>
+                                        <span>️ {quiz.timeLimit} دقيقة</span>
                                         <span>•</span>
-                                        <span>📝 {quiz.questions?.length || 0} أسئلة</span>
+                                        <span> {quiz.questions?.length || 0} أسئلة</span>
                                         {courseInfo && (
                                           <>
                                             <span>•</span>
-                                            <span className="text-sky-600 dark:text-cyan-400">📚 {courseInfo.title}</span>
+                                            <span className="text-sky-600 dark:text-cyan-400"> {courseInfo.title}</span>
                                           </>
                                         )}
                                       </p>
@@ -3546,7 +3559,7 @@ export default function Dashboard() {
                             }).length === 0 && (
                             <div className="text-center py-12 bg-white dark:bg-[#111827] border border-gray-150 dark:border-slate-800/50 rounded-2xl">
                               <Trophy className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                              <p className="font-bold text-xs text-gray-500">لا توجد اختبارات في هذا القسم حالياً 👍</p>
+                              <p className="font-bold text-xs text-gray-500">لا توجد اختبارات في هذا القسم حالياً </p>
                             </div>
                           )}
                         </div>
@@ -3578,7 +3591,7 @@ export default function Dashboard() {
                                 : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
                             }`}
                           >
-                            الامتحانات الشاملة والعامة 🏆
+                            الامتحانات الشاملة والعامة 
                             {quizTabType === 'comprehensive' && (
                               <motion.div layoutId="teacherQuizTabBorder" className="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-600 dark:bg-cyan-500" />
                             )}
@@ -3649,13 +3662,13 @@ export default function Dashboard() {
                                       <div className="flex justify-between items-center text-[10px] font-bold mt-1">
                                         <span className="text-gray-400">الأسئلة: {quiz.questions?.length || 0}</span>
                                         {quiz.isHidden ? (
-                                          <span className="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 px-1.5 py-0.5 rounded">مسودة 🙈</span>
+                                          <span className="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 px-1.5 py-0.5 rounded">مسودة </span>
                                         ) : quiz.targetedType === 'grade' ? (
-                                          <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">موجه: {quiz.targetedGrade} 🎯</span>
+                                          <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">موجه: {quiz.targetedGrade} </span>
                                         ) : quiz.targetedType === 'custom' ? (
-                                          <span className="bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded">موجه للطلاب 👥</span>
+                                          <span className="bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded">موجه للطلاب </span>
                                         ) : (
-                                          <span className="bg-green-500/10 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded">منشور للجميع 🌍</span>
+                                          <span className="bg-green-500/10 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded">منشور للجميع </span>
                                         )}
                                       </div>
                                       {/* Exam ID block */}
@@ -3672,7 +3685,7 @@ export default function Dashboard() {
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             navigator.clipboard.writeText(quiz.id);
-                                            toast.success('تم نسخ معرّف الاختبار! 📋');
+                                            toast.success('تم نسخ معرّف الاختبار! ');
                                           }}
                                           className="text-gray-400 hover:text-sky-600 dark:hover:text-cyan-400 p-0.5 transition-colors cursor-pointer"
                                           title="نسخ المعرف"
@@ -3711,7 +3724,7 @@ export default function Dashboard() {
                                             <button
                                               onClick={() => {
                                                 navigator.clipboard.writeText(teacherSelectedQuiz.id);
-                                                toast.success('تم نسخ معرّف الاختبار بنجاح! 📋');
+                                                toast.success('تم نسخ معرّف الاختبار بنجاح! ');
                                               }}
                                               className="text-gray-400 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors cursor-pointer p-0.5"
                                               title="نسخ معرف الاختبار"
@@ -3761,7 +3774,7 @@ export default function Dashboard() {
                                         {quizSubmissions.length === 0 && (
                                           <div className="text-center py-16 text-gray-400">
                                             <Users className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                                            <p className="font-bold text-sm">لا توجد محاولات أو تسليمات من الطلاب لهذا الاختبار بعد 👍</p>
+                                            <p className="font-bold text-sm">لا توجد محاولات أو تسليمات من الطلاب لهذا الاختبار بعد </p>
                                           </div>
                                         )}
                                       </div>
@@ -3784,7 +3797,7 @@ export default function Dashboard() {
                             {/* Create Button Banner */}
                             <div className="bg-gradient-to-l from-[#00B4D8] to-[#0077B6] dark:from-[#D4AF37] dark:to-[#AA7C11] p-6 rounded-3xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg shadow-sky-500/10 dark:shadow-cyan-500/10">
                               <div className="space-y-1">
-                                <h3 className="font-black text-lg">بوابة الامتحانات الشاملة والعامة 🏆</h3>
+                                <h3 className="font-black text-lg">بوابة الامتحانات الشاملة والعامة </h3>
                                 <p className="text-xs text-white/80 font-bold">أنشئ امتحانات عامة أو شاملة لكورساتك وموادك لقياس تحصيل ومستوى الطلاب.</p>
                               </div>
                               <button
@@ -3868,13 +3881,13 @@ export default function Dashboard() {
                                         </div>
                                         <div className="flex justify-end mt-1 text-[10px] font-bold">
                                           {quiz.isHidden ? (
-                                            <span className="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 px-1.5 py-0.5 rounded">مسودة 🙈</span>
+                                            <span className="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 px-1.5 py-0.5 rounded">مسودة </span>
                                           ) : quiz.targetedType === 'grade' ? (
-                                            <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">موجه: {quiz.targetedGrade} 🎯</span>
+                                            <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">موجه: {quiz.targetedGrade} </span>
                                           ) : quiz.targetedType === 'custom' ? (
-                                            <span className="bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded">موجه للطلاب 👥</span>
+                                            <span className="bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded">موجه للطلاب </span>
                                           ) : (
-                                            <span className="bg-green-500/10 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded">منشور للجميع 🌍</span>
+                                            <span className="bg-green-500/10 text-green-600 dark:text-green-400 px-1.5 py-0.5 rounded">منشور للجميع </span>
                                           )}
                                         </div>
                                         {/* Exam ID block */}
@@ -3891,7 +3904,7 @@ export default function Dashboard() {
                                             onClick={(e) => {
                                               e.stopPropagation();
                                               navigator.clipboard.writeText(quiz.id);
-                                              toast.success('تم نسخ معرّف الاختبار! 📋');
+                                              toast.success('تم نسخ معرّف الاختبار! ');
                                             }}
                                             className="text-gray-400 hover:text-sky-600 dark:hover:text-cyan-400 p-0.5 transition-colors cursor-pointer"
                                             title="نسخ المعرف"
@@ -3930,7 +3943,7 @@ export default function Dashboard() {
                                               <button
                                                 onClick={() => {
                                                   navigator.clipboard.writeText(teacherSelectedQuiz.id);
-                                                  toast.success('تم نسخ معرّف الاختبار بنجاح! 📋');
+                                                  toast.success('تم نسخ معرّف الاختبار بنجاح! ');
                                                 }}
                                                 className="text-gray-400 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors cursor-pointer p-0.5"
                                                 title="نسخ معرف الاختبار"
@@ -3980,7 +3993,7 @@ export default function Dashboard() {
                                           {quizSubmissions.length === 0 && (
                                             <div className="text-center py-16 text-gray-400">
                                               <Users className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                                              <p className="font-bold text-sm">لا توجد محاولات أو تسليمات من الطلاب لهذا الامتحان الشامل بعد 👍</p>
+                                              <p className="font-bold text-sm">لا توجد محاولات أو تسليمات من الطلاب لهذا الامتحان الشامل بعد </p>
                                             </div>
                                           )}
                                         </div>
@@ -4006,7 +4019,7 @@ export default function Dashboard() {
                         {/* Parent linked student status message */}
                         {!linkedStudent ? (
                           <div className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 p-6 rounded-2xl border border-red-200/50 text-center font-bold text-sm">
-                            ⚠️ يرجى ربط حساب الطالب من صفحة "الملف الشخصي" أولاً لعرض تقارير واختبارات الطالب بالتفصيل ومتابعة أدائه.
+                            ️ يرجى ربط حساب الطالب من صفحة "الملف الشخصي" أولاً لعرض تقارير واختبارات الطالب بالتفصيل ومتابعة أدائه.
                           </div>
                         ) : (
                           <>
@@ -4060,7 +4073,7 @@ export default function Dashboard() {
                                 {submissionsList.length === 0 && (
                                   <div className="text-center py-12 text-gray-400">
                                     <Award className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                                    <p className="font-bold text-sm">لم يقم الطالب بأداء أي اختبارات تفاعلية حتى الآن 👍</p>
+                                    <p className="font-bold text-sm">لم يقم الطالب بأداء أي اختبارات تفاعلية حتى الآن </p>
                                   </div>
                                 )}
                               </div>
@@ -4178,7 +4191,7 @@ export default function Dashboard() {
                                   {/* Explanation block */}
                                   {q.explanation && (
                                     <div className="bg-sky-500/5 dark:bg-cyan-400/5 border-r-4 border-sky-500 dark:border-cyan-400 p-3.5 rounded-xl pr-4 mt-2">
-                                      <p className="text-xs font-black text-sky-600 dark:text-cyan-400 mb-1">💡 التفسير والشرح المبسط لتصحيح الخطأ:</p>
+                                      <p className="text-xs font-black text-sky-600 dark:text-cyan-400 mb-1"> التفسير والشرح المبسط لتصحيح الخطأ:</p>
                                       <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-medium">{q.explanation}</p>
                                     </div>
                                   )}
@@ -4487,7 +4500,7 @@ export default function Dashboard() {
                         student.email?.toLowerCase().includes(studentSearchQuery.toLowerCase())
                       ).length === 0 ? (
                         <div className="p-8 text-center text-xs font-bold text-gray-400">
-                          لا يوجد طلاب يطابقون البحث 🔎
+                          لا يوجد طلاب يطابقون البحث 
                         </div>
                       ) : (
                         allStudents.filter(student => 

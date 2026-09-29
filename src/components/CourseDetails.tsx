@@ -223,7 +223,7 @@ export default function CourseDetails() {
       await setDoc(doc(db, 'notes', noteDocId), noteData, { merge: true });
       initialContentRef.current = noteContent;
       setSaveStatus('saved');
-      toast.success('تم حفظ ملاحظاتك بنجاح! 📝');
+      toast.success('تم حفظ ملاحظاتك بنجاح! ');
       fetchAllCourseNotes();
     } catch (error: any) {
       console.error('Error saving note:', error);
@@ -593,7 +593,7 @@ export default function CourseDetails() {
       setComment("");
       setRating(5);
       setIsPrivateReview(false);
-      toast.success(isPrivateReview ? "تم إرسال تقييمك الخاص للأستاذ بنجاح 🔒" : "تم نشر تقييمك بنجاح! 🌟");
+      toast.success(isPrivateReview ? "تم إرسال تقييمك الخاص للأستاذ بنجاح " : "تم نشر تقييمك بنجاح! ");
     } catch (error) {
       console.error("Error submitting review:", error);
       toast.error("حدث خطأ أثناء إرسال التقييم");
@@ -623,11 +623,11 @@ export default function CourseDetails() {
       if (existingReview) {
         await setDoc(doc(db, "reviews", existingReview.id), newReviewData, { merge: true });
         setReviews(prev => prev.map(r => r.id === existingReview.id ? { ...r, ...newReviewData } : r));
-        toast.success("تم تحديث تقييمك للأستاذ والمحتوى بنجاح! 🌟");
+        toast.success("تم تحديث تقييمك للأستاذ والمحتوى بنجاح! ");
       } else {
         const docRef = await addDoc(collection(db, "reviews"), newReviewData);
         setReviews(prev => [{ id: docRef.id, ...newReviewData }, ...prev]);
-        toast.success("شكراً لك! تم إرسال تقييمك للأستاذ بنجاح! 🌟");
+        toast.success("شكراً لك! تم إرسال تقييمك للأستاذ بنجاح! ");
       }
 
       setShowCompletionRating(false);
@@ -651,7 +651,7 @@ export default function CourseDetails() {
     setCourseLikesCount(updatedCount);
 
     if (newLikedState) {
-      const emojis = ["❤️", "💖", "👍", "✨", "🔥", "🌟"];
+      const emojis = ["️", "", "", "", "", ""];
       const newParticles = Array.from({ length: 15 }).map((_, i) => ({
         id: Date.now() + i,
         x: (Math.random() - 0.5) * 160,
@@ -679,7 +679,7 @@ export default function CourseDetails() {
         await updateDoc(courseDocRef, {
           likesCount: increment(1)
         });
-        toast.success("تم تسجيل إعجابك بالكورس! ❤️", { id: "like-toast" });
+        toast.success("تم تسجيل إعجابك بالكورس! ️", { id: "like-toast" });
       } else {
         await deleteDoc(likeDocRef);
         await updateDoc(courseDocRef, {
@@ -766,7 +766,7 @@ export default function CourseDetails() {
       setReviews(updatedReviews);
       setReplyText("");
       setActiveReplyInput(null);
-      toast.success("تمت إضافة ردك بنجاح! 💬");
+      toast.success("تمت إضافة ردك بنجاح! ");
     } catch (error) {
       console.error("Error adding reply:", error);
       toast.error("فشل إرسال الرد");
@@ -973,7 +973,7 @@ export default function CourseDetails() {
       }, { merge: true });
 
       if (!isCompleted) {
-        toast.success("أحسنت! تم إكمال الدرس بنجاح 🌟");
+        toast.success("أحسنت! تم إكمال الدرس بنجاح ");
         if (updated.length === lessonsCount) {
           try {
             confetti({
@@ -1045,7 +1045,7 @@ export default function CourseDetails() {
     if (userBalance < coursePrice) {
       toast.error(
         <div className="flex flex-col gap-1">
-          <span className="font-black text-xs">عذراً، رصيدك غير كافٍ! ❌</span>
+          <span className="font-black text-xs">عذراً، رصيدك غير كافٍ! </span>
           <span className="text-[10px] font-medium opacity-80">رصيدك الحالي هو {userBalance} ج.م فقط، بينما سعر الكورس هو {coursePrice} ج.م.</span>
         </div>,
         { duration: 4000 }
@@ -1144,7 +1144,7 @@ export default function CourseDetails() {
         enrolledStudentIds: [...(course.enrolledStudentIds || []), userData.id] 
       });
 
-      toast.success("تم الاشتراك في الكورس بنجاح وخصم المبلغ من محفظتك! ✨");
+      toast.success("تم الاشتراك في الكورس بنجاح وخصم المبلغ من محفظتك! ");
       setShowPaymentModal(false);
       confetti({
         particleCount: 150,
@@ -1162,13 +1162,13 @@ export default function CourseDetails() {
 
   const handleCopyText = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("تم النسخ بنجاح! 📋");
+    toast.success("تم النسخ بنجاح! ");
   };
 
   const handleCopyNumber = () => {
     navigator.clipboard.writeText(vodafoneCashNumber);
     setCopiedNumber(true);
-    toast.success("تم نسخ الرقم بنجاح! 📋");
+    toast.success("تم نسخ الرقم بنجاح! ");
     setTimeout(() => setCopiedNumber(false), 2000);
   };
 
@@ -1247,7 +1247,7 @@ export default function CourseDetails() {
         type: "enrollment"
       });
 
-      toast.success("تم إرسال طلب الاشتراك بنجاح! سيقوم الأدمن بمراجعته وتفعيله لك قريباً. ✨");
+      toast.success("تم إرسال طلب الاشتراك بنجاح! سيقوم الأدمن بمراجعته وتفعيله لك قريباً. ");
       setShowPaymentModal(false);
       setSubmittingPayment(false);
 
@@ -1263,7 +1263,7 @@ export default function CourseDetails() {
     setIsDeletingCourse(true);
     try {
       await deleteDoc(doc(db, 'courses', id));
-      toast.success('تم حذف الكورس نهائياً بنجاح 🗑️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ️');
       navigate('/dashboard');
     } catch (err) {
       console.error('Error deleting course:', err);
@@ -1348,15 +1348,15 @@ export default function CourseDetails() {
             className="bg-gradient-to-r from-amber-500/10 via-yellow-500/15 to-amber-500/10 border-2 border-yellow-400/30 rounded-3xl p-6 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm"
           >
             {/* Background sparkle effects */}
-            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none text-5xl">🎉</div>
-            <div className="absolute bottom-0 left-0 p-8 opacity-10 pointer-events-none text-5xl">✨</div>
+            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none text-5xl"></div>
+            <div className="absolute bottom-0 left-0 p-8 opacity-10 pointer-events-none text-5xl"></div>
             
             <div className="flex items-center gap-4 text-right">
               <div className="w-14 h-14 bg-gradient-to-tr from-yellow-400 to-amber-500 text-white rounded-2xl flex items-center justify-center text-3xl shadow-md shrink-0">
-                🏆
+                
               </div>
               <div className="space-y-1">
-                <h3 className="font-black text-lg text-gray-950 dark:text-white">ألف مبروك! لقد أتممت هذا الكورس بنجاح وبدرجة ١٠٠٪ 🎉</h3>
+                <h3 className="font-black text-lg text-gray-950 dark:text-white">ألف مبروك! لقد أتممت هذا الكورس بنجاح وبدرجة ١٠٠٪ </h3>
                 <p className="text-xs font-bold text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
                   رأيك يهمنا ويسهم في تحسين جودة التعليم! شاركنا تقييمك لأداء الأستاذ <span className="text-amber-500 font-extrabold">{course.teacherName}</span> ومحتوى الكورس التعليمي لمساعدة الطلاب الآخرين.
                 </p>
@@ -1407,7 +1407,7 @@ export default function CourseDetails() {
                     <>
                       <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 mb-6 max-w-md">
                         <p className="font-bold text-base text-amber-500 mb-2">
-                          طلب الاشتراك قيد المعالجة والمراجعة حالياً ⏳
+                          طلب الاشتراك قيد المعالجة والمراجعة حالياً 
                         </p>
                         <p className="text-xs font-semibold text-gray-300 leading-relaxed">
                           لقد أرسلت طلب الاشتراك والدفع بنجاح. سيقوم الأدمن بمراجعة لقطة الشاشة والتحويل وتفعيل الكورس لك فوراً. شكراً لصبرك!
@@ -1424,7 +1424,7 @@ export default function CourseDetails() {
                     <>
                       <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-5 mb-6 max-w-md">
                         <p className="font-bold text-base text-red-500 mb-2">
-                          تم رفض طلب الاشتراك السابق ❌
+                          تم رفض طلب الاشتراك السابق 
                         </p>
                         <p className="text-xs font-black text-gray-300 leading-relaxed mb-3">
                           سبب الرفض: <span className="text-red-400">{paymentRequest.rejectionReason || 'الرجاء إعادة المحاولة والتحويل بشكل صحيح.'}</span>
@@ -1501,7 +1501,7 @@ export default function CourseDetails() {
               ) : (
                 <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 bg-gray-950 p-8 text-center select-none">
                   <Video className="w-16 h-16 mb-4 opacity-60 text-sky-600 dark:text-cyan-400" />
-                  <h3 className="text-xl font-black text-white mb-2">بوابة التعلّم الذكيّة 📚</h3>
+                  <h3 className="text-xl font-black text-white mb-2">بوابة التعلّم الذكيّة </h3>
                   <p className="text-sm text-gray-400 max-w-sm mx-auto leading-relaxed">
                     {lessons.length > 0 ? "يرجى اختيار درس من القائمة الجانبية لبدء المشاهدة والتفاعل." : "لم يتم إضافة دروس لهذا الكورس بعد."}
                   </p>
@@ -1806,7 +1806,7 @@ export default function CourseDetails() {
                             }`}
                           >
                             <Check className={`w-4 h-4 ${completedLessons.includes(activeLesson.id) ? 'stroke-[3px]' : ''}`} />
-                            {completedLessons.includes(activeLesson.id) ? 'تم إكمال الدرس ✓' : 'تحديد كمكتمل'}
+                            {completedLessons.includes(activeLesson.id) ? 'تم إكمال الدرس ' : 'تحديد كمكتمل'}
                           </button>
                         </div>
                       )}
@@ -1876,17 +1876,17 @@ export default function CourseDetails() {
                             <div className="flex gap-1.5">
                               <button
                                 type="button"
-                                onClick={() => insertText('💡 فكرة مهمة: ')}
+                                onClick={() => insertText(' فكرة مهمة: ')}
                                 className="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/30 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs rounded-xl font-bold transition-colors cursor-pointer"
                               >
-                                💡 فكرة
+                                 فكرة
                               </button>
                               <button
                                 type="button"
-                                onClick={() => insertText('❓ سؤال للمراجعة: ')}
+                                onClick={() => insertText(' سؤال للمراجعة: ')}
                                 className="px-2.5 py-1.5 bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-950/30 dark:hover:bg-yellow-900/40 text-yellow-600 dark:text-yellow-400 text-xs rounded-xl font-bold transition-colors cursor-pointer"
                               >
-                                ❓ سؤال
+                                 سؤال
                               </button>
                               <button
                                 type="button"
@@ -1895,14 +1895,14 @@ export default function CourseDetails() {
                                   if (video) {
                                     const mins = Math.floor(video.currentTime / 60).toString().padStart(2, '0');
                                     const secs = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
-                                    insertText(`🕒 عند الدقيقة [${mins}:${secs}]: `);
+                                    insertText(` عند الدقيقة [${mins}:${secs}]: `);
                                   } else {
-                                    insertText('🕒 نقطة زمنية: ');
+                                    insertText(' نقطة زمنية: ');
                                   }
                                 }}
                                 className="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs rounded-xl font-bold transition-colors cursor-pointer"
                               >
-                                🕒 ختم زمني
+                                 ختم زمني
                               </button>
                             </div>
                           </div>
@@ -1921,7 +1921,7 @@ export default function CourseDetails() {
                                 type="button"
                                 onClick={() => {
                                   navigator.clipboard.writeText(noteContent);
-                                  toast.success('تم نسخ الملاحظات! 📋');
+                                  toast.success('تم نسخ الملاحظات! ');
                                 }}
                                 disabled={!noteContent}
                                 className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-[#2D2D3D] dark:hover:bg-[#3d3d52] disabled:opacity-50 text-gray-750 dark:text-gray-300 rounded-xl text-xs font-bold transition-colors cursor-pointer"
@@ -2025,10 +2025,10 @@ export default function CourseDetails() {
 
                     <div className="flex -space-x-1 space-x-reverse">
                       <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white border-2 border-white dark:border-[#1A1A24] text-xs shadow-sm">
-                        ❤️
+                        ️
                       </div>
                       <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white border-2 border-white dark:border-[#1A1A24] text-xs shadow-sm">
-                        👍
+                        
                       </div>
                     </div>
                   </div>
@@ -2041,7 +2041,7 @@ export default function CourseDetails() {
                       }
                     </p>
                     <p className="text-[11px] font-medium text-gray-500">
-                      تفاعل الطلاب الإيجابي يزيد من حماس المعلم لتقديم المزيد! 🌟
+                      تفاعل الطلاب الإيجابي يزيد من حماس المعلم لتقديم المزيد! 
                     </p>
                   </div>
                 </div>
@@ -2059,7 +2059,7 @@ export default function CourseDetails() {
                     }`}
                   >
                     <Heart className={`w-4 h-4 ${isLiked ? "fill-white text-white animate-pulse" : "text-gray-400 dark:text-gray-500"}`} />
-                    <span>{isLiked ? "أعجبني الكورس ❤️" : "تسجيل إعجاب بالكورس"}</span>
+                    <span>{isLiked ? "أعجبني الكورس ️" : "تسجيل إعجاب بالكورس"}</span>
                   </motion.button>
                 </div>
               </div>
@@ -2103,7 +2103,7 @@ export default function CourseDetails() {
                         className="w-4 h-4 rounded text-sky-600 dark:text-cyan-400 focus:ring-sky-500 border-gray-300 dark:border-slate-800 bg-white dark:bg-[#111827]"
                       />
                       <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
-                        🔒 إرسال كتقييم خاص للأستاذ فقط (لن ينشر للعامة)
+                         إرسال كتقييم خاص للأستاذ فقط (لن ينشر للعامة)
                       </span>
                     </label>
                     <button 
@@ -2155,7 +2155,7 @@ export default function CourseDetails() {
                           {review.userName.charAt(0)}
                           {isTeacherComment && (
                             <span className="absolute -bottom-1 -right-1 bg-yellow-400 text-xs rounded-full p-0.5 shadow">
-                              ⭐
+                              
                             </span>
                           )}
                         </div>
@@ -2176,7 +2176,7 @@ export default function CourseDetails() {
                                 {/* Badges */}
                                 {isTeacherComment && (
                                   <span className="text-[9px] font-black bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                                    👨‍🏫 معلم المادة
+                                    ‍ معلم المادة
                                   </span>
                                 )}
                                 {isMyComment && !isTeacherComment && (
@@ -2186,13 +2186,13 @@ export default function CourseDetails() {
                                 )}
                                 {!isTeacherComment && !isMyComment && (
                                   <span className="text-[9px] font-black bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-full">
-                                    🎓 طالب مشترك
+                                     طالب مشترك
                                   </span>
                                 )}
 
                                 {review.isPrivate && (
                                   <span className="text-[9px] font-black text-yellow-600 dark:text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                    🔒 خاص بالأستاذ
+                                     خاص بالأستاذ
                                   </span>
                                 )}
                               </div>
@@ -2207,10 +2207,10 @@ export default function CourseDetails() {
                                 {(review.teacherRating || review.contentRating) && (
                                   <div className="flex items-center gap-2 text-[9px] text-gray-500 dark:text-gray-400 font-bold">
                                     {review.teacherRating && (
-                                      <span>👨‍🏫 الأستاذ: {review.teacherRating}/5</span>
+                                      <span>‍ الأستاذ: {review.teacherRating}/5</span>
                                     )}
                                     {review.contentRating && (
-                                      <span>📖 المحتوى: {review.contentRating}/5</span>
+                                      <span> المحتوى: {review.contentRating}/5</span>
                                     )}
                                   </div>
                                 )}
@@ -2225,7 +2225,7 @@ export default function CourseDetails() {
                             {/* Floating Reaction Count on Bubble (Facebook Style) */}
                             {reviewLikes > 0 && (
                               <div className="absolute -bottom-2 left-4 bg-white dark:bg-[#111827] border border-gray-100 dark:border-slate-800 rounded-full px-2 py-0.5 flex items-center gap-1 shadow-sm text-[10px] font-black text-gray-500 dark:text-gray-400 select-none z-10">
-                                <span className="flex items-center justify-center bg-blue-500 rounded-full w-3.5 h-3.5 text-[8px] text-white">👍</span>
+                                <span className="flex items-center justify-center bg-blue-500 rounded-full w-3.5 h-3.5 text-[8px] text-white"></span>
                                 <span>{reviewLikes}</span>
                               </div>
                             )}
@@ -2291,7 +2291,7 @@ export default function CourseDetails() {
                                         </span>
                                         {isReplyTeacher && (
                                           <span className="text-[8px] font-black bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-1.5 py-0.5 rounded-full">
-                                            معلم المادة 👨‍🏫
+                                            معلم المادة ‍
                                           </span>
                                         )}
                                         {reply.userId === userData?.id && !isReplyTeacher && (
@@ -2355,7 +2355,7 @@ export default function CourseDetails() {
                   })
                 ) : (
                   <div className="text-center py-12 text-gray-400 text-xs font-bold border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center gap-3">
-                    <span className="text-3xl">💬</span>
+                    <span className="text-3xl"></span>
                     <span>لا توجد تعليقات منشورة لهذا الكورس بعد. كن أول من يترك انطباعاً جميلاً!</span>
                   </div>
                 )}
@@ -2375,7 +2375,7 @@ export default function CourseDetails() {
                     <span>مسودة ملاحظات سريعة</span>
                   </h3>
                   <span className="text-[9px] text-gray-500 font-bold bg-white dark:bg-[#13131C] px-2 py-0.5 rounded border border-gray-100 dark:border-slate-800">
-                    حفظ تلقائي 💾
+                    حفظ تلقائي 
                   </span>
                 </div>
                 <div className="p-4">
@@ -2431,7 +2431,7 @@ export default function CourseDetails() {
                 <div className="pt-2">
                   <button
                     onClick={() => {
-                      toast.success('تم نسخ رابط الكورس لمشاركته مع طلابك! 🔗');
+                      toast.success('تم نسخ رابط الكورس لمشاركته مع طلابك! ');
                       navigator.clipboard.writeText(window.location.href);
                     }}
                     className="w-full bg-sky-500/10 dark:bg-cyan-400/10 hover:bg-[#00B4D8] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-gray-900 text-sky-600 dark:text-cyan-400 py-2.5 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
@@ -2534,7 +2534,7 @@ export default function CourseDetails() {
                           dir="ltr"
                         />
                         <p className="text-[10px] text-gray-400 font-bold text-right mt-1" dir="rtl">
-                          💡 يمكنك وضع روابط YouTube أو TikTok (يرجى استخدام رابط المقطع الكامل).
+                           يمكنك وضع روابط YouTube أو TikTok (يرجى استخدام رابط المقطع الكامل).
                         </p>
                       </div>
                     </div>
@@ -2677,7 +2677,7 @@ export default function CourseDetails() {
                   </button>
                   
                   <div className="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto text-4xl mb-2 animate-bounce">
-                    🎓
+                    
                   </div>
                   <h3 className="font-black text-xl text-gray-900 dark:text-white">تقييم الكورس والأستاذ</h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -2690,7 +2690,7 @@ export default function CourseDetails() {
                   <div className="bg-gray-50 dark:bg-[#222230] p-4 rounded-2xl border border-gray-150 dark:border-slate-800 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-black text-gray-900 dark:text-white flex items-center gap-1.5">
-                        👨‍🏫 تقييم أداء الأستاذ:
+                        ‍ تقييم أداء الأستاذ:
                       </span>
                       <span className="text-xs font-bold text-amber-500 font-sans">
                         {teacherRating} / 5
@@ -2717,7 +2717,7 @@ export default function CourseDetails() {
                   <div className="bg-gray-50 dark:bg-[#222230] p-4 rounded-2xl border border-gray-150 dark:border-slate-800 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-black text-gray-900 dark:text-white flex items-center gap-1.5">
-                        📖 تقييم المحتوى التعليمي:
+                         تقييم المحتوى التعليمي:
                       </span>
                       <span className="text-xs font-bold text-amber-500 font-sans">
                         {contentRating} / 5
@@ -2763,7 +2763,7 @@ export default function CourseDetails() {
                       className="w-4 h-4 rounded text-yellow-500 focus:ring-yellow-500 border-gray-300 dark:border-slate-800 bg-white dark:bg-[#111827]"
                     />
                     <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
-                      🔒 إرسال كتقييم خاص للأستاذ فقط (لن ينشر للعامة)
+                       إرسال كتقييم خاص للأستاذ فقط (لن ينشر للعامة)
                     </span>
                   </label>
                 </div>
@@ -2823,7 +2823,7 @@ export default function CourseDetails() {
                 </p>
                 <div className="bg-red-50 dark:bg-red-950/20 p-3 rounded-2xl border border-red-100 dark:border-red-900/30">
                   <p className="text-[11px] text-red-600 dark:text-red-400 font-bold leading-relaxed">
-                    ⚠️ تنبيه: سيتم حذف كافة الدروس والمرفقات والطلاب المسجلين من الكورس. لا يمكن التراجع عن هذا الإجراء!
+                    ️ تنبيه: سيتم حذف كافة الدروس والمرفقات والطلاب المسجلين من الكورس. لا يمكن التراجع عن هذا الإجراء!
                   </p>
                 </div>
               </div>
@@ -2904,7 +2904,7 @@ export default function CourseDetails() {
                           : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                       }`}
                     >
-                      <span className="text-base">💰</span>
+                      <span className="text-base"></span>
                       تحويل مباشر
                     </button>
                   )}
@@ -3055,7 +3055,7 @@ export default function CourseDetails() {
                           </div>
                           
                           <p className="text-[10.5px] font-bold text-gray-500 dark:text-gray-400 leading-relaxed text-right mt-4">
-                            ⚠️ يرجى تحويل مبلغ الكورس كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{course.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل الكورس.
+                            ️ يرجى تحويل مبلغ الكورس كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{course.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل الكورس.
                           </p>
                         </div>
 

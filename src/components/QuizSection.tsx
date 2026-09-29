@@ -169,8 +169,8 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
           setQuizStarted(false);
         } else {
           setShowInfractionWarning(true);
-          toast(`⚠️ تنبيه: لا تغادر صفحة الاختبار! تم تسجيل مخالفة ${next}/3`, {
-            icon: '⚠️',
+          toast(`️ تنبيه: لا تغادر صفحة الاختبار! تم تسجيل مخالفة ${next}/3`, {
+            icon: '️',
           });
         }
         return next;
@@ -331,7 +331,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
         await updateDoc(doc(db, 'users', userData.id), {
           points: increment(bonusPoints)
         });
-        toast.success(`أحسنت صنعاً! تم إضافة ${bonusPoints} نجمة إلى رصيد تميزك! 🏆`);
+        toast.success(`أحسنت صنعاً! تم إضافة ${bonusPoints} نجمة إلى رصيد تميزك! `);
       } catch (err) {
         console.error('Error rewarding points:', err);
       }
@@ -620,7 +620,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                 />
                 <div className="text-right flex-1">
                   <label htmlFor="quizIsHidden" className="text-xs font-black text-gray-800 dark:text-white cursor-pointer">
-                    إخفاء هذا الاختبار مؤقتاً وحفظه كمسودة 🙈
+                    إخفاء هذا الاختبار مؤقتاً وحفظه كمسودة 
                   </label>
                   <p className="text-[10px] text-gray-500 dark:text-gray-400 font-bold mt-0.5">
                     عند تفعيل هذا الخيار، لن يتمكن الطلاب من رؤية أو بدء هذا الاختبار حتى تقوم بنشره وتوجيهه إليهم لاحقاً من لوحة التحكم الرئيسية للاختبارات.
@@ -848,17 +848,17 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                       {selectedStudentAnswers.cheatedViolation ? (
                         <span className="px-2.5 py-1 rounded-full text-[10px] bg-red-100 text-red-700 dark:bg-red-950/50 font-black flex items-center gap-1 w-fit">
                           <AlertTriangle className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-                          تم إلغاء الاختبار تلقائياً وتسجيل تقرير غش لمغادرة الصفحة 3 مرات 🛑
+                          تم إلغاء الاختبار تلقائياً وتسجيل تقرير غش لمغادرة الصفحة 3 مرات 
                         </span>
                       ) : selectedStudentAnswers.infractionsCount && selectedStudentAnswers.infractionsCount > 0 ? (
                         <span className="px-2.5 py-1 rounded-full text-[10px] bg-amber-50 text-amber-600 dark:bg-amber-950/30 font-black flex items-center gap-1 w-fit">
                           <Shield className="w-3.5 h-3.5 text-amber-500" />
-                          تم رصد {selectedStudentAnswers.infractionsCount} محاولات خروج وتغيير تبويب صفحة الاختبار ⚠️
+                          تم رصد {selectedStudentAnswers.infractionsCount} محاولات خروج وتغيير تبويب صفحة الاختبار ️
                         </span>
                       ) : (
                         <span className="px-2.5 py-1 rounded-full text-[10px] bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 font-black flex items-center gap-1 w-fit">
                           <Check className="w-3.5 h-3.5 text-emerald-500" />
-                          بيئة آمنة: لم يقم الطالب بأي محاولات للخروج من صفحة الاختبار 🔒
+                          بيئة آمنة: لم يقم الطالب بأي محاولات للخروج من صفحة الاختبار 
                         </span>
                       )}
                     </div>
@@ -944,7 +944,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                         )}
                         {q.explanation && (
                           <div className="bg-blue-50/50 dark:bg-blue-950/20 border-r-2 border-sky-500 dark:border-cyan-400 p-3 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300">
-                            <strong>💡 التفسير العلمي: </strong>
+                            <strong> التفسير العلمي: </strong>
                             {q.explanation}
                           </div>
                         )}
@@ -963,7 +963,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                       <th className="p-4">النتيجة</th>
                       <th className="p-4">إجابات صحيحة</th>
                       <th className="p-4">الحالة الأكاديمية</th>
-                      <th className="p-4">حماية التبويب 🔒</th>
+                      <th className="p-4">حماية التبويب </th>
                       <th className="p-4">تاريخ التسليم</th>
                       <th className="p-4 text-center">الإجراء</th>
                     </tr>
@@ -994,17 +994,17 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                             {sub.cheatedViolation ? (
                               <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-950/40 text-[10px] font-black flex items-center gap-1 w-fit">
                                 <AlertTriangle className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-                                محاولة ملغاة (غش) 🛑
+                                محاولة ملغاة (غش) 
                               </span>
                             ) : sub.infractionsCount && sub.infractionsCount > 0 ? (
                               <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/30 text-[10px] font-black flex items-center gap-1 w-fit">
                                 <Shield className="w-3.5 h-3.5 text-amber-500" />
-                                {sub.infractionsCount} مخالفات خروج ⚠️
+                                {sub.infractionsCount} مخالفات خروج ️
                               </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 text-[10px] font-black flex items-center gap-1 w-fit">
                                 <Check className="w-3.5 h-3.5 text-emerald-500" />
-                                آمن بالكامل ✅
+                                آمن بالكامل 
                               </span>
                             )}
                           </td>
@@ -1161,7 +1161,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
               <div className="flex items-center gap-2 px-3 py-1 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100/60 dark:border-indigo-900/35 rounded-xl">
                 <Shield className="w-3.5 h-3.5 text-indigo-500 shrink-0 animate-pulse" />
                 <div className="text-right">
-                  <p className="text-[8px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط 🔒</p>
+                  <p className="text-[8px] text-indigo-600 dark:text-indigo-400 font-black leading-none">نظام مراقبة التبويب نشط </p>
                   <p className="text-[9px] text-gray-500 dark:text-gray-300 font-bold mt-0.5">
                     الخروج من الصفحة: <span className={infractions > 0 ? "text-red-500 font-black" : "text-emerald-500 font-black"}>{infractions} / 3</span>
                   </p>
@@ -1300,7 +1300,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
               </div>
 
               <div className="space-y-2 text-center">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">⚠️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -1323,7 +1323,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20 cursor-pointer"
               >
-                أفهم ذلك، العودة لحل الاختبار ✍️
+                أفهم ذلك، العودة لحل الاختبار ️
               </button>
             </motion.div>
           </div>
@@ -1373,7 +1373,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                   </svg>
                   <div className="absolute flex flex-col items-center justify-center text-center font-sans">
                     <span className="text-xl font-black text-gray-900 dark:text-white">{submission.score}%</span>
-                    <span className="text-[8px] text-gray-400 dark:text-gray-500 font-bold">{submission.passed ? 'ناجح ومتميز 🏆' : 'لم تتجاوز 50%'}</span>
+                    <span className="text-[8px] text-gray-400 dark:text-gray-500 font-bold">{submission.passed ? 'ناجح ومتميز ' : 'لم تتجاوز 50%'}</span>
                   </div>
                 </div>
 
@@ -1406,7 +1406,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                         ? "تم إلغاء نتيجة هذا الاختبار تلقائياً وتصفير الدرجة بسبب الخروج من تبويب الصفحة 3 مرات غش."
                         : (submission.infractionsCount || 0) > 0
                           ? `تم رصد عدد ${submission.infractionsCount} محاولات خروج أو تغيير التبويب أثناء حل أسئلة الدرس.`
-                          : "مصداقية أدائك كاملة 100%! لم يتم تسجيل أي خروج من صفحة الاختبار التفاعلي 👍"}
+                          : "مصداقية أدائك كاملة 100%! لم يتم تسجيل أي خروج من صفحة الاختبار التفاعلي "}
                     </p>
                   </div>
                 </div>
@@ -1501,7 +1501,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                       {/* Explanation box */}
                       {q.explanation && (
                         <div className="bg-blue-50/40 dark:bg-blue-950/20 border-r-2 border-sky-500 dark:border-cyan-400 p-3 rounded-lg text-xs leading-relaxed text-gray-600 dark:text-gray-300 font-medium">
-                          <strong className="text-blue-600 dark:text-cyan-400">💡 التفسير والحل العلمي: </strong>
+                          <strong className="text-blue-600 dark:text-cyan-400"> التفسير والحل العلمي: </strong>
                           {q.explanation}
                         </div>
                       )}
@@ -1544,12 +1544,12 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                 <div className="relative z-10 flex items-start justify-between">
                   <div className="space-y-1">
                     <span className="inline-block bg-white/20 text-white px-2.5 py-1 rounded-full text-[10px] font-black">
-                      إشعار فوري بالنتيجة 🔔
+                      إشعار فوري بالنتيجة 
                     </span>
                     <h3 className="text-xl font-black">
                       {submission.passed 
-                        ? 'أحسنت يا بطل! لقد اجتزت الاختبار بنجاح 🎉' 
-                        : 'محاولة جيدة! استمر في التعلم وسوف تتميز 💪'}
+                        ? 'أحسنت يا بطل! لقد اجتزت الاختبار بنجاح ' 
+                        : 'محاولة جيدة! استمر في التعلم وسوف تتميز '}
                     </h3>
                     <p className="text-xs text-white/90 leading-relaxed max-w-md">
                       {submission.passed
@@ -1609,7 +1609,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                     <span className="text-2xl font-black text-sky-600 dark:text-cyan-400 font-sans mt-1">
                       {submission.passed ? `+${submission.score}` : '0'}
                     </span>
-                    <span className="text-[9px] text-gray-400 dark:text-gray-500 mt-1">🏆 نقاط مضافة للملف</span>
+                    <span className="text-[9px] text-gray-400 dark:text-gray-500 mt-1"> نقاط مضافة للملف</span>
                   </div>
                 </div>
 
@@ -1686,7 +1686,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                               {/* Simplified Explanation */}
                               {q.explanation && (
                                 <div className="bg-blue-50/40 dark:bg-blue-950/20 border-r-2 border-sky-500 dark:border-cyan-400 p-3 rounded-lg text-xs leading-relaxed text-gray-600 dark:text-gray-300 font-medium">
-                                  <strong className="text-sky-600 dark:text-cyan-400 block mb-1">💡 التفسير والشرح العلمي المبسط:</strong>
+                                  <strong className="text-sky-600 dark:text-cyan-400 block mb-1"> التفسير والشرح العلمي المبسط:</strong>
                                   {q.explanation}
                                 </div>
                               )}
@@ -1735,13 +1735,13 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
               </div>
 
               <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">
-                تأكيد تسليم وإنهاء الاختبار 🏁
+                تأكيد تسليم وإنهاء الاختبار 
               </h3>
 
               <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed mb-6">
                 {unansweredQuestionsCount > 0 ? (
                   <p className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 p-3 rounded-xl font-bold border border-red-100 dark:border-red-900/30">
-                    ⚠️ لقد تركت <span className="underline">{unansweredQuestionsCount} سؤالاً</span> بدون إجابة في هذا الاختبار! هل أنت متأكد من رغبتك في التسليم وتصحيح الاختبار مع احتساب هذه الأسئلة كإجابة خاطئة؟
+                    ️ لقد تركت <span className="underline">{unansweredQuestionsCount} سؤالاً</span> بدون إجابة في هذا الاختبار! هل أنت متأكد من رغبتك في التسليم وتصحيح الاختبار مع احتساب هذه الأسئلة كإجابة خاطئة؟
                   </p>
                 ) : (
                   <p>

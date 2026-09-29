@@ -188,7 +188,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
     }
 
     if (userData.isSpecialRegistration && userData.status === 'pending') {
-      toast.error('حسابك قيد المراجعة حالياً من قبل الإدارة. بمجرد قبول حسابك، ستتمكن من الاشتراك والدفع لتفعيل هذه المراجعة! ⏳');
+      toast.error('حسابك قيد المراجعة حالياً من قبل الإدارة. بمجرد قبول حسابك، ستتمكن من الاشتراك والدفع لتفعيل هذه المراجعة! ');
       return;
     }
 
@@ -243,14 +243,14 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
       // 4. Create system notification
       await addDoc(collection(db, 'notifications'), {
         userId: userData.id,
-        title: '🎉 تم تفعيل مراجعة القدرات بنجاح!',
+        title: ' تم تفعيل مراجعة القدرات بنجاح!',
         message: `تهانينا! لقد تم تفعيل مراجعة "${selectedReview.title}" بنجاح خصماً من محفظتك.`,
         read: false,
         type: 'system',
         createdAt: new Date().toISOString()
       });
 
-      toast.success('تم الشراء وتفعيل المراجعة بنجاح! 🚀');
+      toast.success('تم الشراء وتفعيل المراجعة بنجاح! ');
       
       if (setUserData) {
         setUserData({ ...userData, balance: nextBalance });
@@ -271,13 +271,13 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
   const handleCopyNumber = () => {
     navigator.clipboard.writeText(vodafoneCashNumber);
     setCopiedNumber(true);
-    toast.success("تم نسخ الرقم بنجاح! 📋");
+    toast.success("تم نسخ الرقم بنجاح! ");
     setTimeout(() => setCopiedNumber(false), 2000);
   };
 
   const handleCopyText = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("تم النسخ بنجاح! 📋");
+    toast.success("تم النسخ بنجاح! ");
   };
 
   const handleScreenshotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -337,7 +337,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
         createdAt: new Date().toISOString()
       });
 
-      toast.success("تم إرسال طلب الاشتراك بنجاح! سيتم تفعيل المراجعة بعد مراجعة الإدارة للتحويل خلال وقت قصير. ✨");
+      toast.success("تم إرسال طلب الاشتراك بنجاح! سيتم تفعيل المراجعة بعد مراجعة الإدارة للتحويل خلال وقت قصير. ");
       setShowPaymentModal(false);
       setPaymentSenderName("");
       setPaymentSenderPhone("");
@@ -385,7 +385,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                   <span>برنامج القدرات الفاخر</span>
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-                  🎓 قسم مراجعات القدرات المتميزة
+                   قسم مراجعات القدرات المتميزة
                 </h1>
                 <p className="text-slate-200/90 font-bold text-xs sm:text-sm max-w-2xl leading-relaxed">
                   مستقبلك يبدأ من هنا. مراجعات فيديو مكثفة ومصممة بدقة متناهية بأحدث تجميعات القدرات، يقدمها نخبة من أفضل المعلمين لمساعدتك على تأمين نسبة +95٪ بإذن الله.
@@ -401,7 +401,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                 </div>
                 <h3 className="text-lg font-black text-gray-800 dark:text-gray-200">القسم قيد التحضير والتجهيز</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-bold max-w-xs mx-auto leading-relaxed">
-                  يقوم معلّمونا حالياً برفع وتجهيز أحدث مراجعات وفيديوهات القدرات الحصرية لك. ستظهر هنا فور نشرها مباشرة! 🚀
+                  يقوم معلّمونا حالياً برفع وتجهيز أحدث مراجعات وفيديوهات القدرات الحصرية لك. ستظهر هنا فور نشرها مباشرة! 
                 </p>
               </div>
             ) : (
@@ -647,7 +647,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                             <Lock className="w-8 h-8" />
                           </div>
                           <div className="relative z-10 space-y-2">
-                            <h3 className="text-lg font-black text-white">الدرس مغلق! 🔒</h3>
+                            <h3 className="text-lg font-black text-white">الدرس مغلق! </h3>
                             <p className="text-xs text-slate-300 font-bold max-w-sm mx-auto leading-relaxed">
                               اشترك الآن لمشاهدة المراجعة كاملة وفتح جميع المزايا ودروس المراجعة الحصرية مع حلول التجميعات.
                             </p>
@@ -730,7 +730,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                                   link.click();
                                   document.body.removeChild(link);
                                 } else {
-                                  toast.error('يجب شراء المراجعة أولاً لتحميل المذكرة 🔒');
+                                  toast.error('يجب شراء المراجعة أولاً لتحميل المذكرة ');
                                 }
                               }}
                               className="px-4 py-2 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors border border-rose-200 dark:border-rose-900/30 cursor-pointer"
@@ -746,7 +746,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                                 if (review.price === 0 || isPurchased(review)) {
                                   navigate(`/exam/${review.examId}`);
                                 } else {
-                                  toast.error('يجب شراء المراجعة أولاً للوصول للاختبار 🔒');
+                                  toast.error('يجب شراء المراجعة أولاً للوصول للاختبار ');
                                 }
                               }}
                               className="px-4 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors border border-emerald-200 dark:border-emerald-900/30 cursor-pointer"
@@ -879,7 +879,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                             <FileText className="w-5 h-5" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-black text-gray-900 dark:text-white">الملف جاهز للتحميل 📄</h4>
+                            <h4 className="text-sm font-black text-gray-900 dark:text-white">الملف جاهز للتحميل </h4>
                             <span className="text-[10px] font-bold text-gray-400">صيغة الملف: PDF عالي الجودة</span>
                           </div>
                         </div>
@@ -917,7 +917,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                             <Award className="w-5 h-5" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-black text-gray-900 dark:text-white">الاختبار الإلكتروني جاهز 🏆</h4>
+                            <h4 className="text-sm font-black text-gray-900 dark:text-white">الاختبار الإلكتروني جاهز </h4>
                             <span className="text-[10px] font-bold text-gray-400">تفاعلي بالكامل مع التصحيح الفوري</span>
                           </div>
                         </div>
@@ -1087,7 +1087,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                           : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                       }`}
                     >
-                      <span className="text-base">💰</span>
+                      <span className="text-base"></span>
                       تحويل مباشر
                     </button>
                   )}
@@ -1281,7 +1281,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                           </div>
                           
                           <p className="text-[10.5px] font-bold text-gray-500 dark:text-gray-400 leading-relaxed text-right mt-4">
-                            ⚠️ يرجى تحويل مبلغ المراجعة كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{selectedReview.discountPrice || selectedReview.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل المراجعة.
+                            ️ يرجى تحويل مبلغ المراجعة كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{selectedReview.discountPrice || selectedReview.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل المراجعة.
                           </p>
                         </div>
 
