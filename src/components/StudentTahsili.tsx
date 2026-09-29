@@ -367,9 +367,10 @@ export default function StudentTahsili({ userData, setUserData, initialSelectedR
           // ================= REVIEWS EXPLORER (GRID VIEW) =================
           <motion.div
             key="list"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: 14, filter: 'blur(3px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -10, filter: 'blur(3px)' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-8"
           >
             {/* Luxurious Header */}
@@ -615,9 +616,10 @@ export default function StudentTahsili({ userData, setUserData, initialSelectedR
             return (
               <motion.div
                 key="details"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 15 }}
+                initial={{ opacity: 0, y: 14, filter: 'blur(3px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -10, filter: 'blur(3px)' }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                 className="space-y-6"
               >
                 {/* Back button */}

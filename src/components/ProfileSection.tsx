@@ -729,85 +729,91 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                         )}
                       </div>
 
-                      <div className="h-[280px] w-full pt-4">
-                        {userData?.role === 'student' ? (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart
-                              data={
-                                quizSubmissions.length > 0 
-                                  ? quizSubmissions.slice(-7).map((sub, idx) => ({
-                                      name: sub.quizTitle ? (sub.quizTitle.length > 10 ? sub.quizTitle.substring(0, 10) + '..' : sub.quizTitle) : `اختبار ${idx + 1}`,
-                                      "الدرجة (%)": sub.score || 0
-                                    }))
-                                  : [
-                                      { name: 'اختبار تجريبي ١', "الدرجة (%)": 75 },
-                                      { name: 'اختبار تجريبي ٢', "الدرجة (%)": 90 },
-                                      { name: 'اختبار تجريبي ٣', "الدرجة (%)": 85 },
-                                      { name: 'اختبار تجريبي ٤', "الدرجة (%)": 98 }
-                                    ]
-                              }
-                            >
-                              <defs>
-                                <linearGradient id="colorStudent" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="#00B4D8" stopOpacity={0.3}/>
-                                  <stop offset="95%" stopColor="#00B4D8" stopOpacity={0}/>
-                                </linearGradient>
-                              </defs>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:hidden" />
-                              <CartesianGrid strokeDasharray="3 3" stroke="#2D2D3D" className="hidden dark:block" />
-                              <XAxis dataKey="name" stroke="#9ca3af" fontSize={11} tickLine={false} />
-                              <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} domain={[0, 100]} />
-                              <Tooltip 
-                                contentStyle={{ 
-                                  backgroundColor: '#1A1A24', 
-                                  borderColor: '#2D2D3D', 
-                                  borderRadius: '12px',
-                                  color: '#fff',
-                                  fontSize: '12px',
-                                  textAlign: 'right'
-                                }} 
-                              />
-                              <Area type="monotone" dataKey="الدرجة (%)" stroke="#00B4D8" strokeWidth={3} fillOpacity={1} fill="url(#colorStudent)" />
-                            </AreaChart>
-                          </ResponsiveContainer>
+                      {/* Chart Area */}
+                      {userData?.role === 'student' ? (
+                        quizSubmissions.length > 0 ? (
+                          <div className="h-[280px] w-full pt-4">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart
+                                data={quizSubmissions.slice(-10).map((sub, idx) => ({
+                                  name: sub.quizTitle ? (sub.quizTitle.length > 14 ? sub.quizTitle.substring(0, 14) + '..' : sub.quizTitle) : `اختبار ${idx + 1}`,
+                                  "الدرجة (%)": typeof sub.score === 'number' ? sub.score : (parseFloat(sub.score) || 0)
+                                }))}
+                              >
+                                <defs>
+                                  <linearGradient id="colorStudent" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#00B4D8" stopOpacity={0.3}/>
+                                    <stop offset="95%" stopColor="#00B4D8" stopOpacity={0}/>
+                                  </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:hidden" />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#2D2D3D" className="hidden dark:block" />
+                                <XAxis dataKey="name" stroke="#9ca3af" fontSize={11} tickLine={false} />
+                                <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} domain={[0, 100]} />
+                                <Tooltip 
+                                  contentStyle={{ 
+                                    backgroundColor: '#1A1A24', 
+                                    borderColor: '#2D2D3D', 
+                                    borderRadius: '12px',
+                                    color: '#fff',
+                                    fontSize: '12px',
+                                    textAlign: 'right'
+                                  }} 
+                                />
+                                <Area type="monotone" dataKey="الدرجة (%)" stroke="#00B4D8" strokeWidth={3} fillOpacity={1} fill="url(#colorStudent)" />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          </div>
                         ) : (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                              data={
-                                myCourses.length > 0
-                                  ? myCourses.map(c => ({
-                                      name: c.title ? (c.title.length > 12 ? c.title.substring(0, 12) + '..' : c.title) : 'كورس',
-                                      "عدد الطلاب": c.enrolledStudentIds?.length || 0
-                                    }))
-                                  : [
-                                      { name: 'لا توجد كورسات', "عدد الطلاب": 0 }
-                                    ]
-                              }
-                            >
-                              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:hidden" />
-                              <CartesianGrid strokeDasharray="3 3" stroke="#2D2D3D" className="hidden dark:block" />
-                              <XAxis dataKey="name" stroke="#9ca3af" fontSize={11} tickLine={false} />
-                              <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} />
-                              <Tooltip 
-                                contentStyle={{ 
-                                  backgroundColor: '#1A1A24', 
-                                  borderColor: '#2D2D3D', 
-                                  borderRadius: '12px',
-                                  color: '#fff',
-                                  fontSize: '12px',
-                                  textAlign: 'right'
-                                }} 
-                              />
-                              <Bar dataKey="عدد الطلاب" fill="#D4AF37" radius={[6, 6, 0, 0]} barSize={40} />
-                            </BarChart>
-                          </ResponsiveContainer>
-                        )}
-                      </div>
-                      
-                      {userData?.role === 'student' && quizSubmissions.length === 0 && (
-                        <p className="text-center text-xs font-bold text-amber-500/80 bg-amber-500/5 p-3 rounded-2xl border border-amber-500/10">
-                          📌 الرسم البياني أعلاه هو تمثيل تجريبي. قم بحل الاختبارات التفاعلية داخل الكورسات لتسجيل أدائك الحقيقي هنا!
-                        </p>
+                          <div className="py-12 px-6 flex flex-col items-center justify-center text-center rounded-2xl bg-gray-50/50 dark:bg-[#0D121F]/50 border border-dashed border-gray-200 dark:border-slate-800 space-y-3">
+                            <div className="w-14 h-14 rounded-2xl bg-sky-500/10 dark:bg-cyan-400/10 text-sky-600 dark:text-cyan-400 flex items-center justify-center text-2xl">
+                              📊
+                            </div>
+                            <h4 className="text-base font-black text-gray-900 dark:text-white">لا توجد نتائج اختبارات مسجلة بعد</h4>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md font-medium leading-relaxed">
+                              لم تقم بخوض أي اختبارات أو تقييمات تفاعلية حتى الآن. عند قيامك بحل الاختبارات التفاعلية داخل الدورات التدريبية، سيتم تسجيل نتائجك الحقيقية ورسم منحنى تقدمك الأكاديمي هنا تلقائياً.
+                            </p>
+                          </div>
+                        )
+                      ) : (
+                        myCourses.length > 0 ? (
+                          <div className="h-[280px] w-full pt-4">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <BarChart
+                                data={myCourses.map(c => ({
+                                  name: c.title ? (c.title.length > 14 ? c.title.substring(0, 14) + '..' : c.title) : 'كورس',
+                                  "عدد الطلاب": c.enrolledStudentIds?.length || 0
+                                }))}
+                              >
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:hidden" />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#2D2D3D" className="hidden dark:block" />
+                                <XAxis dataKey="name" stroke="#9ca3af" fontSize={11} tickLine={false} />
+                                <YAxis stroke="#9ca3af" fontSize={11} tickLine={false} />
+                                <Tooltip 
+                                  contentStyle={{ 
+                                    backgroundColor: '#1A1A24', 
+                                    borderColor: '#2D2D3D', 
+                                    borderRadius: '12px',
+                                    color: '#fff',
+                                    fontSize: '12px',
+                                    textAlign: 'right'
+                                  }} 
+                                />
+                                <Bar dataKey="عدد الطلاب" fill="#D4AF37" radius={[6, 6, 0, 0]} barSize={40} />
+                              </BarChart>
+                            </ResponsiveContainer>
+                          </div>
+                        ) : (
+                          <div className="py-12 px-6 flex flex-col items-center justify-center text-center rounded-2xl bg-gray-50/50 dark:bg-[#0D121F]/50 border border-dashed border-gray-200 dark:border-slate-800 space-y-3">
+                            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl">
+                              📚
+                            </div>
+                            <h4 className="text-base font-black text-gray-900 dark:text-white">لا توجد كورسات منشورة بعد</h4>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md font-medium leading-relaxed">
+                              لم تقم بنشر أي دورات تدريبية حتى الآن. عند إضافة دورات وتفاعل الطلاب معها، سيظهر مخطط إحصائيات الطلاب هنا.
+                            </p>
+                          </div>
+                        )
                       )}
                     </div>
                   </>

@@ -311,7 +311,7 @@ export default function ComprehensiveAnalytics({ userData, linkedStudent }: Comp
               progressList,
               submissions,
               completedLessons,
-              averageQuizScore: averageQuizScore || 85, // Fallback to 85 if no exams yet
+              averageQuizScore: averageQuizScore,
               badges
             });
           }

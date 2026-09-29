@@ -198,199 +198,403 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
 
   return (
     <div className="max-w-6xl mx-auto py-4 px-2" dir="rtl">
-      {selectedSubject ? (
-        // ================= SUBJECT DETAILS VIEW =================
-        <div className="space-y-8">
-          {/* Back button */}
-          <button 
-            onClick={() => {
-              setSelectedSubject('');
-              setFilterTeacherId('');
-              // Update URL params
-              setSearchParams({});
-            }}
-            className="flex items-center gap-2 text-xs font-black text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer group"
+      <AnimatePresence mode="wait">
+        {selectedSubject ? (
+          // ================= SUBJECT DETAILS VIEW =================
+          <motion.div 
+            key={`subject_${selectedSubject}`}
+            initial={{ opacity: 0, y: 14, filter: 'blur(3px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -10, filter: 'blur(3px)' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-8"
           >
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            <span>العودة لجميع الكورسات والمواد</span>
-          </button>
+            {/* Back button */}
+            <button 
+              onClick={() => {
+                setSelectedSubject('');
+                setFilterTeacherId('');
+                // Update URL params
+                setSearchParams({});
+              }}
+              className="flex items-center gap-2 text-xs font-black text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors cursor-pointer group"
+            >
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span>العودة لجميع الكورسات والمواد</span>
+            </button>
 
-          {/* Premium Subject Header */}
-          <div className="bg-gradient-to-r from-[#0A102E] via-[#10194E] to-[#152368] rounded-3xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden border border-[#D4F800]/30">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4F800]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-            <div className="relative z-10 space-y-2">
-              <span className="text-xs font-black bg-[#D4F800] text-[#0A102E] py-1 px-3 rounded-full inline-block mb-1 shadow-xs">
-                تصفح مواد الصف: {userData?.grade || 'كل الصفوف'}
-              </span>
-              <h1 className="text-2xl sm:text-3xl font-black flex items-center gap-2">
-                <BookOpen className="w-8 h-8 shrink-0 text-[#D4F800]" />
-                <span>مادة {selectedSubject}</span>
-              </h1>
-              <p className="text-white/85 font-medium text-xs sm:text-sm max-w-2xl leading-relaxed">
-                هنا تجد نخبة من أفضل معلمي مادة {selectedSubject} مع كورساتهم المصممة خصيصاً لمساعدتك على التفوق في صفك الدراسي.
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 1: Teachers of this subject */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/10 pb-3">
-              <h2 className="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#658C00] dark:text-[#D4F800]" />
-                <span>معلمو مادة {selectedSubject} لصفك الدراسي</span>
-              </h2>
-              <span className="text-xs text-gray-400 font-bold">
-                ({filteredTeachersOfSubject.length}) معلم متاح
-              </span>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[1, 2, 3].map(n => (
-                  <div key={n} className="bg-white dark:bg-[#111827] rounded-2xl p-6 border border-gray-200 dark:border-slate-800 animate-pulse h-48" />
-                ))}
-              </div>
-            ) : filteredTeachersOfSubject.length === 0 ? (
-              <div className="bg-white dark:bg-[#111827] rounded-3xl p-8 text-center border border-gray-200 dark:border-slate-800 shadow-sm">
-                <div className="w-12 h-12 bg-gray-50 dark:bg-[#090D16] border border-gray-200 dark:border-slate-800 rounded-xl flex items-center justify-center mx-auto mb-3 text-gray-400">
-                  <Users className="w-6 h-6" />
-                </div>
-                <h3 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-1">لا يوجد معلمون لهذه المادة حالياً</h3>
-                <p className="text-xs text-gray-400 max-w-xs mx-auto">
-                  لم يتم تسجيل معلمي مادة {selectedSubject} {userData?.grade ? `لـ ${userData.grade}` : 'في الوقت الحالي'}.
+            {/* Premium Subject Header */}
+            <div className="bg-gradient-to-r from-[#0A102E] via-[#10194E] to-[#152368] rounded-3xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden border border-[#D4F800]/30">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4F800]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+              <div className="relative z-10 space-y-2">
+                <span className="text-xs font-black bg-[#D4F800] text-[#0A102E] py-1 px-3 rounded-full inline-block mb-1 shadow-xs">
+                  تصفح مواد الصف: {userData?.grade || 'كل الصفوف'}
+                </span>
+                <h1 className="text-2xl sm:text-3xl font-black flex items-center gap-2">
+                  <BookOpen className="w-8 h-8 shrink-0 text-[#D4F800]" />
+                  <span>مادة {selectedSubject}</span>
+                </h1>
+                <p className="text-white/85 font-medium text-xs sm:text-sm max-w-2xl leading-relaxed">
+                  هنا تجد نخبة من أفضل معلمي مادة {selectedSubject} مع كورساتهم المصممة خصيصاً لمساعدتك على التفوق في صفك الدراسي.
                 </p>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredTeachersOfSubject.map((teacher) => {
-                  const stats = teacherStats[teacher.id] || { coursesCount: 0, totalStudents: 0, averageRating: 4.1 };
-                  const isFiltered = filterTeacherId === teacher.id;
-
-                  return (
-                    <motion.div
-                      key={teacher.id}
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className={`bg-white dark:bg-[#111827] rounded-2xl border p-5 flex flex-col justify-between transition-all relative ${
-                        isFiltered 
-                          ? 'border-2 border-sky-500 dark:border-cyan-400 shadow-md bg-sky-500/5 dark:bg-cyan-400/5' 
-                          : 'border-gray-200 dark:border-slate-800 shadow-sm hover:shadow-md'
-                      }`}
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#00B4D8] to-blue-500 text-white flex items-center justify-center font-black text-lg shadow-sm shrink-0 select-none">
-                            {(teacher.name || 'م').charAt(0).toUpperCase()}
-                          </div>
-                          <div>
-                            <h3 className="text-sm font-bold text-gray-900 dark:text-white line-clamp-1">
-                              {teacher.name}
-                            </h3>
-                            <span className="inline-block bg-blue-50 text-sky-600 dark:bg-blue-950/40 dark:text-blue-400 py-0.5 px-2 rounded-md text-[9px] font-black mt-1">
-                              {teacher.school || 'معلم متميز'}
-                            </span>
-                          </div>
-                        </div>
-
-                        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium line-clamp-2">
-                          خبرة متميزة في تبسيط مادة {selectedSubject} وإيصال المعلومات بأحدث الطرق التفاعلية الممتعة.
-                        </p>
-                      </div>
-
-                      <div className="mt-4 pt-3 border-t border-gray-100 dark:border-slate-800 space-y-3">
-                        <div className="grid grid-cols-3 gap-1 text-center bg-gray-50/50 dark:bg-[#090D16]/20 p-2 rounded-xl text-[11px] font-bold">
-                          <div>
-                            <span className="block text-[9px] text-gray-400 mb-0.5">الكورسات</span>
-                            <span className="text-gray-800 dark:text-gray-200">{stats.coursesCount}</span>
-                          </div>
-                          <div className="border-x border-gray-200/50 dark:border-gray-800/50">
-                            <span className="block text-[9px] text-gray-400 mb-0.5">الطلاب</span>
-                            <span className="text-sky-600 dark:text-cyan-400">{stats.totalStudents}</span>
-                          </div>
-                          <div>
-                            <span className="block text-[9px] text-gray-400 mb-0.5">التقييم</span>
-                            <span className="text-yellow-500 flex items-center justify-center gap-0.5">
-                              <Star className="w-3 h-3 fill-yellow-500 stroke-yellow-500" />
-                              {stats.averageRating}
-                            </span>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            if (isFiltered) {
-                              setFilterTeacherId('');
-                            } else {
-                              setFilterTeacherId(teacher.id);
-                            }
-                          }}
-                          className={`w-full py-2.5 px-4 rounded-xl font-black text-[11px] transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer ${
-                            isFiltered
-                              ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                              : 'bg-gray-100 hover:bg-gray-200 dark:bg-[#222230] dark:hover:bg-[#2D2D3E] text-gray-700 dark:text-gray-200'
-                          }`}
-                        >
-                          <span>{isFiltered ? 'عرض كورسات كل المعلمين' : 'عرض كورسات هذا المعلم فقط'}</span>
-                        </button>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* SECTION 2: Courses of this subject */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
-              <h2 className="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
-                <Award className="w-5 h-5 text-sky-600 dark:text-cyan-400" />
-                <span>كورسات مادة {selectedSubject} لصفك الدراسي</span>
-              </h2>
-              <span className="text-xs text-gray-400 font-bold">
-                ({filteredCoursesOfSubject.length}) كورس متاح
-              </span>
             </div>
 
-            {/* Teacher Filter Notification bar */}
-            {filterTeacherId && (
-              <div className="flex items-center justify-between bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 p-4 rounded-2xl text-emerald-700 dark:text-emerald-400">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-500" />
-                  <span className="text-xs font-bold">
-                    تظهر الآن كورسات المعلم: <strong className="font-black">{teachers.find(t => t.id === filterTeacherId)?.name}</strong> فقط
-                  </span>
-                </div>
-                <button 
-                  onClick={() => setFilterTeacherId('')}
-                  className="text-xs font-black underline hover:text-emerald-950 dark:hover:text-emerald-200 cursor-pointer"
-                >
-                  عرض جميع الكورسات
-                </button>
+            {/* SECTION 1: Teachers of this subject */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/10 pb-3">
+                <h2 className="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
+                  <Users className="w-5 h-5 text-[#658C00] dark:text-[#D4F800]" />
+                  <span>معلمو مادة {selectedSubject} لصفك الدراسي</span>
+                </h2>
+                <span className="text-xs text-gray-400 font-bold">
+                  ({filteredTeachersOfSubject.length}) معلم متاح
+                </span>
               </div>
-            )}
+
+              {loading ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[1, 2, 3].map(n => (
+                    <div key={n} className="bg-white dark:bg-[#111827] rounded-2xl p-6 border border-gray-200 dark:border-slate-800 animate-pulse h-48" />
+                  ))}
+                </div>
+              ) : filteredTeachersOfSubject.length === 0 ? (
+                <div className="bg-white dark:bg-[#111827] rounded-3xl p-8 text-center border border-gray-200 dark:border-slate-800 shadow-sm">
+                  <div className="w-12 h-12 bg-gray-50 dark:bg-[#090D16] border border-gray-200 dark:border-slate-800 rounded-xl flex items-center justify-center mx-auto mb-3 text-gray-400">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-1">لا يوجد معلمون لهذه المادة حالياً</h3>
+                  <p className="text-xs text-gray-400 max-w-xs mx-auto">
+                    لم يتم تسجيل معلمي مادة {selectedSubject} {userData?.grade ? `لـ ${userData.grade}` : 'في الوقت الحالي'}.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredTeachersOfSubject.map((teacher) => {
+                    const stats = teacherStats[teacher.id] || { coursesCount: 0, totalStudents: 0, averageRating: 4.1 };
+                    const isFiltered = filterTeacherId === teacher.id;
+
+                    return (
+                      <motion.div
+                        key={teacher.id}
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className={`bg-white dark:bg-[#111827] rounded-2xl border p-5 flex flex-col justify-between transition-all relative ${
+                          isFiltered 
+                            ? 'border-2 border-sky-500 dark:border-cyan-400 shadow-md bg-sky-500/5 dark:bg-cyan-400/5' 
+                            : 'border-gray-200 dark:border-slate-800 shadow-sm hover:shadow-md'
+                        }`}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#00B4D8] to-blue-500 text-white flex items-center justify-center font-black text-lg shadow-sm shrink-0 select-none">
+                              {(teacher.name || 'م').charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                              <h3 className="text-sm font-bold text-gray-900 dark:text-white line-clamp-1">
+                                {teacher.name}
+                              </h3>
+                              <span className="inline-block bg-blue-50 text-sky-600 dark:bg-blue-950/40 dark:text-blue-400 py-0.5 px-2 rounded-md text-[9px] font-black mt-1">
+                                {teacher.school || 'معلم متميز'}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium line-clamp-2">
+                            خبرة متميزة في تبسيط مادة {selectedSubject} وإيصال المعلومات بأحدث الطرق التفاعلية الممتعة.
+                          </p>
+                        </div>
+
+                        <div className="mt-4 pt-3 border-t border-gray-100 dark:border-slate-800 space-y-3">
+                          <div className="grid grid-cols-3 gap-1 text-center bg-gray-50/50 dark:bg-[#090D16]/20 p-2 rounded-xl text-[11px] font-bold">
+                            <div>
+                              <span className="block text-[9px] text-gray-400 mb-0.5">الكورسات</span>
+                              <span className="text-gray-800 dark:text-gray-200">{stats.coursesCount}</span>
+                            </div>
+                            <div className="border-x border-gray-200/50 dark:border-gray-800/50">
+                              <span className="block text-[9px] text-gray-400 mb-0.5">الطلاب</span>
+                              <span className="text-sky-600 dark:text-cyan-400">{stats.totalStudents}</span>
+                            </div>
+                            <div>
+                              <span className="block text-[9px] text-gray-400 mb-0.5">التقييم</span>
+                              <span className="text-yellow-500 flex items-center justify-center gap-0.5">
+                                <Star className="w-3 h-3 fill-yellow-500 stroke-yellow-500" />
+                                {stats.averageRating}
+                              </span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              if (isFiltered) {
+                                setFilterTeacherId('');
+                              } else {
+                                setFilterTeacherId(teacher.id);
+                              }
+                            }}
+                            className={`w-full py-2.5 px-4 rounded-xl font-black text-[11px] transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer ${
+                              isFiltered
+                                ? 'bg-emerald-500 text-white hover:bg-emerald-600'
+                                : 'bg-gray-100 hover:bg-gray-200 dark:bg-[#222230] dark:hover:bg-[#2D2D3E] text-gray-700 dark:text-gray-200'
+                            }`}
+                          >
+                            <span>{isFiltered ? 'عرض كورسات كل المعلمين' : 'عرض كورسات هذا المعلم فقط'}</span>
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* SECTION 2: Courses of this subject */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
+                <h2 className="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
+                  <Award className="w-5 h-5 text-sky-600 dark:text-cyan-400" />
+                  <span>كورسات مادة {selectedSubject} لصفك الدراسي</span>
+                </h2>
+                <span className="text-xs text-gray-400 font-bold">
+                  ({filteredCoursesOfSubject.length}) كورس متاح
+                </span>
+              </div>
+
+              {/* Teacher Filter Notification bar */}
+              {filterTeacherId && (
+                <div className="flex items-center justify-between bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 p-4 rounded-2xl text-emerald-700 dark:text-emerald-400">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-emerald-500" />
+                    <span className="text-xs font-bold">
+                      تظهر الآن كورسات المعلم: <strong className="font-black">{teachers.find(t => t.id === filterTeacherId)?.name}</strong> فقط
+                    </span>
+                  </div>
+                  <button 
+                    onClick={() => setFilterTeacherId('')}
+                    className="text-xs font-black underline hover:text-emerald-950 dark:hover:text-emerald-200 cursor-pointer"
+                  >
+                    عرض جميع الكورسات
+                  </button>
+                </div>
+              )}
+
+              {loading ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[1, 2, 3].map(n => (
+                    <div key={n} className="bg-white dark:bg-[#111827] rounded-2xl p-6 border border-gray-200 dark:border-slate-800 animate-pulse h-64" />
+                  ))}
+                </div>
+              ) : filteredCoursesOfSubject.length === 0 ? (
+                <div className="bg-white dark:bg-[#111827] rounded-3xl p-12 text-center border border-gray-200 dark:border-slate-800 shadow-sm">
+                  <div className="w-16 h-16 bg-gray-50 dark:bg-[#090D16] border border-gray-200 dark:border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <BookOpen className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">لا يوجد كورسات لهذه المادة حالياً</h3>
+                  <p className="text-xs font-bold text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
+                    عذراً، لا تتوفر كورسات مسجلة لمادة {selectedSubject} {userData?.grade ? `لـ ${userData.grade}` : 'في الوقت الحالي'}. ترقبوا إضافتها قريباً!
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredCoursesOfSubject.map((course, idx) => {
+                    const rating = courseRatings[course.id] || { average: 5.0, count: 0 };
+                    const isEnrolled = userData?.role === 'student' && course.enrolledStudentIds?.includes(userData.id);
+                    const progressData = progressMap[course.id];
+                    let percent = 0;
+                    let completedCount = 0;
+                    
+                    if (progressData) {
+                      if (progressData.completedLessons) {
+                        completedCount = progressData.completedLessons.length;
+                        const totalLessons = course.lessonsCount || 1;
+                        percent = parseFloat(((completedCount / totalLessons) * 100).toFixed(1));
+                      } else if (progressData.progressPercent !== undefined) {
+                        percent = progressData.progressPercent;
+                      }
+                    }
+
+                    return (
+                      <motion.div
+                        key={course.id}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: idx * 0.05 }}
+                        className="bg-white dark:bg-[#111827] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-150 dark:border-slate-800 group transition-all duration-300 flex flex-col relative h-full hover:-translate-y-1"
+                      >
+                        <Link to={`/course/${course.id}`} className="absolute inset-0 z-10" />
+                        
+                        {/* Image Container with strict 16:10 Aspect Ratio */}
+                        <div className="aspect-[16/10] w-full relative overflow-hidden bg-gray-50 dark:bg-[#15151F] pointer-events-none">
+                          {course.imageUrl ? (
+                            <img 
+                              src={course.imageUrl} 
+                              alt={course.title} 
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';
+                              }} 
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <BookOpen className="w-12 h-12 text-gray-300 dark:text-gray-700 stroke-[1.5]" />
+                            </div>
+                          )}
+                          
+                          {/* Subject Badge */}
+                          <div className="absolute top-4 right-4 bg-white/95 dark:bg-black/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-sky-600 dark:text-cyan-400 shadow-sm">
+                            {course.subject}
+                          </div>
+
+                          {/* Grade Badge */}
+                          <div className="absolute top-4 left-4 bg-gray-900/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-white shadow-sm">
+                            {course.grade}
+                          </div>
+                        </div>
+
+                        {/* Content Container */}
+                        <div className="p-5 flex-1 flex flex-col justify-between pointer-events-none">
+                          <div>
+                            {/* Teacher & Rating Header */}
+                            <div className="flex items-center justify-between mb-3 text-xs">
+                              <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 font-bold">
+                                <div className="w-5 h-5 rounded-full bg-sky-500/10 dark:bg-cyan-400/10 flex items-center justify-center text-[10px] font-black text-sky-600 dark:text-cyan-400">
+                                  {course.teacherName?.charAt(0) || 'أ'}
+                                </div>
+                                <span>{course.teacherName}</span>
+                              </div>
+                              
+                              <div className="flex items-center gap-1 bg-[#F5A623]/10 text-[#F5A623] px-2 py-0.5 rounded-lg font-bold">
+                                <Star className="w-3 h-3 fill-[#F5A623]" />
+                                <span>{rating.average.toFixed(1)}</span>
+                                <span className="text-[9px] opacity-70">({rating.count})</span>
+                              </div>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-base font-black text-gray-950 dark:text-white mb-2 group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">
+                              {course.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-gray-500 dark:text-gray-400 text-xs mb-4 line-clamp-2 leading-relaxed font-medium">
+                              {course.description}
+                            </p>
+                          </div>
+
+                          <div>
+                            {/* Progress tracker for enrolled courses */}
+                            {isEnrolled && (
+                              <div className="mb-4 bg-gray-50 dark:bg-[#222230]/30 p-3 rounded-2xl border border-gray-100 dark:border-slate-800">
+                                <div className="flex items-center justify-between mb-1.5 text-[10px] font-black">
+                                  <span className="text-gray-400 dark:text-gray-500">التقدم الدراسي</span>
+                                  <span className="text-sky-600 dark:text-cyan-400 font-bold font-mono">
+                                    {percent.toFixed(1)}%
+                                  </span>
+                                </div>
+                                <div className="w-full bg-gray-200 dark:bg-[#2D2D3D] rounded-full h-1.5 overflow-hidden">
+                                  <div 
+                                    className="h-full bg-gradient-to-r from-cyan-500 to-indigo-600 dark:from-cyan-400 dark:to-indigo-500 rounded-full transition-all duration-500"
+                                    style={{ width: `${percent}%` }}
+                                  />
+                                </div>
+                                <div className="text-[9px] text-gray-400 dark:text-gray-500 mt-1 font-bold flex justify-between items-center">
+                                  <span>تم إنجاز {completedCount} من {course.lessonsCount || 0} دروس</span>
+                                  <span>{percent === 100 ? "مكتمل 🌟" : "قيد الدراسة 📚"}</span>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Footer price & lesson counter */}
+                            <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800 text-xs font-bold text-gray-500 dark:text-gray-400">
+                              <div className="flex items-center gap-1.5">
+                                <BookOpen className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                                <span>{course.lessonsCount || 0} درس</span>
+                              </div>
+                              
+                              <div className="text-base font-black text-sky-600 dark:text-cyan-400">
+                                {course.price === 0 ? 'مجاني' : `${course.price} ج.م`}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        ) : (
+          // ================= GENERAL EXPLORE VIEW =================
+          <motion.div 
+            key="general_explore"
+            initial={{ opacity: 0, y: 14, filter: 'blur(3px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -10, filter: 'blur(3px)' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-8"
+          >
+            <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">استكشف الكورسات والمواد</h2>
+                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">اختر الكورسات المناسبة لصفك الدراسي ({userData.grade || 'كل الصفوف'})</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <div className="relative flex-1">
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="ابحث عن كورس..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-white dark:bg-[#111827] border border-gray-200 dark:border-slate-800 rounded-xl pr-12 pl-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:border-cyan-400 transition-colors text-sm font-bold"
+                />
+              </div>
+              <div className="relative md:w-64">
+                <Filter className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                <select
+                  value={selectedSubject}
+                  onChange={(e) => {
+                    setSelectedSubject(e.target.value);
+                    // Update search param
+                    if (e.target.value) {
+                      setSearchParams({ subject: e.target.value, tab: 'subjects' });
+                    } else {
+                      setSearchParams({});
+                    }
+                  }}
+                  className="w-full bg-white dark:bg-[#111827] border border-gray-200 dark:border-slate-800 rounded-xl pr-12 pl-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:border-cyan-400 transition-colors appearance-none text-xs font-black"
+                >
+                  <option value="">كل المواد الدراسية</option>
+                  {subjects.map(sub => (
+                    <option key={sub} value={sub}>{sub}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[1, 2, 3].map(n => (
-                  <div key={n} className="bg-white dark:bg-[#111827] rounded-2xl p-6 border border-gray-200 dark:border-slate-800 animate-pulse h-64" />
-                ))}
+              <div className="flex justify-center items-center h-64">
+                <LuxuriousLoader size="md" text="جاري تحميل الكورسات..." />
               </div>
             ) : filteredCoursesOfSubject.length === 0 ? (
-              <div className="bg-white dark:bg-[#111827] rounded-3xl p-12 text-center border border-gray-200 dark:border-slate-800 shadow-sm">
-                <div className="w-16 h-16 bg-gray-50 dark:bg-[#090D16] border border-gray-200 dark:border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-400">
-                  <BookOpen className="w-8 h-8" />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white dark:bg-[#111827] rounded-3xl p-12 text-center shadow-sm border border-gray-200 dark:border-slate-800"
+              >
+                <div className="w-20 h-20 bg-gray-100 dark:bg-[#222230] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <BookOpen className="w-10 h-10 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">لا يوجد كورسات لهذه المادة حالياً</h3>
-                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-                  عذراً، لا تتوفر كورسات مسجلة لمادة {selectedSubject} {userData?.grade ? `لـ ${userData.grade}` : 'في الوقت الحالي'}. ترقبوا إضافتها قريباً!
-                </p>
-              </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">لا توجد كورسات مطابقة</h3>
+                <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">لم نتمكن من العثور على كورسات تطابق بحثك الحالي لصفك الدراسي.</p>
+              </motion.div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCoursesOfSubject.map((course, idx) => {
-                  const rating = courseRatings[course.id] || { average: 5.0, count: 0 };
-                  const isEnrolled = userData?.role === 'student' && course.enrolledStudentIds?.includes(userData.id);
                   const progressData = progressMap[course.id];
                   let percent = 0;
                   let completedCount = 0;
@@ -404,6 +608,8 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
                       percent = progressData.progressPercent;
                     }
                   }
+                  const isEnrolled = userData?.role === 'student' && course.enrolledStudentIds?.includes(userData.id);
+                  const rating = courseRatings[course.id] || { average: 5.0, count: 0 };
 
                   return (
                     <motion.div
@@ -459,7 +665,7 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
                             <div className="flex items-center gap-1 bg-[#F5A623]/10 text-[#F5A623] px-2 py-0.5 rounded-lg font-bold">
                               <Star className="w-3 h-3 fill-[#F5A623]" />
                               <span>{rating.average.toFixed(1)}</span>
-                              <span className="text-[9px] opacity-70">({rating.count})</span>
+                              <span className="text-[9px] opacity-70">({rating.count || 0})</span>
                             </div>
                           </div>
 
@@ -515,199 +721,9 @@ export default function StudentCourses({ userData }: StudentCoursesProps) {
                 })}
               </div>
             )}
-          </div>
-        </div>
-      ) : (
-        // ================= GENERAL EXPLORE VIEW =================
-        <div className="space-y-8">
-          <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">استكشف الكورسات والمواد</h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">اختر الكورسات المناسبة لصفك الدراسي ({userData.grade || 'كل الصفوف'})</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <div className="relative flex-1">
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="ابحث عن كورس..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-white dark:bg-[#111827] border border-gray-200 dark:border-slate-800 rounded-xl pr-12 pl-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:border-cyan-400 transition-colors text-sm font-bold"
-              />
-            </div>
-            <div className="relative md:w-64">
-              <Filter className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-              <select
-                value={selectedSubject}
-                onChange={(e) => {
-                  setSelectedSubject(e.target.value);
-                  // Update search param
-                  if (e.target.value) {
-                    setSearchParams({ subject: e.target.value, tab: 'subjects' });
-                  } else {
-                    setSearchParams({});
-                  }
-                }}
-                className="w-full bg-white dark:bg-[#111827] border border-gray-200 dark:border-slate-800 rounded-xl pr-12 pl-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-sky-500 dark:border-cyan-400 transition-colors appearance-none text-xs font-black"
-              >
-                <option value="">كل المواد الدراسية</option>
-                {subjects.map(sub => (
-                  <option key={sub} value={sub}>{sub}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <LuxuriousLoader size="md" text="جاري تحميل الكورسات..." />
-            </div>
-          ) : filteredCoursesOfSubject.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-[#111827] rounded-3xl p-12 text-center shadow-sm border border-gray-200 dark:border-slate-800"
-            >
-              <div className="w-20 h-20 bg-gray-100 dark:bg-[#222230] rounded-full flex items-center justify-center mx-auto mb-6">
-                <BookOpen className="w-10 h-10 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">لا توجد كورسات مطابقة</h3>
-              <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">لم نتمكن من العثور على كورسات تطابق بحثك الحالي لصفك الدراسي.</p>
-            </motion.div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCoursesOfSubject.map((course, idx) => {
-                const progressData = progressMap[course.id];
-                let percent = 0;
-                let completedCount = 0;
-                
-                if (progressData) {
-                  if (progressData.completedLessons) {
-                    completedCount = progressData.completedLessons.length;
-                    const totalLessons = course.lessonsCount || 1;
-                    percent = parseFloat(((completedCount / totalLessons) * 100).toFixed(1));
-                  } else if (progressData.progressPercent !== undefined) {
-                    percent = progressData.progressPercent;
-                  }
-                }
-                const isEnrolled = userData?.role === 'student' && course.enrolledStudentIds?.includes(userData.id);
-                const rating = courseRatings[course.id] || { average: 5.0, count: 0 };
-
-                return (
-                  <motion.div
-                    key={course.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    className="bg-white dark:bg-[#111827] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-150 dark:border-slate-800 group transition-all duration-300 flex flex-col relative h-full hover:-translate-y-1"
-                  >
-                    <Link to={`/course/${course.id}`} className="absolute inset-0 z-10" />
-                    
-                    {/* Image Container with strict 16:10 Aspect Ratio */}
-                    <div className="aspect-[16/10] w-full relative overflow-hidden bg-gray-50 dark:bg-[#15151F] pointer-events-none">
-                      {course.imageUrl ? (
-                        <img 
-                          src={course.imageUrl} 
-                          alt={course.title} 
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';
-                          }} 
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <BookOpen className="w-12 h-12 text-gray-300 dark:text-gray-700 stroke-[1.5]" />
-                        </div>
-                      )}
-                      
-                      {/* Subject Badge */}
-                      <div className="absolute top-4 right-4 bg-white/95 dark:bg-black/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-sky-600 dark:text-cyan-400 shadow-sm">
-                        {course.subject}
-                      </div>
-
-                      {/* Grade Badge */}
-                      <div className="absolute top-4 left-4 bg-gray-900/80 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-white shadow-sm">
-                        {course.grade}
-                      </div>
-                    </div>
-
-                    {/* Content Container */}
-                    <div className="p-5 flex-1 flex flex-col justify-between pointer-events-none">
-                      <div>
-                        {/* Teacher & Rating Header */}
-                        <div className="flex items-center justify-between mb-3 text-xs">
-                          <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 font-bold">
-                            <div className="w-5 h-5 rounded-full bg-sky-500/10 dark:bg-cyan-400/10 flex items-center justify-center text-[10px] font-black text-sky-600 dark:text-cyan-400">
-                              {course.teacherName?.charAt(0) || 'أ'}
-                            </div>
-                            <span>{course.teacherName}</span>
-                          </div>
-                          
-                          <div className="flex items-center gap-1 bg-[#F5A623]/10 text-[#F5A623] px-2 py-0.5 rounded-lg font-bold">
-                            <Star className="w-3 h-3 fill-[#F5A623]" />
-                            <span>{rating.average.toFixed(1)}</span>
-                            <span className="text-[9px] opacity-70">({rating.count || 0})</span>
-                          </div>
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-base font-black text-gray-950 dark:text-white mb-2 group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">
-                          {course.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="text-gray-500 dark:text-gray-400 text-xs mb-4 line-clamp-2 leading-relaxed font-medium">
-                          {course.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {/* Progress tracker for enrolled courses */}
-                        {isEnrolled && (
-                          <div className="mb-4 bg-gray-50 dark:bg-[#222230]/30 p-3 rounded-2xl border border-gray-100 dark:border-slate-800">
-                            <div className="flex items-center justify-between mb-1.5 text-[10px] font-black">
-                              <span className="text-gray-400 dark:text-gray-500">التقدم الدراسي</span>
-                              <span className="text-sky-600 dark:text-cyan-400 font-bold font-mono">
-                                {percent.toFixed(1)}%
-                              </span>
-                            </div>
-                            <div className="w-full bg-gray-200 dark:bg-[#2D2D3D] rounded-full h-1.5 overflow-hidden">
-                              <div 
-                                className="h-full bg-gradient-to-r from-cyan-500 to-indigo-600 dark:from-cyan-400 dark:to-indigo-500 rounded-full transition-all duration-500"
-                                style={{ width: `${percent}%` }}
-                              />
-                            </div>
-                            <div className="text-[9px] text-gray-400 dark:text-gray-500 mt-1 font-bold flex justify-between items-center">
-                              <span>تم إنجاز {completedCount} من {course.lessonsCount || 0} دروس</span>
-                              <span>{percent === 100 ? "مكتمل 🌟" : "قيد الدراسة 📚"}</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Footer price & lesson counter */}
-                        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800 text-xs font-bold text-gray-500 dark:text-gray-400">
-                          <div className="flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                            <span>{course.lessonsCount || 0} درس</span>
-                          </div>
-                          
-                          <div className="text-base font-black text-sky-600 dark:text-cyan-400">
-                            {course.price === 0 ? 'مجاني' : `${course.price} ج.م`}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

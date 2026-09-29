@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, type Variants } from 'motion/react';
 import { Play, ShoppingBag, HelpCircle, Lock, BookOpen, Star, MessageCircleQuestion, MessageSquare, CheckCircle, Ticket, LogOut, Trophy, Flame, Bell, Target, ArrowLeft, ArrowRight, Video, Bot, Users, Activity, User as UserIcon, Wallet, ArrowUpRight, ArrowDownLeft, Smartphone, CreditCard, PiggyBank, RefreshCw, Send, Sparkles, Loader2, DollarSign, Check, History, Award, Edit2, Edit3, Save, X, Clock, Trash2, Plus , Shield, Info, Menu, ChevronRight, ChevronLeft, Film, FileText, Copy, Search, GraduationCap } from 'lucide-react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
@@ -40,19 +40,13 @@ import ParentInvoices from './ParentInvoices';
 import TeacherQuestionBank from './TeacherQuestionBank';
 import WalletRechargeRequestForm from './WalletRechargeRequestForm';
 import ChatBox from './ChatBox';
+import TechnicalTracksExplorer from './TechnicalTracksExplorer';
 
-
-const MOCK_TEACHER_STATS = [
-  { id: 1, title: 'إجمالي الطلاب', value: '1,240', icon: Users, color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { id: 2, title: 'المشاهدات اليوم', value: '342', icon: Activity, color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-  { id: 3, title: 'الرصيد المتاح', value: '4,500 ج.م', icon: Ticket, color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
-];
-
-const MOCK_PARENT_STATS = [
-  { id: 1, title: 'مستوى الطالب', value: '85%', icon: Target, color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { id: 2, title: 'آخر الدرجات', value: '18/20', icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-  { id: 3, title: 'نسبة الحضور', value: '95%', icon: Activity, color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
-];
+const tabVariants: Variants = {
+  initial: { opacity: 0, y: 14, filter: 'blur(3px)' },
+  animate: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } },
+  exit: { opacity: 0, y: -10, filter: 'blur(3px)', transition: { duration: 0.18, ease: [0.32, 0, 0.67, 0] } }
+};
 
 export default function Dashboard() {
   const { settings } = usePlatformSettings();
@@ -2249,22 +2243,22 @@ export default function Dashboard() {
         <div className="w-full max-w-7xl mx-auto p-3.5 sm:p-6 md:p-8 flex-1 pb-24 md:pb-8 min-w-0 overflow-x-hidden">
           <AnimatePresence mode="wait">
             {activeTab === 'admin' && userData?.role === 'admin' && (
-              <motion.div key="admin" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <motion.div key="admin" variants={tabVariants} initial="initial" animate="animate" exit="exit">
                 <AdminPanel userData={userData} />
               </motion.div>
             )}
             {activeTab === 'admin_recharge' && userData?.role === 'admin' && (
-              <motion.div key="admin_recharge" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <motion.div key="admin_recharge" variants={tabVariants} initial="initial" animate="animate" exit="exit">
                 <AdminPanel initialTab="wallet" userData={userData} />
               </motion.div>
             )}
             {activeTab === 'admin_courses' && userData?.role === 'admin' && (
-              <motion.div key="admin_courses" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <motion.div key="admin_courses" variants={tabVariants} initial="initial" animate="animate" exit="exit">
                 <AdminCoursesPanel />
               </motion.div>
             )}
             {activeTab === 'home' && userData?.role === 'admin' && (
-              <motion.div key="home_admin" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+              <motion.div key="home_admin" variants={tabVariants} initial="initial" animate="animate" exit="exit" className="space-y-6">
                 {/* Admin Welcome Banner with Dark Blue and Yellow theme */}
                 <div className="bg-gradient-to-r from-[#0A102E] via-[#10194E] to-[#152368] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden border border-[#D4F800]/20">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4F800]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
@@ -2359,9 +2353,10 @@ export default function Dashboard() {
             {activeTab === 'home' && userData?.role !== 'admin' && (
               <motion.div
                 key="home"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto space-y-8"
               >
                 {userData?.role === 'teacher' && (
@@ -2891,6 +2886,9 @@ export default function Dashboard() {
                       </section>
                     )}
 
+                    {/* Technical Training Tracks Architecture */}
+                    <TechnicalTracksExplorer />
+
                     {/* My Subjects */}
                     <section>
                       <StudentCourses userData={userData} />
@@ -3008,9 +3006,10 @@ export default function Dashboard() {
             {activeTab === 'classes' && userData?.role === 'teacher' && (
               <motion.div
                 key="classes"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <TeacherClasses userData={userData} />
               </motion.div>
@@ -3019,9 +3018,10 @@ export default function Dashboard() {
             {activeTab === 'tahsili' && (
               <motion.div
                 key="tahsili"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 {!isTahsiliEnabled && userData?.role !== 'admin' ? (
                   <div className="bg-white dark:bg-[#111827] border border-gray-150 dark:border-slate-800 rounded-3xl p-8 text-center space-y-4">
@@ -3054,9 +3054,10 @@ export default function Dashboard() {
             {activeTab === 'qudurat' && (
               <motion.div
                 key="qudurat"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 {!isQuduratEnabled && userData?.role !== 'admin' ? (
                   <div className="bg-white dark:bg-[#111827] border border-gray-150 dark:border-slate-800 rounded-3xl p-8 text-center space-y-4">
@@ -3089,9 +3090,10 @@ export default function Dashboard() {
             {activeTab === 'subjects' && (
               <motion.div
                 key="subjects"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <StudentCourses userData={userData} />
               </motion.div>
@@ -3100,9 +3102,10 @@ export default function Dashboard() {
             {activeTab === 'teachers_list' && userData?.role === 'student' && (
               <motion.div
                 key="teachers_list"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <TeachersSearchList userData={userData} />
               </motion.div>
@@ -3111,9 +3114,10 @@ export default function Dashboard() {
             {(activeTab === 'chatbox' || activeTab === 'messages') && (
               <motion.div
                 key="chatbox_view"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <ChatBox userData={userData} linkedStudent={linkedStudent} />
               </motion.div>
@@ -3123,9 +3127,10 @@ export default function Dashboard() {
                         {(activeTab === 'analytics' || activeTab === 'reports') && (
               <motion.div
                 key="analytics"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto space-y-8"
               >
                 <div className="bg-white dark:bg-[#111827] rounded-3xl p-8 border border-gray-200 dark:border-slate-800 shadow-sm">
@@ -3146,9 +3151,10 @@ export default function Dashboard() {
             {activeTab === 'wallet' && (
               <motion.div
                 key="wallet"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-4xl mx-auto space-y-8"
               >
                 {/* Balance Card */}
@@ -3245,9 +3251,10 @@ export default function Dashboard() {
             {activeTab === 'admin_store' && userData?.role === 'admin' && (
               <motion.div
                 key="admin_store"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <AcademyStoreAdmin userData={userData} />
               </motion.div>
@@ -3256,9 +3263,10 @@ export default function Dashboard() {
                         {activeTab === 'student_store' && userData?.role === 'student' && (
               <motion.div
                 key="student_store"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <StudentStore userData={userData} setUserData={setUserData} />
               </motion.div>
@@ -3267,9 +3275,10 @@ export default function Dashboard() {
             {activeTab === 'purchases' && userData?.role === 'student' && (
               <motion.div
                 key="purchases"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <StudentPurchases userData={userData} />
               </motion.div>
@@ -3278,9 +3287,10 @@ export default function Dashboard() {
             {activeTab === 'parent_invoices' && userData?.role === 'parent' && (
               <motion.div
                 key="parent_invoices"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <ParentInvoices userData={userData} linkedStudent={linkedStudent} />
               </motion.div>
@@ -3289,9 +3299,10 @@ export default function Dashboard() {
             {activeTab === 'finances' && (
               <motion.div
                 key="finances"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto space-y-8"
               >
                 <div className="bg-white dark:bg-[#111827] rounded-3xl p-8 border border-gray-200 dark:border-slate-800 shadow-sm">
@@ -3312,9 +3323,10 @@ export default function Dashboard() {
              {activeTab === 'question_bank' && userData?.role === 'teacher' && (
               <motion.div
                 key="question_bank"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto space-y-8"
               >
                 <TeacherQuestionBank userData={userData} />
@@ -3324,9 +3336,10 @@ export default function Dashboard() {
              {activeTab === 'quizzes' && (
               <motion.div
                 key="quizzes"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto space-y-8"
                 dir="rtl"
               >
@@ -4238,9 +4251,10 @@ export default function Dashboard() {
             {activeTab === "badges" && (
               <motion.div
                 key="badges"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-5xl mx-auto w-full"
               >
                 <StudentBadges userData={userData} isStandalone />
@@ -4250,9 +4264,10 @@ export default function Dashboard() {
             {activeTab === "notifications" && (
               <motion.div
                 key="notifications"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 className="max-w-4xl mx-auto w-full space-y-6"
               >
                 <div className="flex items-center gap-3">
@@ -4309,9 +4324,10 @@ export default function Dashboard() {
             {activeTab === "faq" && (
               <motion.div
                 key="faq"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <FAQSection />
               </motion.div>
@@ -4320,9 +4336,10 @@ export default function Dashboard() {
             {activeTab === "schedule" && (
               <motion.div
                 key="schedule"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <InteractiveSchedule db={db} userData={userData} coursesList={coursesList} />
               </motion.div>
@@ -4331,9 +4348,10 @@ export default function Dashboard() {
             {activeTab === "notes" && (
               <motion.div
                 key="notes"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <QuickNotes db={db} userData={userData} />
               </motion.div>
@@ -4342,9 +4360,10 @@ export default function Dashboard() {
             {activeTab === "profile" && (
               <motion.div
                 key="profile"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
               >
                 <ProfileSection userData={userData} onUpdateUserData={(newData) => setUserData(newData)} />
               </motion.div>

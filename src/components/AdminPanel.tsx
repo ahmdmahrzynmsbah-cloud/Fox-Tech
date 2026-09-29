@@ -48,54 +48,8 @@ const formatRegistrationDate = (createdAt: any) => {
   return '13/07/2026';
 };
 
-const getMockReportRecords = (role: string, rangeType: 'all' | 'month' | 'custom', monthStr?: string, startStr?: string, endStr?: string) => {
-  let allRecords: any[] = [];
-  
-  if (role === 'teacher') {
-    allRecords = [
-      { id: 1, type: 'درس تفاعلي', name: 'شرح درس البلاغة المقارنة والنقد المعاصر', details: 'عدد الحاضرين: 15 طالب', date: '2026-07-08', status: 'مكتمل' },
-      { id: 2, type: 'تصحيح واجبات', name: 'تصحيح واجب النحو والصرف الدوري الثاني', details: 'عدد الأوراق المصححة: 18 ورقة', date: '2026-07-04', status: 'مكتمل' },
-      { id: 3, type: 'إعداد اختبار', name: 'إعداد بنك الأسئلة لمادة اللغة العربية للفصل الصيفي', details: 'عدد الأسئلة: 50 سؤال', date: '2026-06-22', status: 'مكتمل' },
-      { id: 4, type: 'ورشة عمل', name: 'محاضرة مراجعة تفاعلية ليلة الامتحان التجريبي', details: 'المدة الزمنية: ساعتان', date: '2026-06-10', status: 'مكتمل' },
-      { id: 5, type: 'درس تفاعلي', name: 'شرح معلقة امرؤ القيس والجاهلية الأولى', details: 'عدد الحاضرين: 14 طالب', date: '2026-05-25', status: 'مكتمل' },
-      { id: 6, type: 'اجتماع إدارة', name: 'اجتماع مجلس المعلمين الدوري وتنسيق الجداول', details: 'حضور وإعداد التوصيات', date: '2026-05-11', status: 'مكتمل' },
-      { id: 7, type: 'تصحيح اختبار', name: 'رصد علامات اختبار منتصف الفصل الثاني للطلاب', details: 'إدخال البيانات لقاعدة البيانات', date: '2026-04-18', status: 'مكتمل' }
-    ];
-  } else if (role === 'parent') {
-    allRecords = [
-      { id: 1, type: 'متابعة تقرير', name: 'استعراض التقرير الدراسي التفصيلي للابن أحمد', details: 'حالة حضور ممتازة 100%', date: '2026-07-10', status: 'مكتمل' },
-      { id: 2, type: 'نتائج الاختبارات', name: 'الإطلاع على علامات الابن أحمد في مادة الرياضيات', details: 'النتيجة: 90 / 100 (ممتاز)', date: '2026-07-03', status: 'مكتمل' },
-      { id: 3, type: 'تواصل مع معلم', name: 'إرسال استفسار للمعلم المشرف م. محمد بخصوص الواجبات', details: 'الحالة: تم الرد والحل', date: '2026-06-28', status: 'مكتمل' },
-      { id: 4, type: 'شحن رصيد', name: 'تفعيل قسيمة شحن رصيد الكتب التعليمية ووسائل التدريس', details: 'القيمة المضافة: 500 ج.م', date: '2026-06-15', status: 'مكتمل' },
-      { id: 5, type: 'متابعة غياب', name: 'تلقي إشعار التأخر الصباحي التلقائي للطالب أحمد', details: 'تم تبرير الغياب هاتفياً', date: '2026-05-22', status: 'مكتمل' },
-      { id: 6, type: 'مجالس أولياء أمور', name: 'حضور مجلس الآباء السنوي الافتراضي لمناقشة الأداء', details: 'المشاركة الفعالة والتصويت', date: '2026-05-02', status: 'مكتمل' },
-      { id: 7, type: 'دفع مصروفات', name: 'سداد رسوم اشتراك الفصل الدراسي الصيفي والكتب', details: 'عملية ناجحة وآمنة', date: '2026-04-12', status: 'مكتمل' }
-    ];
-  } else {
-    // Default is student
-    allRecords = [
-      { id: 1, type: 'اختبار دوري', name: 'اختبار النحو والبلاغة الدوري المقيد', details: 'الدرجة: 96 / 100', date: '2026-07-05', status: 'ممتاز' },
-      { id: 2, type: 'امتحان شهري', name: 'الامتحان الشهري الموحد - الجبر وحساب المثلثات', details: 'الدرجة: 90 / 100', date: '2026-07-02', status: 'ممتاز' },
-      { id: 3, type: 'اختبار علمي', name: 'اختبار الميكانيكا والكهرباء الحديثة الشامل', details: 'الدرجة: 88 / 100', date: '2026-06-25', status: 'جيد جداً' },
-      { id: 4, type: 'واجب منزلي', name: 'تقييم القراءة والكتابة والبحث التعبيري الإبداعي', details: 'الدرجة: 92 / 100', date: '2026-06-18', status: 'ممتاز' },
-      { id: 5, type: 'اختبار كيمياء', name: 'اختبار العناصر الانتقالية والتحليل الكيميائي الكلي', details: 'الدرجة: 85 / 100', date: '2026-05-28', status: 'جيد جداً' },
-      { id: 6, type: 'اختبار أحياء', name: 'امتحان الوراثة والتطور والخلية النمطية الموسع', details: 'الدرجة: 94 / 100', date: '2026-05-12', status: 'ممتاز' },
-      { id: 7, type: 'تقييم عام', name: 'تقييم العصور الوسطى والتضاريس الجغرافية للتاريخ', details: 'الدرجة: 89 / 100', date: '2026-04-20', status: 'جيد جداً' }
-    ];
-  }
-
-  return allRecords.filter(rec => {
-    if (rangeType === 'month' && monthStr) {
-      return rec.date.startsWith(monthStr);
-    }
-    if (rangeType === 'custom') {
-      const recTime = new Date(rec.date).getTime();
-      const startTime = startStr ? new Date(startStr).getTime() : 0;
-      const endTime = endStr ? new Date(endStr).getTime() : Infinity;
-      return recTime >= startTime && recTime <= endTime;
-    }
-    return true; // 'all'
-  });
+const getReportRecords = (role: string, rangeType: 'all' | 'month' | 'custom', monthStr?: string, startStr?: string, endStr?: string) => {
+  return [];
 };
 
 const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers: React.Dispatch<React.SetStateAction<any[]>>, payments: any[] }) => {
@@ -1537,7 +1491,7 @@ export default function AdminPanel({ initialTab, userData }: { initialTab?: 'stu
           setSelectedUserReportRecords(records);
         } else {
           // Fallback/Default for non-student roles
-          const baseRecs = getMockReportRecords(selectedUser.role || 'student', 'all');
+          const baseRecs = getReportRecords(selectedUser.role || 'student', 'all');
           setSelectedUserReportRecords(baseRecs);
         }
       } catch (err) {
