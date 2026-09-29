@@ -51,6 +51,7 @@ export default function ExamPage() {
   // Tab lock and infractions state
   const [infractions, setInfractions] = useState(0);
   const [showInfractionWarning, setShowInfractionWarning] = useState(false);
+  const infractionsRef = useRef(0);
 
   // Results state
   const [showResults, setShowResults] = useState(false);
@@ -64,6 +65,8 @@ export default function ExamPage() {
 
   // 1. Authenticate user & Fetch Exam
   useEffect(() => {
+    let isMounted = true;
+
     const initPage = async () => {
       try {
         setLoading(true);
@@ -75,16 +78,33 @@ export default function ExamPage() {
           return;
         }
 
-        const examDoc = await getDoc(doc(db, "quizzes", examId));
-        if (!examDoc.exists()) {
-          toast.error("لم يتم العثور على هذا الامتحان.");
-          navigate("/dashboard");
+        let examData: any = null;
+        try {
+          const examDoc = await getDoc(doc(db, "quizzes", examId));
+          if (examDoc.exists()) {
+            examData = { id: examDoc.id, ...examDoc.data() };
+          }
+        } catch (fetchErr) {
+          console.warn("Could not fetch quiz doc:", fetchErr);
+        }
+
+        if (!examData && examId === 'python-fundamentals-frontend-exam') {
+          const { PYTHON_FUNDAMENTALS_FRONTEND_EXAM } = await import('../constants/pythonExamData');
+          examData = PYTHON_FUNDAMENTALS_FRONTEND_EXAM;
+        }
+
+        if (!examData) {
+          if (isMounted) {
+            toast.error("لم يتم العثور على هذا الامتحان.");
+            navigate("/dashboard");
+          }
           return;
         }
 
-        const examData: any = { id: examDoc.id, ...examDoc.data() };
-        setExam(examData);
-        setTimeLeft((examData.timeLimit || 30) * 60);
+        if (isMounted) {
+          setExam(examData);
+          setTimeLeft((examData.timeLimit || 30) * 60);
+        }
 
         // Check user session
         let effectiveUserId = auth.currentUser?.uid;
@@ -95,7 +115,7 @@ export default function ExamPage() {
             cachedUserData = JSON.parse(cachedStr);
             if (cachedUserData?.id && !effectiveUserId) {
               effectiveUserId = cachedUserData.id;
-              setUserData(cachedUserData);
+              if (isMounted) setUserData(cachedUserData);
             }
           }
         } catch {}
@@ -103,7 +123,7 @@ export default function ExamPage() {
         if (effectiveUserId) {
           try {
             const userSnap = await getDoc(doc(db, "users", effectiveUserId));
-            if (userSnap.exists()) {
+            if (userSnap.exists() && isMounted) {
               setUserData({ id: userSnap.id, ...userSnap.data() });
             }
           } catch {}
@@ -111,55 +131,53 @@ export default function ExamPage() {
           // Check for existing submission if not a force-retake
           const params = new URLSearchParams(window.location.search);
           if (params.get("retake") !== "true") {
-            const subDoc = await getDoc(doc(db, "quiz_submissions", `${effectiveUserId}_${examDoc.id}`));
-            if (subDoc.exists()) {
+            const subDoc = await getDoc(doc(db, "quiz_submissions", `${effectiveUserId}_${examData.id}`));
+            if (subDoc.exists() && isMounted) {
               setSubmissionResult(subDoc.data());
               setShowResults(true);
             }
           }
-        } else {
-          // If neither Firebase user nor local cache exists, redirect after checking
-          setTimeout(() => {
-            const recheck = auth.currentUser?.uid || localStorage.getItem('cached_current_user');
-            if (!recheck) {
-              toast.error("يرجى تسجيل الدخول أولاً للوصول إلى الامتحان.");
-              navigate("/login");
-            }
-          }, 1500);
         }
       } catch (error) {
         console.error("Error loading exam page:", error);
-        toast.error("حدث خطأ أثناء تحميل بيانات الامتحان.");
+        if (isMounted) toast.error("حدث خطأ أثناء تحميل بيانات الامتحان.");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     initPage();
+
+    return () => {
+      isMounted = false;
+    };
   }, [examId, navigate]);
 
   // 2. Timer countdown effect
   useEffect(() => {
-    if (examStarted && timeLeft !== null && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev === null || prev <= 1) {
-            if (timerRef.current) clearInterval(timerRef.current);
-            // Auto submit when time runs out
-            setTimeout(() => {
-              handleAutoSubmit();
-            }, 100);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
+    if (!examStarted || timeLeft === null) return;
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === null || prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [examStarted, timeLeft]);
+  }, [examStarted]);
+
+  // Auto-submit when countdown hits zero
+  useEffect(() => {
+    if (examStarted && timeLeft === 0 && !submitting && !showResults) {
+      handleAutoSubmit();
+    }
+  }, [examStarted, timeLeft, submitting, showResults]);
 
   // 3. Prevent accidental page exit and tab switches (Anti-Cheat & Tab Lock)
   useEffect(() => {
@@ -172,21 +190,20 @@ export default function ExamPage() {
       return e.returnValue;
     };
 
-    // Track tab-switches (blur and visibilitychange)
+    // Track tab-switches (blur and visibilitychange) safely outside state updaters
     const handleVisibilityOrBlur = () => {
       if (document.hidden || !document.hasFocus()) {
-        setInfractions((prev) => {
-          const nextVal = prev + 1;
-          if (nextVal >= 3) {
-            setShowInfractionWarning(false);
-            toast.error("تم إلغاء الامتحان وتسلّيمه تلقائياً بسبب تجاوزك عدد محاولات الخروج المسموح بها (3 محاولات)!");
-            handleSubmit(undefined, true); // True indicates a forced submission due to cheating violation
-            return nextVal;
-          } else {
-            setShowInfractionWarning(true);
-            return nextVal;
-          }
-        });
+        const nextVal = infractionsRef.current + 1;
+        infractionsRef.current = nextVal;
+        setInfractions(nextVal);
+
+        if (nextVal >= 3) {
+          setShowInfractionWarning(false);
+          toast.error("تم إلغاء الامتحان وتسلّيمه تلقائياً بسبب تجاوزك عدد محاولات الخروج المسموح بها (3 محاولات)!");
+          handleSubmit(undefined, true);
+        } else {
+          setShowInfractionWarning(true);
+        }
       }
     };
 
@@ -199,9 +216,11 @@ export default function ExamPage() {
       document.removeEventListener("visibilitychange", handleVisibilityOrBlur);
       window.removeEventListener("blur", handleVisibilityOrBlur);
     };
-  }, [examStarted, showResults, infractions]);
+  }, [examStarted, showResults]);
 
   const handleStart = () => {
+    infractionsRef.current = 0;
+    setInfractions(0);
     setExamStarted(true);
     toast.success("بدأ الامتحان الآن! بالتوفيق والنجاح ");
   };
@@ -238,11 +257,12 @@ export default function ExamPage() {
       const percentScore = totalPoints > 0 ? Math.round((earnedPoints / totalPoints) * 100) : 0;
       const passed = percentScore >= 50 && !cheatedViolation;
 
-      const submissionId = `${userData.id}_${exam.id}`;
+      const effectiveUserId = userData?.id || auth.currentUser?.uid || 'guest_user';
+      const submissionId = `${effectiveUserId}_${exam.id}`;
       const submissionData = {
         id: submissionId,
-        userId: userData.id,
-        userName: userData.name || "طالب",
+        userId: effectiveUserId,
+        userName: userData?.name || "طالب",
         quizId: exam.id,
         courseId: exam.courseId || "",
         lessonId: exam.lessonId || "comprehensive",
@@ -520,6 +540,9 @@ export default function ExamPage() {
               <div className="pt-6 flex flex-wrap justify-center gap-4">
                 <button
                   onClick={() => {
+                    infractionsRef.current = 0;
+                    setInfractions(0);
+                    setTimeLeft((exam?.timeLimit || 30) * 60);
                     setSelectedAnswers({});
                     setCurrentIdx(0);
                     setShowResults(false);

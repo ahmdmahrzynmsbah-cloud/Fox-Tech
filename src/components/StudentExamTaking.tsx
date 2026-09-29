@@ -44,6 +44,7 @@ export default function StudentExamTaking({
   // Tab lock and infractions state
   const [infractions, setInfractions] = useState(0);
   const [showInfractionWarning, setShowInfractionWarning] = useState(false);
+  const infractionsRef = useRef(0);
 
   // Results view states
   const [showResults, setShowResults] = useState(false);
@@ -72,6 +73,7 @@ export default function StudentExamTaking({
         setCurrentIdx(0);
         setSelectedAnswers({});
         setTimeLeft((exam.timeLimit || 30) * 60);
+        infractionsRef.current = 0;
         setInfractions(0);
         setShowInfractionWarning(false);
       }
@@ -81,46 +83,48 @@ export default function StudentExamTaking({
 
   // Timer effect
   useEffect(() => {
-    if (examStarted && timeLeft !== null && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev === null || prev <= 1) {
-            if (timerRef.current) clearInterval(timerRef.current);
-            // Auto submit when time runs out
-            setTimeout(() => {
-              handleAutoSubmit();
-            }, 100);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
+    if (!examStarted || timeLeft === null) return;
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === null || prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [examStarted, timeLeft]);
+  }, [examStarted]);
+
+  // Auto-submit when time reaches zero
+  useEffect(() => {
+    if (examStarted && timeLeft === 0 && !submitting && !showResults) {
+      handleAutoSubmit();
+    }
+  }, [examStarted, timeLeft, submitting, showResults]);
 
   // Prevent accidental page exit and tab switches (Anti-Cheat & Tab Lock)
   useEffect(() => {
     if (!examStarted || showResults || !isOpen) return;
 
-    // Track tab-switches (blur and visibilitychange)
+    // Track tab-switches (blur and visibilitychange) safely outside state updaters
     const handleVisibilityOrBlur = () => {
       if (document.hidden || !document.hasFocus()) {
-        setInfractions((prev) => {
-          const nextVal = prev + 1;
-          if (nextVal >= 3) {
-            setShowInfractionWarning(false);
-            toast.error("تم إلغاء الامتحان وتسلّيمه تلقائياً بسبب تجاوزك عدد محاولات الخروج المسموح بها (3 محاولات)!");
-            handleSubmit(undefined, true); // True indicates a forced submission due to cheating violation
-            return nextVal;
-          } else {
-            setShowInfractionWarning(true);
-            return nextVal;
-          }
-        });
+        const nextVal = infractionsRef.current + 1;
+        infractionsRef.current = nextVal;
+        setInfractions(nextVal);
+
+        if (nextVal >= 3) {
+          setShowInfractionWarning(false);
+          toast.error("تم إلغاء الامتحان وتسلّيمه تلقائياً بسبب تجاوزك عدد محاولات الخروج المسموح بها (3 محاولات)!");
+          handleSubmit(undefined, true);
+        } else {
+          setShowInfractionWarning(true);
+        }
       }
     };
 
@@ -131,9 +135,11 @@ export default function StudentExamTaking({
       document.removeEventListener("visibilitychange", handleVisibilityOrBlur);
       window.removeEventListener("blur", handleVisibilityOrBlur);
     };
-  }, [examStarted, showResults, isOpen, infractions]);
+  }, [examStarted, showResults, isOpen]);
 
   const handleStart = () => {
+    infractionsRef.current = 0;
+    setInfractions(0);
     setExamStarted(true);
     toast.success("بدأ الامتحان! بالتوفيق والنجاح ");
   };

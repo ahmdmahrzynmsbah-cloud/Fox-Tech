@@ -50,6 +50,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
   const [unansweredQuestionsCount, setUnansweredQuestionsCount] = useState(0);
   const [infractions, setInfractions] = useState(0);
   const [showInfractionWarning, setShowInfractionWarning] = useState(false);
+  const infractionsRef = useRef(0);
   
   // Timer interval ref
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -132,49 +133,53 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
 
   // Timer Countdown logic
   useEffect(() => {
-    if (quizStarted && timeLeft !== null) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev === null) return null;
-          if (prev <= 1) {
-            clearInterval(timerRef.current!);
-            toast.error('انتهى الوقت المحدد للاختبار! سيتم تسليم الإجابات تلقائياً.');
-            handleAutoSubmit();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
+    if (!quizStarted || timeLeft === null) return;
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === null || prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [quizStarted, timeLeft]);
+  }, [quizStarted]);
+
+  // Auto-submit when time runs out
+  useEffect(() => {
+    if (quizStarted && timeLeft === 0 && !submittingQuiz && !reviewMode) {
+      toast.error('انتهى الوقت المحدد للاختبار! سيتم تسليم الإجابات تلقائياً.');
+      handleAutoSubmit();
+    }
+  }, [quizStarted, timeLeft, submittingQuiz, reviewMode]);
 
   // Tab change & window blur protection for interactive lesson quizzes
   useEffect(() => {
     if (!quizStarted) {
+      infractionsRef.current = 0;
       setInfractions(0);
       setShowInfractionWarning(false);
       return;
     }
 
     const handleFocusLoss = () => {
-      setInfractions((prev) => {
-        const next = prev + 1;
-        if (next >= 3) {
-          toast.error("تم رصد 3 محاولات خروج من الصفحة. تم تسليم الاختبار تلقائياً وإلغاء النتيجة!");
-          submitQuizData(selectedAnswers, 3, true);
-          setQuizStarted(false);
-        } else {
-          setShowInfractionWarning(true);
-          toast(`️ تنبيه: لا تغادر صفحة الاختبار! تم تسجيل مخالفة ${next}/3`, {
-            icon: '️',
-          });
-        }
-        return next;
-      });
+      const next = infractionsRef.current + 1;
+      infractionsRef.current = next;
+      setInfractions(next);
+
+      if (next >= 3) {
+        toast.error("تم رصد 3 محاولات خروج من الصفحة. تم تسليم الاختبار تلقائياً وإلغاء النتيجة!");
+        submitQuizData(selectedAnswers, 3, true);
+        setQuizStarted(false);
+      } else {
+        setShowInfractionWarning(true);
+        toast(`تنبيه: لا تغادر صفحة الاختبار! تم تسجيل مخالفة ${next}/3`);
+      }
     };
 
     const handleVisibilityChange = () => {
@@ -205,6 +210,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
     setCurrentQuestionIdx(0);
     setReviewMode(false);
     setShowResultModal(false);
+    infractionsRef.current = 0;
     setInfractions(0);
     setShowInfractionWarning(false);
     quizStartTimeRef.current = Date.now();
