@@ -119,10 +119,12 @@ export default function StudentBadges({ userData, isStandalone = false }: Studen
   const milestoneBadges: Badge[] = [
     {
       id: 'm-starter',
-      courseTitle: 'وسام البداية القوية',
+      courseTitle: 'وسام الانضمام للمنصة',
       type: 'bronze',
-      description: 'الانضمام لمنصة الأكاديمية وبدء أول رحلة تعليمية',
+      description: 'الانضمام والتسجيل الرسمي في منصة فوكس تك وبدء رحلتك التعليمية',
       isUnlocked: true,
+      progress: 1,
+      maxProgress: 1,
       dateEarned: new Date(userData?.createdAt || Date.now()),
     },
     {

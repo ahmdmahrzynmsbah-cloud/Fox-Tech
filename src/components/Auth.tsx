@@ -9,6 +9,7 @@ import { usePlatformSettings } from '../context/PlatformSettingsContext';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, getDoc, collection, query, where, getDocs, addDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
+import { toast } from 'react-hot-toast';
 
 const EGYPT_GOVERNORATES = [
   'القاهرة', 'الإسكندرية', 'الجيزة', 'القليوبية', 'بورسعيد', 'السويس', 
@@ -75,6 +76,74 @@ export default function Auth() {
       return () => clearTimeout(timer);
     }
   }, [error]);
+
+  const handleQuickDemoLogin = async (demoRole: 'teacher' | 'student' | 'admin') => {
+    setLoading(true);
+    setError('');
+    try {
+      let mockUserDoc: any = null;
+      if (demoRole === 'teacher') {
+        mockUserDoc = {
+          id: 'mohamed-elsayed-teacher-uid',
+          email: 'mohamed.elsayed@foxtech.academy',
+          name: 'م. محمد السيد',
+          role: 'teacher',
+          phone: '01012345678',
+          governorate: 'القاهرة',
+          subject: 'مسار الـ Frontend (تطوير الواجهات وتطبيقات الويب)',
+          isApproved: true,
+          balance: 0,
+          stars: 50,
+          points: 1200,
+          createdAt: new Date().toISOString()
+        };
+      } else if (demoRole === 'student') {
+        mockUserDoc = {
+          id: 'ahmed-nabil-student-uid',
+          email: 'ahmed.nabil@foxtech.academy',
+          name: 'أحمد نبيل يحي',
+          role: 'student',
+          phone: '01123456789',
+          governorate: 'القاهرة',
+          track: 'مسار الـ Frontend (تطوير الواجهات وتطبيقات الويب)',
+          grade: 'مسار الـ Frontend',
+          isApproved: true,
+          balance: 0,
+          stars: 0,
+          points: 0,
+          createdAt: new Date().toISOString()
+        };
+      } else {
+        mockUserDoc = {
+          id: 'admin-master-uid',
+          email: 'ahmed@admin.com',
+          name: 'مدير النظام',
+          role: 'admin',
+          phone: '01000000000',
+          governorate: 'القاهرة',
+          isApproved: true,
+          balance: 0,
+          stars: 0,
+          points: 0,
+          createdAt: new Date().toISOString()
+        };
+      }
+
+      try {
+        await setDoc(doc(db, 'users', mockUserDoc.id), mockUserDoc, { merge: true });
+      } catch (err) {
+        console.warn('Firestore setDoc warning in quick login:', err);
+      }
+
+      localStorage.setItem('cached_current_user', JSON.stringify(mockUserDoc));
+      toast.success(`مرحباً بك يا ${mockUserDoc.name}!`);
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError('حدث خطأ أثناء تسجيل الدخول السريع');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -448,11 +517,13 @@ export default function Auth() {
         )}
 
         {isLogin && (
-          <div className="text-center mb-6 text-[10px] sm:text-xs font-black text-gray-600 dark:text-gray-300 bg-slate-50 dark:bg-[#070C22]/80 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-white/10">
-            {role === 'student' && 'بوابة المتدربين لمتابعة المسارات والمهام والمشاريع البرمجية'}
-            {role === 'teacher' && 'بوابة المدربين والمهندسين لإدارة ورش العمل ومراجعة الأكواد'}
-            {role === 'parent' && 'بوابة مسؤولي ومتابعي الشركات للاطلاع على تقارير المتدربين'}
-            {role === 'admin' && 'لوحة الإدارة العامة للتحكم الكامل بأقسام ومسارات النظام'}
+          <div className="space-y-3 mb-6">
+            <div className="text-center text-[10px] sm:text-xs font-black text-gray-600 dark:text-gray-300 bg-slate-50 dark:bg-[#070C22]/80 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-white/10">
+              {role === 'student' && 'بوابة المتدربين لمتابعة المسارات والمهام والمشاريع البرمجية'}
+              {role === 'teacher' && 'بوابة المدربين والمهندسين لإدارة ورش العمل ومراجعة الأكواد'}
+              {role === 'parent' && 'بوابة مسؤولي ومتابعي الشركات للاطلاع على تقارير المتدربين'}
+              {role === 'admin' && 'لوحة الإدارة العامة للتحكم الكامل بأقسام ومسارات النظام'}
+            </div>
           </div>
         )}
 
@@ -688,7 +759,7 @@ export default function Auth() {
                         <label className="text-xs font-bold text-gray-700 dark:text-gray-200 block">رقم هاتف المتدرب المرتبط</label>
                         <div className="flex gap-2" dir="ltr">
                           <div className="flex items-center justify-center gap-1.5 bg-gray-100 dark:bg-[#070C22] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-3 text-gray-900 dark:text-white text-xs font-black select-none shrink-0" dir="ltr">
-                            <span className="text-base leading-none">🇪🇬</span>
+                            <span className="text-base leading-none"></span>
                             <span className="font-mono text-xs font-black text-gray-700 dark:text-gray-300">+20</span>
                           </div>
                           <div className="relative flex-1">
@@ -732,7 +803,7 @@ export default function Auth() {
                     <label className="text-xs font-bold text-gray-700 dark:text-gray-200 block">رقم الهاتف</label>
                     <div className="flex gap-2" dir="ltr">
                       <div className="flex items-center justify-center gap-1.5 bg-gray-100 dark:bg-[#070C22] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-3 text-gray-900 dark:text-white text-xs font-black select-none shrink-0" dir="ltr">
-                        <span className="text-base leading-none">🇪🇬</span>
+                        <span className="text-base leading-none"></span>
                         <span className="font-mono text-xs font-black text-gray-700 dark:text-gray-300">+20</span>
                       </div>
                       <div className="relative flex-1">

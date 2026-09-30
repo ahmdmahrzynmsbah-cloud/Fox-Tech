@@ -651,7 +651,7 @@ export default function CourseDetails() {
     setCourseLikesCount(updatedCount);
 
     if (newLikedState) {
-      const emojis = ["️", "", "", "", "", ""];
+      const emojis = ["", "", "", "", "", ""];
       const newParticles = Array.from({ length: 15 }).map((_, i) => ({
         id: Date.now() + i,
         x: (Math.random() - 0.5) * 160,
@@ -679,7 +679,7 @@ export default function CourseDetails() {
         await updateDoc(courseDocRef, {
           likesCount: increment(1)
         });
-        toast.success("تم تسجيل إعجابك بالكورس! ️", { id: "like-toast" });
+        toast.success("تم تسجيل إعجابك بالكورس! ", { id: "like-toast" });
       } else {
         await deleteDoc(likeDocRef);
         await updateDoc(courseDocRef, {
@@ -1263,7 +1263,7 @@ export default function CourseDetails() {
     setIsDeletingCourse(true);
     try {
       await deleteDoc(doc(db, 'courses', id));
-      toast.success('تم حذف الكورس نهائياً بنجاح ️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ');
       navigate('/dashboard');
     } catch (err) {
       console.error('Error deleting course:', err);
@@ -2025,7 +2025,7 @@ export default function CourseDetails() {
 
                     <div className="flex -space-x-1 space-x-reverse">
                       <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white border-2 border-white dark:border-[#1A1A24] text-xs shadow-sm">
-                        ️
+                        
                       </div>
                       <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white border-2 border-white dark:border-[#1A1A24] text-xs shadow-sm">
                         
@@ -2059,7 +2059,7 @@ export default function CourseDetails() {
                     }`}
                   >
                     <Heart className={`w-4 h-4 ${isLiked ? "fill-white text-white animate-pulse" : "text-gray-400 dark:text-gray-500"}`} />
-                    <span>{isLiked ? "أعجبني الكورس ️" : "تسجيل إعجاب بالكورس"}</span>
+                    <span>{isLiked ? "أعجبني الكورس " : "تسجيل إعجاب بالكورس"}</span>
                   </motion.button>
                 </div>
               </div>
@@ -2176,7 +2176,7 @@ export default function CourseDetails() {
                                 {/* Badges */}
                                 {isTeacherComment && (
                                   <span className="text-[9px] font-black bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                                    ‍ معلم المادة
+                                     معلم المادة
                                   </span>
                                 )}
                                 {isMyComment && !isTeacherComment && (
@@ -2207,7 +2207,7 @@ export default function CourseDetails() {
                                 {(review.teacherRating || review.contentRating) && (
                                   <div className="flex items-center gap-2 text-[9px] text-gray-500 dark:text-gray-400 font-bold">
                                     {review.teacherRating && (
-                                      <span>‍ الأستاذ: {review.teacherRating}/5</span>
+                                      <span> الأستاذ: {review.teacherRating}/5</span>
                                     )}
                                     {review.contentRating && (
                                       <span> المحتوى: {review.contentRating}/5</span>
@@ -2291,7 +2291,7 @@ export default function CourseDetails() {
                                         </span>
                                         {isReplyTeacher && (
                                           <span className="text-[8px] font-black bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-1.5 py-0.5 rounded-full">
-                                            معلم المادة ‍
+                                            معلم المادة 
                                           </span>
                                         )}
                                         {reply.userId === userData?.id && !isReplyTeacher && (
@@ -2690,7 +2690,7 @@ export default function CourseDetails() {
                   <div className="bg-gray-50 dark:bg-[#222230] p-4 rounded-2xl border border-gray-150 dark:border-slate-800 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-black text-gray-900 dark:text-white flex items-center gap-1.5">
-                        ‍ تقييم أداء الأستاذ:
+                         تقييم أداء الأستاذ:
                       </span>
                       <span className="text-xs font-bold text-amber-500 font-sans">
                         {teacherRating} / 5
@@ -2823,7 +2823,7 @@ export default function CourseDetails() {
                 </p>
                 <div className="bg-red-50 dark:bg-red-950/20 p-3 rounded-2xl border border-red-100 dark:border-red-900/30">
                   <p className="text-[11px] text-red-600 dark:text-red-400 font-bold leading-relaxed">
-                    ️ تنبيه: سيتم حذف كافة الدروس والمرفقات والطلاب المسجلين من الكورس. لا يمكن التراجع عن هذا الإجراء!
+                     تنبيه: سيتم حذف كافة الدروس والمرفقات والطلاب المسجلين من الكورس. لا يمكن التراجع عن هذا الإجراء!
                   </p>
                 </div>
               </div>
@@ -3055,7 +3055,7 @@ export default function CourseDetails() {
                           </div>
                           
                           <p className="text-[10.5px] font-bold text-gray-500 dark:text-gray-400 leading-relaxed text-right mt-4">
-                            ️ يرجى تحويل مبلغ الكورس كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{course.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل الكورس.
+                             يرجى تحويل مبلغ الكورس كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{course.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل الكورس.
                           </p>
                         </div>
 

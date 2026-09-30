@@ -6,6 +6,7 @@ import {
   HelpCircle, Terminal, FileCode, Users, ArrowUpRight, Zap, Play
 } from 'lucide-react';
 import { TRAINING_TRACKS, TRAINING_CATEGORIES, TrainingTrack, TrainingModule, TrainingLesson } from '../constants/trainingData';
+import FrontendTrackCurriculumView from './FrontendTrackCurriculumView';
 
 interface TechnicalTracksExplorerProps {
   userData?: any;
@@ -83,6 +84,15 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
 
   // If student has an enrolled track, display the specialized dedicated single track view
   if (studentEnrolledTrack) {
+    if (studentEnrolledTrack.id === 'frontend-track-pro') {
+      return (
+        <FrontendTrackCurriculumView 
+          userData={userData}
+          onNavigateToExam={() => navigate('/exam/python-fundamentals-frontend-exam')}
+        />
+      );
+    }
+
     return (
       <section className="space-y-6 text-right" dir="rtl">
         {/* Enrolled Track Header */}
@@ -137,12 +147,9 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
 
             {/* Instructor snippet */}
             <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-gray-50 dark:bg-[#0D121F] border border-gray-100 dark:border-slate-800 shrink-0">
-              <img
-                src={studentEnrolledTrack.instructor.avatar}
-                alt={studentEnrolledTrack.instructor.name}
-                className="w-11 h-11 rounded-full object-cover border-2 border-cyan-500/30 shrink-0"
-                referrerPolicy="no-referrer"
-              />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-500 shrink-0">
+                <User className="w-5 h-5" />
+              </div>
               <div>
                 <span className="text-xs font-bold text-gray-900 dark:text-white block">
                   {studentEnrolledTrack.instructor.name}
@@ -295,7 +302,7 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
                 onClick={() => setActiveModalTrack(null)}
                 className="absolute top-5 left-5 w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-500 hover:bg-gray-200 dark:hover:bg-slate-700 font-bold cursor-pointer"
               >
-                ✕
+                
               </button>
 
               <div>
@@ -430,12 +437,9 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
               {/* Instructor snippet */}
               <div className="flex items-center justify-between p-3 rounded-2xl bg-gray-50 dark:bg-[#0D121F] border border-gray-100 dark:border-slate-800">
                 <div className="flex items-center gap-2.5">
-                  <img
-                    src={track.instructor.avatar}
-                    alt={track.instructor.name}
-                    className="w-8 h-8 rounded-full object-cover border border-cyan-500/30 shrink-0"
-                    referrerPolicy="no-referrer"
-                  />
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 shrink-0">
+                    <User className="w-4 h-4" />
+                  </div>
                   <div>
                     <span className="text-[11px] font-bold text-gray-900 dark:text-white block">
                       {track.instructor.name}
@@ -511,7 +515,7 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
               onClick={() => setActiveModalTrack(null)}
               className="absolute top-5 left-5 w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-500 hover:bg-gray-200 dark:hover:bg-slate-700 font-bold cursor-pointer"
             >
-              ✕
+              
             </button>
 
             <div>
@@ -534,12 +538,9 @@ export default function TechnicalTracksExplorer({ userData, onSelectTrack }: Tec
             {/* Instructor Highlight */}
             <div className="p-4 rounded-2xl bg-gray-50 dark:bg-[#111827] border border-gray-150 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
-                <img
-                  src={activeModalTrack.instructor.avatar}
-                  alt={activeModalTrack.instructor.name}
-                  className="w-12 h-12 rounded-2xl object-cover border-2 border-cyan-500/40 shrink-0"
-                  referrerPolicy="no-referrer"
-                />
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-500 shrink-0">
+                  <User className="w-6 h-6" />
+                </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h4 className="text-sm font-bold text-gray-900 dark:text-white">

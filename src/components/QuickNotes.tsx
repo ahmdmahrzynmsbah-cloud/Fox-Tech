@@ -128,7 +128,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
           courseTitle: courseTitle,
           updatedAt: new Date().toISOString()
         });
-        toast.success('تم تحديث الملاحظة بنجاح ️');
+        toast.success('تم تحديث الملاحظة بنجاح ');
         setEditingNoteId(null);
       } else {
         // Create new note
@@ -172,7 +172,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
     if (!window.confirm('هل أنت متأكد من رغبتك في حذف هذه الملاحظة؟')) return;
     try {
       await deleteDoc(doc(db, 'quick_notes', noteId));
-      toast.success('تم حذف الملاحظة بنجاح️');
+      toast.success('تم حذف الملاحظة بنجاح');
       if (editingNoteId === noteId) {
         handleCancelEdit();
       }
@@ -212,7 +212,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
         </div>
         <div className="flex items-center gap-2 bg-white dark:bg-[#1C1C28] px-4 py-2 rounded-2xl border border-gray-200/50 dark:border-slate-800 text-xs font-black shadow-sm text-gray-500 dark:text-gray-400">
           <Sparkles className="w-4 h-4 text-sky-600 dark:text-cyan-400" />
-          <span>مزامنة سحابية فائقة الأمان والحفظ ️</span>
+          <span>مزامنة سحابية فائقة الأمان والحفظ </span>
         </div>
       </div>
 
@@ -354,7 +354,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
                   onClick={() => setSortBy(sortBy === 'newest' ? 'oldest' : 'newest')}
                   className="text-sky-600 dark:text-cyan-400 hover:underline cursor-pointer"
                 >
-                  {sortBy === 'newest' ? 'الأحدث أولاً ️' : 'الأقدم أولاً ️'}
+                  {sortBy === 'newest' ? 'الأحدث أولاً ' : 'الأقدم أولاً '}
                 </button>
               </div>
             </div>
@@ -369,7 +369,7 @@ export default function QuickNotes({ db, userData }: QuickNotesProps) {
               </div>
             ) : filteredNotes.length === 0 ? (
               <div className="p-16 text-center bg-white dark:bg-[#111827] rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm text-gray-400 font-bold text-xs space-y-3 flex flex-col items-center justify-center">
-                <span className="text-4xl">️</span>
+                <span className="text-4xl"></span>
                 <p className="leading-relaxed">لا توجد ملاحظات سريعة مسجلة ومطابقة حالياً.</p>
                 <p className="text-[10px] text-gray-400 dark:text-gray-500 max-w-sm">
                   ابدأ الآن بكتابة وحفظ أول ملاحظة دراسية سريعة لك باستخدام المحرر الذكي على اليمين وسيتم حفظها بشكل دائم.

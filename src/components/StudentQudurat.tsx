@@ -1281,7 +1281,7 @@ export default function StudentQudurat({ userData, setUserData, initialSelectedR
                           </div>
                           
                           <p className="text-[10.5px] font-bold text-gray-500 dark:text-gray-400 leading-relaxed text-right mt-4">
-                            ️ يرجى تحويل مبلغ المراجعة كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{selectedReview.discountPrice || selectedReview.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل المراجعة.
+                             يرجى تحويل مبلغ المراجعة كاملاً وهو <span className="font-extrabold text-rose-600 dark:text-rose-400">{selectedReview.discountPrice || selectedReview.price} ج.م</span> إلى إحدى الطرق الموضحة أعلاه، ثم ملء البيانات أدناه لرفع إثبات التحويل لتفعيل المراجعة.
                           </p>
                         </div>
 

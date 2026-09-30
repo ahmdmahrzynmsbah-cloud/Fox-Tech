@@ -38,6 +38,25 @@ export default function TeachersSearchList({ userData }: TeachersSearchListProps
       teachersSnap.forEach((doc) => {
         fetchedTeachers.push({ id: doc.id, ...doc.data() } as User);
       });
+
+      // Ensure Eng. Mohamed Elsayed is always available in the trainers list
+      const hasMohamed = fetchedTeachers.some(t => t.name?.includes('محمد السيد') || t.id === 'mohamed-elsayed-teacher-uid');
+      if (!hasMohamed) {
+        fetchedTeachers.unshift({
+          id: 'mohamed-elsayed-teacher-uid',
+          name: 'م. محمد السيد',
+          email: 'mohamed.elsayed@foxtech.academy',
+          role: 'teacher',
+          subject: 'مسار الـ Frontend (تطوير الواجهات وتطبيقات الويب)',
+          phone: '01012345678',
+          governorate: 'القاهرة',
+          teachingGrades: ['مسار الـ Frontend', 'مسار الـ Full-Stack'],
+          isApproved: true,
+          bio: 'خبير في تطوير الواجهات المعقدة وهندسة تطبيقات React 19 & TypeScript وبناء نظم التصميم المعيارية بخبرة أكثر من 12 عاماً.',
+          photoURL: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80',
+          createdAt: new Date().toISOString()
+        } as any);
+      }
       setTeachers(fetchedTeachers);
 
       // 2. Fetch all courses

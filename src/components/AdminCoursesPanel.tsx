@@ -150,7 +150,7 @@ export default function AdminCoursesPanel() {
       await deleteDoc(doc(db, 'courses', courseToDelete.id));
       
       setCourses(prev => prev.filter(c => c.id !== courseToDelete.id));
-      toast.success('تم حذف الكورس نهائياً بنجاح ️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ');
       setCourseToDelete(null);
     } catch (err) {
       console.error('Error deleting course:', err);
@@ -357,7 +357,7 @@ export default function AdminCoursesPanel() {
 
                   <div className="grid grid-cols-2 gap-2 bg-gray-50 dark:bg-[#090D16] p-2.5 rounded-xl border border-gray-100 dark:border-slate-800/40 text-center font-bold text-[10px]">
                     <div>
-                      <span className="block text-gray-400 mb-0.5">المعلم ‍</span>
+                      <span className="block text-gray-400 mb-0.5">المعلم </span>
                       <span className="text-gray-800 dark:text-gray-200 block truncate">{course.teacherName}</span>
                     </div>
                     <div>
@@ -438,7 +438,7 @@ export default function AdminCoursesPanel() {
               className="bg-white dark:bg-[#111827] border border-gray-150 dark:border-slate-800 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl p-6 relative text-right"
               dir="rtl"
             >
-              <h3 className="text-base font-black text-gray-900 dark:text-white mb-2">تحديث سعر الكورس ️</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white mb-2">تحديث سعر الكورس </h3>
               <p className="text-xs text-gray-500 font-bold mb-4">{editingPriceCourse.title}</p>
 
               <form onSubmit={handleSavePrice} className="space-y-4">
@@ -504,7 +504,7 @@ export default function AdminCoursesPanel() {
                 </p>
                 <div className="bg-red-50 dark:bg-red-950/20 p-3 rounded-2xl border border-red-100 dark:border-red-900/30">
                   <p className="text-[11px] text-red-600 dark:text-red-400 font-bold leading-relaxed">
-                    ️ تنبيه: هذا الإجراء سيقوم بمسح كافة بيانات الكورس من قاعدة البيانات. الطلاب المشتركين لن يتمكنوا من الوصول إليه مرة أخرى!
+                     تنبيه: هذا الإجراء سيقوم بمسح كافة بيانات الكورس من قاعدة البيانات. الطلاب المشتركين لن يتمكنوا من الوصول إليه مرة أخرى!
                   </p>
                 </div>
               </div>

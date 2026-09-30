@@ -465,7 +465,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
           <div className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-start">
             <h2 className="text-2xl font-black text-gray-900 dark:text-white">{name || 'مستخدم جديد'}</h2>
             <span className="bg-[#D4F800]/15 dark:bg-[#D4F800]/20 text-[#658C00] dark:text-[#D4F800] px-3 py-1 rounded-full text-xs font-black">
-              {userData?.role === 'teacher' ? '‍ مدرب معتمد' : userData?.role === 'parent' ? '‍‍ متابع' : userData?.role === 'admin' ? '️ مدير النظام' : ' متدرب'}
+              {userData?.role === 'teacher' ? ' مدرب معتمد' : userData?.role === 'parent' ? ' متابع' : userData?.role === 'admin' ? ' مدير النظام' : ' متدرب'}
             </span>
           </div>
           <p className="text-gray-500 dark:text-gray-400 text-sm font-bold flex items-center justify-center md:justify-start gap-1">
@@ -694,7 +694,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                               <div className="pt-2 border-t border-gray-100 dark:border-slate-800 space-y-1 text-[9px] text-gray-500 dark:text-gray-400 font-bold">
                                 {teacherStats.avgTeacherRating !== undefined && (
                                   <div className="flex justify-between">
-                                    <span>‍ شرح الأستاذ:</span>
+                                    <span> شرح الأستاذ:</span>
                                     <span className="text-amber-500">{teacherStats.avgTeacherRating} / 5</span>
                                   </div>
                                 )}
@@ -945,7 +945,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
                                 onClick={() => navigate(`/course/${course.id}`)}
                                 className="bg-sky-500/10 dark:bg-cyan-400/10 text-sky-600 dark:text-cyan-400 hover:bg-[#00B4D8]/20 dark:hover:bg-[#D4AF37]/20 px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1"
                               >
-                                {userData?.role === 'teacher' ? 'إدارة الكورس ️' : 'استكمال التعلم '}
+                                {userData?.role === 'teacher' ? 'إدارة الكورس ' : 'استكمال التعلم '}
                                 <ChevronLeft className="w-3.5 h-3.5" />
                               </button>
                             </div>
@@ -1796,7 +1796,7 @@ export default function ProfileSection({ userData, onUpdateUserData }: ProfileSe
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="p-4 bg-gray-50 dark:bg-[#090D16] rounded-2xl border border-gray-100 dark:border-slate-800 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-black text-lg">️</div>
+                      <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-black text-lg"></div>
                       <div className="text-right">
                         <h4 className="font-bold text-sm text-gray-900 dark:text-white">عضو مؤسس</h4>
                         <p className="text-[10px] text-gray-500">تم الانضمام لدفعة ٢٠٢٦ بنجاح</p>

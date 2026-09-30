@@ -859,7 +859,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                       ) : selectedStudentAnswers.infractionsCount && selectedStudentAnswers.infractionsCount > 0 ? (
                         <span className="px-2.5 py-1 rounded-full text-[10px] bg-amber-50 text-amber-600 dark:bg-amber-950/30 font-black flex items-center gap-1 w-fit">
                           <Shield className="w-3.5 h-3.5 text-amber-500" />
-                          تم رصد {selectedStudentAnswers.infractionsCount} محاولات خروج وتغيير تبويب صفحة الاختبار ️
+                          تم رصد {selectedStudentAnswers.infractionsCount} محاولات خروج وتغيير تبويب صفحة الاختبار 
                         </span>
                       ) : (
                         <span className="px-2.5 py-1 rounded-full text-[10px] bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 font-black flex items-center gap-1 w-fit">
@@ -1005,7 +1005,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                             ) : sub.infractionsCount && sub.infractionsCount > 0 ? (
                               <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/30 text-[10px] font-black flex items-center gap-1 w-fit">
                                 <Shield className="w-3.5 h-3.5 text-amber-500" />
-                                {sub.infractionsCount} مخالفات خروج ️
+                                {sub.infractionsCount} مخالفات خروج 
                               </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 text-[10px] font-black flex items-center gap-1 w-fit">
@@ -1306,7 +1306,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
               </div>
 
               <div className="space-y-2 text-center">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400"> تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -1329,7 +1329,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20 cursor-pointer"
               >
-                أفهم ذلك، العودة لحل الاختبار ️
+                أفهم ذلك، العودة لحل الاختبار 
               </button>
             </motion.div>
           </div>
@@ -1747,7 +1747,7 @@ export default function QuizSection({ courseId, lessonId, lessonTitle, userData,
               <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed mb-6">
                 {unansweredQuestionsCount > 0 ? (
                   <p className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 p-3 rounded-xl font-bold border border-red-100 dark:border-red-900/30">
-                    ️ لقد تركت <span className="underline">{unansweredQuestionsCount} سؤالاً</span> بدون إجابة في هذا الاختبار! هل أنت متأكد من رغبتك في التسليم وتصحيح الاختبار مع احتساب هذه الأسئلة كإجابة خاطئة؟
+                     لقد تركت <span className="underline">{unansweredQuestionsCount} سؤالاً</span> بدون إجابة في هذا الاختبار! هل أنت متأكد من رغبتك في التسليم وتصحيح الاختبار مع احتساب هذه الأسئلة كإجابة خاطئة؟
                   </p>
                 ) : (
                   <p>

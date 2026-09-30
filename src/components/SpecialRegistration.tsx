@@ -198,7 +198,7 @@ export default function SpecialRegistration() {
               <label className="text-[11px] font-black text-gray-400 dark:text-gray-500 mr-2">رقم الهاتف (الواتساب):</label>
               <div className="flex gap-2" dir="ltr">
                 <div className="flex items-center justify-center gap-1.5 bg-gray-100 dark:bg-[#0F1117] border border-gray-150 dark:border-slate-800 rounded-2xl px-3 py-3.5 text-gray-900 dark:text-white text-xs font-black select-none shrink-0" dir="ltr">
-                  <span className="text-base leading-none">🇪🇬</span>
+                  <span className="text-base leading-none"></span>
                   <span className="font-mono text-xs font-black text-orange-600 dark:text-orange-400 dark:text-orange-500">+20</span>
                 </div>
                 <div className="relative flex-1 group">

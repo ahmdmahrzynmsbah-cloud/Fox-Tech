@@ -408,7 +408,7 @@ export default function ExamPage() {
                       ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
                       : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"
                   }`}>
-                    {submissionResult.passed ? "تم اجتياز الامتحان بنجاح " : "لم تجتز الامتحان هذه المرة ️"}
+                    {submissionResult.passed ? "تم اجتياز الامتحان بنجاح " : "لم تجتز الامتحان هذه المرة "}
                   </span>
                   <h3 className="text-2xl font-black text-gray-900 dark:text-white mt-2">
                     نتيجة اختبارك: {submissionResult.score}%
@@ -601,7 +601,7 @@ export default function ExamPage() {
 
                 <div className="bg-[#00B4D8]/5 border-r-4 border-sky-500 p-5 rounded-2xl space-y-3">
                   <p className="text-xs font-black text-sky-700 flex items-center gap-1.5">
-                    ️ تعليمات وملاحظات هامة جداً قبل البدء بالحل:
+                     تعليمات وملاحظات هامة جداً قبل البدء بالحل:
                   </p>
                   <ul className="text-[11px] text-gray-600 dark:text-gray-300 space-y-2 pl-4 list-disc font-medium">
                     <li>بمجرد النقر فوق زر البدء أدناه، سيبدأ المؤقت بالتنازل على الفور، ولا يمكن إيقافه مؤقتاً نهائياً.</li>
@@ -868,7 +868,7 @@ export default function ExamPage() {
                 </p>
                 <div className="p-3.5 bg-red-50/50 dark:bg-red-950/10 border-r-4 border-red-500 rounded-xl">
                   <p className="text-[11px] text-red-600 dark:text-red-400 leading-relaxed font-black">
-                    ️ تحذير: سيتم إلغاء محاولتك الحالية فوراً وفقدان جميع الإجابات التي قمت بتحديدها. لن يتم حفظ أي درجات!
+                     تحذير: سيتم إلغاء محاولتك الحالية فوراً وفقدان جميع الإجابات التي قمت بتحديدها. لن يتم حفظ أي درجات!
                   </p>
                 </div>
               </div>
@@ -1002,7 +1002,7 @@ export default function ExamPage() {
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400"> تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -1025,7 +1025,7 @@ export default function ExamPage() {
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20"
               >
-                أفهم ذلك، العودة لحل الاختبار ️
+                أفهم ذلك، العودة لحل الاختبار 
               </button>
             </motion.div>
           </div>

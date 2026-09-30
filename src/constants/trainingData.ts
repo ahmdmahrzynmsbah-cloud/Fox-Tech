@@ -60,15 +60,15 @@ export interface TrainingTrack {
 export const INSTRUCTORS: Record<string, Instructor> = {
   frontendLead: {
     id: 'inst-fe-01',
-    name: 'م. طارق المهندس',
+    name: 'م. محمد السيد',
     role: 'كبير مهندسي واجهات الويب وتجربة المستخدم',
-    title: 'Lead Frontend Architect & Google GDE',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    bio: 'خبير في تطوير الواجهات المعقدة وهندسة تطبيقات React & TypeScript مع خبرة تفوق 10 سنوات في الشركات التقنية الكبرى.',
-    experienceYears: 10,
-    rating: 4.95,
-    studentsCount: 3420,
-    coursesCount: 8
+    title: 'Lead Frontend Architect & Senior Engineering Manager',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80',
+    bio: 'خبير في تطوير الواجهات المعقدة وهندسة تطبيقات React 19 & TypeScript وبناء نظم التصميم المعيارية بخبرة أكثر من 12 عاماً في كبرى الشركات التقنية.',
+    experienceYears: 12,
+    rating: 4.98,
+    studentsCount: 3840,
+    coursesCount: 9
   },
   backendLead: {
     id: 'inst-be-02',

@@ -1,11 +1,21 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth';
-import { getFirestore, collection, addDoc, doc, getDocFromServer } from 'firebase/firestore';
+import { initializeFirestore, getFirestore, collection, addDoc, doc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+let firestoreDb;
+try {
+  firestoreDb = initializeFirestore(app, {
+    experimentalAutoDetectLongPolling: true,
+  }, firebaseConfig.firestoreDatabaseId);
+} catch {
+  firestoreDb = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+}
+
+export const db = firestoreDb;
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
@@ -15,18 +25,6 @@ if (typeof window !== 'undefined') {
     // Fallback if needed
   });
 }
-
-// Test connection on boot to verify health of Firestore
-async function testConnection() {
-  try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn("Firestore connection check: client is offline or initializing.");
-    }
-  }
-}
-testConnection();
 
 export async function logVideoLink(videoUrl: string, type: 'lesson' | 'tahsili_review' | 'qudurat_review', context: any) {
   if (!videoUrl) return;

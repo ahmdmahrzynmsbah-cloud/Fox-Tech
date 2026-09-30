@@ -810,7 +810,7 @@ const WalletRecharge = ({ users, setUsers, payments }: { users: any[], setUsers:
                   هل أنت متأكد من رغبتك في حذف كود الشحن <span className="font-mono text-sky-600 dark:text-cyan-400 font-black">{codeToDelete}</span> نهائياً؟
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 p-2.5 rounded-xl font-bold leading-relaxed">
-                  ️ تنبيه: هذا الإجراء نهائي ولا يمكن التراجع عنه! لن يتمكن الطالب من استخدام هذا الكارت لشحن رصيده بعد حذفه.
+                   تنبيه: هذا الإجراء نهائي ولا يمكن التراجع عنه! لن يتمكن الطالب من استخدام هذا الكارت لشحن رصيده بعد حذفه.
                 </p>
               </div>
 
@@ -1449,11 +1449,11 @@ export default function AdminPanel({ initialTab, userData }: { initialTab?: 'stu
           subs.forEach((sub: any, idx: number) => {
             const score = sub.score || 0;
             let statusStr = 'مقبول';
-            if (score >= 90) statusStr = 'ممتاز ️';
+            if (score >= 90) statusStr = 'ممتاز ';
             else if (score >= 80) statusStr = 'جيد جداً ';
             else if (score >= 65) statusStr = 'جيد';
             else if (score >= 50) statusStr = 'مقبول';
-            else statusStr = 'يحتاج لمتابعة ️';
+            else statusStr = 'يحتاج لمتابعة ';
 
             records.push({
               id: sub.id || `sub-${idx}`,
@@ -2110,7 +2110,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
   const executeDeleteCourse = async (courseId: string) => {
     try {
       await deleteDoc(doc(db, 'courses', courseId));
-      toast.success('تم حذف الكورس نهائياً بنجاح ️');
+      toast.success('تم حذف الكورس نهائياً بنجاح ');
       setCourseToDelete(null);
     } catch (err) {
       console.error(err);
@@ -2140,7 +2140,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
       // Send a notification to the student
       await addDoc(collection(db, 'notifications'), {
         userId: studentId,
-        title: "تم إلغاء تفعيل اشتراك الكورس ️",
+        title: "تم إلغاء تفعيل اشتراك الكورس ",
         message: `تم إلغاء تفعيل اشتراكك في كورس "${course.title}" بواسطة الإدارة.`,
         read: false,
         createdAt: new Date().toISOString(),
@@ -7235,7 +7235,7 @@ const handleSaveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
                   هل أنت متأكد من رغبتك في حذف الكورس <span className="text-sky-600 dark:text-cyan-400 font-black">"{courseToDelete.title}"</span> للأبد؟
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 p-3 rounded-xl font-bold leading-relaxed mt-3">
-                  ️ تنبيه: هذا الإجراء سيمسح الكورس ومقاطع الفيديو وكل تفاصيله من السيرفر. لن يتمكن أي طالب من مشاهدته بعد الآن حتى وإن كان قد اشترك فيه مسبقاً!
+                   تنبيه: هذا الإجراء سيمسح الكورس ومقاطع الفيديو وكل تفاصيله من السيرفر. لن يتمكن أي طالب من مشاهدته بعد الآن حتى وإن كان قد اشترك فيه مسبقاً!
                 </p>
               </div>
               <div className="flex gap-3">

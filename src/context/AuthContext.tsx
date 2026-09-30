@@ -27,7 +27,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userData, setUserData] = useState<any | null>(() => {
     try {
       const cached = localStorage.getItem('cached_current_user');
-      return cached ? JSON.parse(cached) : null;
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed.balance === 1500 && (parsed.email?.includes('ahmed.nabil') || parsed.name?.includes('أحمد نبيل'))) {
+          parsed.balance = 0;
+          parsed.points = 0;
+          parsed.stars = 0;
+          localStorage.setItem('cached_current_user', JSON.stringify(parsed));
+        }
+        return parsed;
+      }
+      return null;
     } catch {
       return null;
     }

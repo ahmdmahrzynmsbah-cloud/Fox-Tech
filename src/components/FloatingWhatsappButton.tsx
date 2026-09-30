@@ -1,54 +1,43 @@
-import { usePlatformSettings } from '../context/PlatformSettingsContext';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { usePlatformSettings } from '../context/PlatformSettingsContext';
 
 export default function FloatingWhatsappButton() {
+  const location = useLocation();
   const { settings } = usePlatformSettings();
 
-  if (!settings?.isFloatingWhatsappEnabled || !settings?.floatingWhatsappNumber) {
+  // Show only on the platform landing page / portfolio ('/')
+  if (location.pathname !== '/' || settings?.isFloatingWhatsappEnabled === false) {
     return null;
   }
 
+  const whatsappNum = settings?.floatingWhatsappNumber || '201034859313';
+
   const handleWhatsappClick = () => {
-    const sanitizedNumber = settings.floatingWhatsappNumber.replace(/\D/g, '');
-    window.open(`https://wa.me/${sanitizedNumber}`, '_blank');
+    const sanitizedNumber = whatsappNum.replace(/\D/g, '');
+    const message = encodeURIComponent('مرحباً، أود الاستفسار بخصوص المسارات والخدمات في أكاديمية فوكس تك');
+    const whatsappUrl = `https://wa.me/${sanitizedNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 30, opacity: 0 }}
-        transition={{ 
-          type: "spring", 
-          stiffness: 200, 
-          damping: 25
-        }}
-        className="fixed bottom-4 left-4 sm:bottom-8 sm:left-8 z-40 group pointer-events-auto"
+    <div className="fixed bottom-6 left-6 z-50 flex items-center gap-3">
+      {/* Tooltip Label */}
+      <div className="hidden sm:flex items-center px-3 py-1.5 bg-slate-900/95 text-white text-xs font-bold rounded-xl shadow-xl border border-slate-800 backdrop-blur-md">
+        <span>تواصل معنا عبر واتساب</span>
+      </div>
+
+      {/* Floating Action Button */}
+      <button
+        onClick={handleWhatsappClick}
+        className="w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-2xl hover:shadow-emerald-500/50 hover:scale-110 active:scale-95 transition-all duration-300 relative group"
+        aria-label="تواصل معنا عبر واتساب"
+        title="تواصل معنا عبر واتساب"
       >
-        <div className="relative flex items-center justify-center">
-          {/* Subtle pulse using pure CSS for smooth, jitter-free animation */}
-          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 pointer-events-none" style={{ animationDuration: '2.5s' }} />
-
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleWhatsappClick}
-            className="relative p-3 sm:p-4 bg-gradient-to-tr from-[#1EBE5D] to-[#25D366] text-white rounded-full shadow-[0_4px_15px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.5)] transition-all duration-300 flex items-center justify-center cursor-pointer border border-white/20 shrink-0"
-            aria-label="تواصل معنا عبر واتساب"
-          >
-            <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 fill-current drop-shadow-sm relative z-10" />
-          </motion.button>
-
-          {/* Tooltip */}
-          <div className="absolute left-[calc(100%+16px)] px-4 py-2 bg-white dark:bg-[#111827] text-gray-800 dark:text-gray-100 text-xs font-bold rounded-xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out pointer-events-none whitespace-nowrap hidden sm:block shadow-lg border border-gray-100 dark:border-white/10 z-20">
-            تواصل معنا
-            {/* Tooltip Arrow */}
-            <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-white dark:bg-[#111827] border-l border-b border-gray-100 dark:border-white/10 rotate-45 rounded-sm" />
-          </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+        <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-25" />
+        <MessageCircle className="w-7 h-7 relative z-10" />
+      </button>
+    </div>
   );
 }

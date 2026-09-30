@@ -87,7 +87,7 @@ export const defaultSettings: PlatformSettings = {
   ],
   contactPhone: '01034859313',
   floatingWhatsappNumber: '201034859313',
-  isFloatingWhatsappEnabled: false,
+  isFloatingWhatsappEnabled: true,
   contactEmail: 'fox.tech7777@gmail.com',
   contactAddress: 'منصة Fox Tech للتدريب والتطوير التقني وتأهيل المطورين',
   socialLinks: {

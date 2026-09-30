@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, type Variants } from 'motion/react';
-import { Play, ShoppingBag, HelpCircle, Lock, BookOpen, Star, MessageCircleQuestion, MessageSquare, CheckCircle, Ticket, LogOut, Trophy, Flame, Bell, Target, ArrowLeft, ArrowRight, Video, Bot, Users, Activity, User as UserIcon, Wallet, ArrowUpRight, ArrowDownLeft, Smartphone, CreditCard, PiggyBank, RefreshCw, Send, Sparkles, Loader2, DollarSign, Check, History, Award, Edit2, Edit3, Save, X, Clock, Trash2, Plus , Shield, Info, Menu, ChevronRight, ChevronLeft, Film, FileText, Copy, Search, GraduationCap } from 'lucide-react';
+import { Play, ShoppingBag, HelpCircle, Lock, BookOpen, Star, MessageCircleQuestion, MessageSquare, CheckCircle, Ticket, LogOut, Trophy, Flame, Bell, Target, ArrowLeft, ArrowRight, Video, Bot, Users, Activity, User as UserIcon, Wallet, ArrowUpRight, ArrowDownLeft, Smartphone, CreditCard, PiggyBank, RefreshCw, Send, Sparkles, Loader2, DollarSign, Check, History, Award, Edit2, Edit3, Save, X, Clock, Trash2, Plus , Shield, Info, Menu, ChevronRight, ChevronLeft, Film, FileText, Copy, Search, GraduationCap, Code2 } from 'lucide-react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import ThemeToggle from './ThemeToggle';
@@ -41,6 +41,7 @@ import TeacherQuestionBank from './TeacherQuestionBank';
 import WalletRechargeRequestForm from './WalletRechargeRequestForm';
 import ChatBox from './ChatBox';
 import TechnicalTracksExplorer from './TechnicalTracksExplorer';
+import FrontendTrackCurriculumView from './FrontendTrackCurriculumView';
 import { PYTHON_FUNDAMENTALS_FRONTEND_EXAM } from '../constants/pythonExamData';
 
 const tabVariants: Variants = {
@@ -144,6 +145,7 @@ export default function Dashboard() {
     } else if (userData?.role === 'teacher') {
       const items = [
         { id: 'home', label: 'الرئيسية', icon: Target },
+        { id: 'frontend_curriculum', label: 'منهج الفرونت إند', icon: Code2 },
         { id: 'chatbox', label: 'شات بوكس (الرسائل)', icon: MessageSquare },
         { id: 'classes', label: 'فصولي وإدارة الطلاب', icon: Users },
         { id: 'quizzes', label: 'إدارة الاختبارات', icon: Award },
@@ -251,6 +253,7 @@ export default function Dashboard() {
     } else if (userData?.role === 'teacher') {
       const items = [
         { id: 'home', label: 'الرئيسية', icon: Target },
+        { id: 'frontend_curriculum', label: 'منهج الفرونت إند', icon: Code2 },
         { id: 'chatbox', label: 'شات بوكس', icon: MessageSquare },
         { id: 'classes', label: 'ورش العمل ومجموعاتي', icon: Users },
         { id: 'quizzes', label: 'الاختبارات والتحديات', icon: Award },
@@ -358,7 +361,17 @@ export default function Dashboard() {
   const [userData, setUserData] = useState<any>(() => {
     try {
       const cached = localStorage.getItem('cached_current_user');
-      return cached ? JSON.parse(cached) : null;
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed.balance === 1500 && (parsed.email?.includes('ahmed.nabil') || parsed.name?.includes('أحمد نبيل'))) {
+          parsed.balance = 0;
+          parsed.points = 0;
+          parsed.stars = 0;
+          localStorage.setItem('cached_current_user', JSON.stringify(parsed));
+        }
+        return parsed;
+      }
+      return null;
     } catch {
       return null;
     }
@@ -890,7 +903,7 @@ export default function Dashboard() {
         return [examData, ...filtered];
       });
       
-      toast.success(editingExamId ? 'تم تعديل الامتحان الشامل بنجاح! ️' : 'تم إنشاء وتفعيل الامتحان الشامل بنجاح! ');
+      toast.success(editingExamId ? 'تم تعديل الامتحان الشامل بنجاح! ' : 'تم إنشاء وتفعيل الامتحان الشامل بنجاح! ');
       setIsCreatingExam(false);
       setEditingExamId(null);
       // Reset fields
@@ -1774,7 +1787,7 @@ export default function Dashboard() {
                });
             } else if (data.type === "new_teacher_alert") {
                toast.success(`${data.title}\n${data.message}`, {
-                 icon: '‍',
+                 icon: '',
                  duration: 3000,
                  style: {
                    borderRadius: '16px',
@@ -3016,6 +3029,21 @@ export default function Dashboard() {
               </motion.div>
             )}
 
+            {activeTab === 'frontend_curriculum' && (
+              <motion.div
+                key="frontend_curriculum"
+                variants={tabVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <FrontendTrackCurriculumView 
+                  userData={userData} 
+                  onNavigateToExam={() => navigate('/exam/python-fundamentals-frontend-exam')}
+                />
+              </motion.div>
+            )}
+
             {activeTab === 'classes' && userData?.role === 'teacher' && (
               <motion.div
                 key="classes"
@@ -3492,7 +3520,7 @@ export default function Dashboard() {
                                         )}
                                       </div>
                                       <p className="text-[11px] text-gray-500 dark:text-gray-400 font-bold flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                                        <span>️ {quiz.timeLimit} دقيقة</span>
+                                        <span> {quiz.timeLimit} دقيقة</span>
                                         <span>•</span>
                                         <span> {quiz.questions?.length || 0} أسئلة</span>
                                         {courseInfo && (
@@ -4019,7 +4047,7 @@ export default function Dashboard() {
                         {/* Parent linked student status message */}
                         {!linkedStudent ? (
                           <div className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 p-6 rounded-2xl border border-red-200/50 text-center font-bold text-sm">
-                            ️ يرجى ربط حساب الطالب من صفحة "الملف الشخصي" أولاً لعرض تقارير واختبارات الطالب بالتفصيل ومتابعة أدائه.
+                             يرجى ربط حساب الطالب من صفحة "الملف الشخصي" أولاً لعرض تقارير واختبارات الطالب بالتفصيل ومتابعة أدائه.
                           </div>
                         ) : (
                           <>

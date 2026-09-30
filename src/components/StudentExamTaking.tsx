@@ -275,7 +275,7 @@ export default function StudentExamTaking({
 
               <div className="space-y-2">
                 <h3 className="text-2xl font-black text-gray-900 dark:text-white">
-                  {submissionResult.passed ? "تهانينا! لقد اجتزت الامتحان الشامل " : "حظاً موفقاً المرة القادمة! لم تجتز الامتحان ️"}
+                  {submissionResult.passed ? "تهانينا! لقد اجتزت الامتحان الشامل " : "حظاً موفقاً المرة القادمة! لم تجتز الامتحان "}
                 </h3>
                 <p className="text-sm text-gray-400 font-bold">{exam.title}</p>
               </div>
@@ -372,7 +372,7 @@ export default function StudentExamTaking({
 
                   <div className="bg-[#00B4D8]/5 border-r-4 border-sky-500 p-4 rounded-xl space-y-2">
                     <p className="text-xs font-black text-sky-700 flex items-center gap-1">
-                      ️ ملاحظات هامة قبل بدء الحل:
+                       ملاحظات هامة قبل بدء الحل:
                     </p>
                     <ul className="text-[11px] text-gray-600 dark:text-gray-300 space-y-1 pl-4 list-disc font-medium">
                       <li>بمجرد الضغط على زر "بدء الامتحان"، سيبدأ المؤقت التنازلي فوراً ولا يمكن إيقافه مؤقتاً.</li>
@@ -578,7 +578,7 @@ export default function StudentExamTaking({
               </div>
 
               <div className="space-y-2 text-center">
-                <h3 className="text-lg font-black text-red-650 dark:text-red-400">️ تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
+                <h3 className="text-lg font-black text-red-650 dark:text-red-400"> تحذير: تم كشف مغادرة صفحة الاختبار!</h3>
                 <p className="text-xs text-gray-400 font-bold">نظام الحماية وقفل التبويب الإلكتروني</p>
               </div>
 
@@ -601,7 +601,7 @@ export default function StudentExamTaking({
                 onClick={() => setShowInfractionWarning(false)}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-750 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-600/20"
               >
-                أفهم ذلك، العودة لحل الاختبار ️
+                أفهم ذلك، العودة لحل الاختبار 
               </button>
             </motion.div>
           </div>

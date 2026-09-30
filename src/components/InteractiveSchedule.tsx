@@ -202,7 +202,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
     if (!eventToDelete) return;
     try {
       await deleteDoc(doc(db, "schedule_events", eventToDelete));
-      toast.success("تم حذف الموعد بنجاح ️");
+      toast.success("تم حذف الموعد بنجاح ");
     } catch (err) {
       console.error("Error deleting schedule event:", err);
       toast.error("فشل حذف الموعد");
@@ -219,7 +219,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
       const snapshot = await getDocs(q);
       const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
       await Promise.all(deletePromises);
-      toast.success("تم حذف جميع المواعيد بنجاح ️");
+      toast.success("تم حذف جميع المواعيد بنجاح ");
     } catch (err) {
       console.error("Error deleting all events:", err);
       toast.error("فشل في حذف جميع المواعيد");
@@ -826,7 +826,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                           {badge.label}
                         </span>
                         <span className="text-[11px] bg-gray-100 dark:bg-[#20202D] text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full font-bold">
-                          ️ المدة: {ev.duration} دقيقة
+                           المدة: {ev.duration} دقيقة
                         </span>
                       </div>
 
@@ -960,7 +960,7 @@ export default function InteractiveSchedule({ db, userData, coursesList }: Inter
                           {badge.label}
                         </span>
                         <span className="text-[11px] bg-gray-100 dark:bg-[#1F1F2C] text-gray-500 dark:text-gray-400 px-3 py-1 rounded-full font-bold">
-                          ️ المدة: {ev.duration} دقيقة
+                           المدة: {ev.duration} دقيقة
                         </span>
                       </div>
 

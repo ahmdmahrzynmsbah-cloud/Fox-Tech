@@ -294,7 +294,7 @@ export default function ComprehensiveExamBuilder({
 
       await setDoc(doc(db, "quizzes", examId), examData);
       onSaveSuccess(examData);
-      toast.success(editingExamId ? "تم تعديل الامتحان بنجاح! ️" : "تم تفعيل الامتحان الشامل بنجاح! ");
+      toast.success(editingExamId ? "تم تعديل الامتحان بنجاح! " : "تم تفعيل الامتحان الشامل بنجاح! ");
       onClose();
     } catch (err) {
       console.error("Error saving comprehensive exam:", err);

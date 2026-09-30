@@ -16,6 +16,7 @@ import { PlatformSettingsProvider } from './context/PlatformSettingsContext';
 import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'react-hot-toast';
 import DeveloperOwnershipModal from './components/DeveloperOwnershipModal';
+
 import FloatingWhatsappButton from './components/FloatingWhatsappButton';
 
 function AnimatedRoutes() {

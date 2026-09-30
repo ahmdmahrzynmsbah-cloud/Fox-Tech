@@ -54,7 +54,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
       type="button"
       style={{ direction: 'ltr' }}
       aria-label={isDark ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي"}
-      title={isDark ? "تفعيل الوضع النهاري ️" : "تفعيل الوضع الليلي "}
+      title={isDark ? "تفعيل الوضع النهاري " : "تفعيل الوضع الليلي "}
       className={`relative inline-flex items-center w-[84px] h-[36px] p-[3px] rounded-full cursor-pointer select-none shrink-0 transition-all duration-300 bg-slate-200 dark:bg-[#101744] border border-slate-300 dark:border-[#D4F800]/30 shadow-inner hover:border-[#D4F800] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4F800] ${className}`}
     >
       {/* Background Track Icons (Sun on Left, Moon on Right) */}

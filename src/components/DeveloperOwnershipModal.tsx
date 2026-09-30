@@ -293,11 +293,11 @@ export default function DeveloperOwnershipModal() {
 
                         <div className="p-4 rounded-xl bg-black/50 border border-red-500/30 text-xs text-red-200 space-y-2.5 font-bold">
                           <div className="flex items-start gap-2">
-                            <span className="text-red-400 shrink-0">️</span>
+                            <span className="text-red-400 shrink-0"></span>
                             <span><strong>حظر الادعاء والتضليل:</strong> يُمنع منعاً باتاً على أي شخص أو جهة مستلمة ادعاء تطوير أو برمجة المنصة أو نسبة جهد البرمجة لنفسه أمام العملاء أو أطراف خارجية.</span>
                           </div>
                           <div className="flex items-start gap-2">
-                            <span className="text-red-400 shrink-0">️</span>
+                            <span className="text-red-400 shrink-0"></span>
                             <span><strong>عقوبة المخالفة:</strong> في حال ثبوت الانتهاك أو التضليل، يحق لشركة Fox Tech إلغاء الترخيص الفني فوراً، وتجميد الخدمات البرمجية للمنصة، والملاحقة القضائية طبقاً لقانون حماية الملكية الفكرية رقم 82 لسنة 2002 وجرائم تقنية المعلومات.</span>
                           </div>
                         </div>
